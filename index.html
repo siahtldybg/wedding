@@ -22,9 +22,8 @@
   <link rel="stylesheet" href="css/photoswipe.css">
   <link href="css/style.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <!-- FIX 3: Added Dancing Script handwritten font -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&family=Dancing+Script:wght@500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&family=Dancing+Script:wght@500;600&family=DM+Mono:wght@400;500&display=swap"
     rel="stylesheet">
 
   <style>
@@ -38,13 +37,13 @@
       --font-serif: 'Cormorant Garamond', Georgia, serif;
       --font-sans: 'Inter', sans-serif;
       --font-handwritten: 'Dancing Script', cursive;
+      --font-mono: 'DM Mono', 'Courier New', monospace;
     }
 
     body {
       background: linear-gradient(145deg, #fdf6ee 0%, #faeee6 30%, #f5e8dc 60%, #fdf0f0 100%) fixed;
     }
 
-    /* ===== FIX 1: Scroll reveal — fire earlier on mobile ===== */
     .sr {
       opacity: 0;
       transform: translateY(36px);
@@ -218,7 +217,7 @@
     }
 
     .lcd-value {
-      font-family: var(--font-serif);
+      font-family: var(--font-mono);
       font-size: 2.8rem;
       font-weight: 300;
       line-height: 1;
@@ -265,20 +264,18 @@
       }
     }
 
-    /* ===== FIX 2 & 3: GUEST NAME — balanced baseline + handwritten ===== */
+    /* ===== GUEST NAME ===== */
     #invite-text-line {
       margin: 4px 0 2px;
       display: flex;
       flex-wrap: wrap;
       align-items: baseline;
-      /* all text on same baseline */
       justify-content: center;
       gap: 5px;
       text-align: center;
       line-height: 1.8;
     }
 
-    /* "Thân mời" label and suffix keep same size */
     #invite-text-label,
     #guest-invite-suffix {
       font-family: var(--font-sans);
@@ -287,7 +284,6 @@
       line-height: 1.6;
     }
 
-    /* FIX 3: handwritten; FIX 2: proportional size so baseline matches */
     #guest-name-typed {
       display: inline-block;
       font-family: var(--font-handwritten);
@@ -862,12 +858,11 @@
       margin: 22px auto 0;
     }
 
-    /* ===== FILMSTRIP — khung phim chạy cùng ảnh ===== */
+    /* ===== FILMSTRIP ===== */
     #card-gallery-film-frame {
       position: relative;
       overflow: hidden;
       background: #0a0806;
-      /* fixed height — sprocket top + image + sprocket bottom */
       height: 220px;
     }
 
@@ -877,30 +872,24 @@
       }
     }
 
-    /* Hide the original static film.png — we no longer use it as overlay */
     #card-gallery-film-frame>img.film-overlay-static {
       display: none;
     }
 
-    /* The single scrolling track — contains multiple .film-unit blocks */
     #filmTrack {
       display: flex;
       flex-direction: row;
       height: 100%;
       will-change: transform;
-      /* JS drives translation via rAF */
     }
 
-    /* One "filmstrip unit" = sprockets + photo, all moving together */
     .film-unit {
       flex: 0 0 auto;
       height: 100%;
       display: flex;
       flex-direction: column;
-      /* width set by JS = height * ratio */
     }
 
-    /* Sprocket strip — top and bottom */
     .film-sprocket {
       flex: 0 0 22px;
       background: #111;
@@ -918,7 +907,6 @@
       }
     }
 
-    /* Individual sprocket hole */
     .film-hole {
       flex: 0 0 auto;
       width: 10px;
@@ -935,19 +923,16 @@
       }
     }
 
-    /* The photo area in the middle of each unit */
     .film-photo {
       flex: 1;
       background-size: cover;
       background-position: center;
       filter: brightness(0.78) saturate(0.85) contrast(1.08);
-      /* subtle border between frames */
       border-left: 2px solid #1a1208;
       border-right: 2px solid #1a1208;
       position: relative;
     }
 
-    /* Frame number stamp — like real film */
     .film-photo::after {
       content: attr(data-frame);
       position: absolute;
@@ -960,14 +945,12 @@
       pointer-events: none;
     }
 
-    /* Thin film-edge lines on top/bottom of the photo area */
     .film-edge-top,
     .film-edge-bottom {
       flex: 0 0 3px;
       background: linear-gradient(90deg, #2a1f10, #1a1208, #2a1f10);
     }
 
-    /* Grain overlay for cinematic texture */
     #filmTrack::after {
       content: '';
       position: absolute;
@@ -979,7 +962,6 @@
       mix-blend-mode: overlay;
     }
 
-    /* Left/right fade vignette so strip appears to come from off-screen */
     #card-gallery-film-frame::before,
     #card-gallery-film-frame::after {
       content: '';
@@ -1172,13 +1154,35 @@
       margin-bottom: 14px;
     }
 
-    /* ===== CALENDAR ===== */
+    /* ===== FIX 1: CALENDAR — full background coverage ===== */
     #card-calendar {
       position: relative;
       overflow: hidden;
+      /* Use both background-color and gradient so it always fills */
+      background-color: #f5e8d4;
       background: linear-gradient(160deg, #fdf8f0 0%, #f5e8d4 100%);
+      /* Ensure the section expands to fill its content */
+      width: 100%;
+      min-height: 100%;
       padding: 60px 24px 70px;
       text-align: center;
+      /* Prevent any background-attachment issues */
+      background-attachment: local;
+      box-sizing: border-box;
+    }
+
+    /* Pseudo-element background to guarantee full coverage */
+    #card-calendar::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, #fdf8f0 0%, #f5e8d4 100%);
+      z-index: 0;
+    }
+
+    #card-calendar>* {
+      position: relative;
+      z-index: 1;
     }
 
     #custom-cal-wrap {
@@ -1375,6 +1379,638 @@
       pointer-events: none;
     }
 
+    /* ===== TIMELINE + DRESSCODE OVERLAY ===== */
+    #card-timeline {
+      position: relative;
+      overflow: hidden;
+      /* height is driven by .tl-bg-img — no min-height needed */
+    }
+
+    /* The actual image sets the natural height of the card */
+    .tl-bg-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      /* Cap so landscape image doesn't get too tall on wide screens */
+      max-height: 620px;
+      object-fit: cover;
+      object-position: center center;
+      /* Image is decorative — visually hidden behind overlay */
+      visibility: hidden;
+    }
+
+    /* CSS-background layer sits absolutely on top, covers same area */
+    .tl-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+
+    .tl-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10, 7, 5, 0.52) 0%, rgba(10, 7, 5, 0.38) 40%, rgba(10, 7, 5, 0.48) 70%, rgba(10, 7, 5, 0.60) 100%);
+      z-index: 1;
+    }
+
+    .tl-section {
+      position: absolute;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      padding: 16px 22px 14px;
+    }
+
+    .tl-timeline-section {
+      top: 0;
+    }
+
+    .tl-dresscode-section {
+      bottom: 0;
+    }
+
+    .tl-dresscode-section {
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .tl-section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .tl-section-title-right {
+      justify-content: flex-end;
+    }
+
+    .tl-script {
+      font-family: var(--font-handwritten);
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #fff;
+      line-height: 1;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+      letter-spacing: 0.5px;
+    }
+
+    .tl-section-title .tl-dash {
+      font-size: 0;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.45);
+      flex: 1;
+      max-width: 64px;
+      border: none;
+      display: block;
+    }
+
+    .tl-events {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding-left: 8px;
+      position: relative;
+    }
+
+    .tl-events::before {
+      content: '';
+      position: absolute;
+      left: 44px;
+      top: 20px;
+      bottom: 20px;
+      width: 1px;
+      background: rgba(255, 255, 255, 0.4);
+      z-index: 0;
+    }
+
+    .tl-event {
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    .tl-icon {
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-right: 10px;
+    }
+
+    .tl-icon svg {
+      width: 26px;
+      height: 26px;
+      opacity: 0.88;
+      filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.3));
+    }
+
+    .tl-line-dot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 20px;
+      flex-shrink: 0;
+      position: relative;
+      align-self: stretch;
+      margin-right: 12px;
+    }
+
+    .tl-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2px solid rgba(201, 169, 110, 0.8);
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2), 0 2px 6px rgba(0, 0, 0, 0.3);
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      margin-top: 14px;
+    }
+
+    .tl-info {
+      padding: 8px 0 14px;
+    }
+
+    .tl-event:last-child .tl-info {
+      padding-bottom: 8px;
+    }
+
+    .tl-time {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.95);
+      letter-spacing: 1px;
+      line-height: 1;
+      margin-bottom: 3px;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    .tl-label {
+      font-family: var(--font-sans);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.72);
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    }
+
+    .tl-colors {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      margin-bottom: 8px;
+    }
+
+    .tl-color-swatch {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      position: relative;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+      cursor: default;
+    }
+
+    .tl-color-swatch:hover {
+      transform: translateY(-3px) scale(1.08);
+    }
+
+    .tl-color-name {
+      position: absolute;
+      bottom: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-sans);
+      font-size: 8px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.55);
+      white-space: nowrap;
+    }
+
+    .tl-dresscode-note {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.55);
+      text-align: right;
+      margin-top: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ===== 3D GIFT BOX ===== */
+    /* ===== GIFT BOX — flat design với QR ở mặt trước ===== */
+    .present-box {
+      display: flex;
+      justify-content: center;
+      margin: 28px 0 52px;
+    }
+
+    .gift-box-wrap {
+      position: relative;
+      width: 820px;
+      cursor: pointer;
+      user-select: none;
+      animation: giftFloat 3.5s ease-in-out infinite;
+      filter: drop-shadow(0 18px 32px rgba(176, 90, 90, 0.28)) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.12));
+      transition: filter 0.3s;
+    }
+
+    .gift-box-wrap:hover {
+      animation-play-state: paused;
+      filter: drop-shadow(0 24px 40px rgba(176, 90, 90, 0.38)) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.16));
+      transform: translateY(-6px) scale(1.03);
+    }
+
+    .gift-box-wrap:active {
+      transform: scale(0.97) translateY(0);
+    }
+
+    @keyframes giftFloat {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(-0.4deg);
+      }
+
+      50% {
+        transform: translateY(-9px) rotate(0.4deg);
+      }
+    }
+
+    /* ── SVG wrapper fills the width ── */
+    .gift-box-wrap svg.gb-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      overflow: visible;
+    }
+
+    /* ── QR image inside the foreign object ── */
+    .gb-qr-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: 6px;
+    }
+
+    /* ── Sparkles around box ── */
+    .gb-sparkle {
+      position: absolute;
+      color: #C9A96E;
+      opacity: 0;
+      animation: sparkle 2.6s ease-in-out infinite;
+      pointer-events: none;
+      font-size: 0.85rem;
+    }
+
+    .gb-sparkle-1 {
+      top: 15%;
+      left: 2%;
+      animation-delay: 0s;
+      font-size: 0.6rem;
+    }
+
+    .gb-sparkle-2 {
+      top: 10%;
+      right: 5%;
+      animation-delay: 1s;
+      font-size: 0.9rem;
+    }
+
+    .gb-sparkle-3 {
+      bottom: 22%;
+      right: 3%;
+      animation-delay: 1.9s;
+      font-size: 0.55rem;
+    }
+
+    .gb-sparkle-4 {
+      bottom: 30%;
+      left: 4%;
+      animation-delay: 0.6s;
+      font-size: 0.7rem;
+    }
+
+    @keyframes sparkle {
+
+      0%,
+      100% {
+        opacity: 0;
+        transform: scale(0.4) rotate(0deg);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.3) rotate(25deg);
+      }
+    }
+
+    /* ── Hint ── */
+    .gb-hint {
+      text-align: center;
+      margin-top: 14px;
+      font-family: var(--font-sans);
+      font-size: 0.65rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      opacity: 0.75;
+    }
+
+    /* ── Pulsing ring around QR area ── */
+    @keyframes qrPulse {
+      0% {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+
+      40% {
+        opacity: 0.6;
+      }
+
+      100% {
+        opacity: 0;
+        transform: scale(1.15);
+      }
+    }
+
+    .gb-pulse-ring {
+      position: absolute;
+      border-radius: 12px;
+      border: 2px solid rgba(201, 169, 110, 0.65);
+      pointer-events: none;
+      animation: qrPulse 2.4s ease-out infinite;
+      /* Align over QR window: roughly 53% down, centred */
+      top: 53%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 102px;
+      height: 102px;
+    }
+
+    /* ===== QUỸ ĐEN POPUP ===== */
+    #quydenOverlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 30000;
+      background: rgba(10, 6, 4, 0.75);
+      backdrop-filter: blur(10px);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    #quydenOverlay.open {
+      display: flex;
+    }
+
+    .qd-box {
+      background: linear-gradient(150deg, #1e1208 0%, #120c06 100%);
+      border-radius: 26px;
+      padding: 38px 28px 32px;
+      max-width: 340px;
+      width: 100%;
+      box-shadow:
+        0 0 0 1px rgba(201, 169, 110, 0.22),
+        0 32px 80px rgba(0, 0, 0, 0.7),
+        0 0 60px rgba(201, 169, 110, 0.06) inset;
+      position: relative;
+      animation: quydenIn 0.42s cubic-bezier(.22, .68, 0, 1.2) both;
+      text-align: center;
+    }
+
+    @keyframes quydenIn {
+      from {
+        opacity: 0;
+        transform: scale(0.82) translateY(28px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* Gold top line */
+    .qd-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 12%;
+      right: 12%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #C9A96E 40%, #E8D5B0 60%, #C9A96E, transparent);
+      border-radius: 2px;
+    }
+
+    .qd-close {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      color: rgba(255, 255, 255, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+
+    .qd-close:hover {
+      background: rgba(255, 255, 255, 0.13);
+      color: #fff;
+    }
+
+    .qd-icon {
+      font-size: 2rem;
+      margin-bottom: 8px;
+      display: block;
+      animation: qd-icon-sway 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes qd-icon-sway {
+      from {
+        transform: rotate(-8deg);
+      }
+
+      to {
+        transform: rotate(8deg) scale(1.08);
+      }
+    }
+
+    .qd-title {
+      font-family: var(--font-handwritten);
+      font-size: 2rem;
+      color: #C9A96E;
+      margin-bottom: 2px;
+      line-height: 1.2;
+      text-shadow: 0 0 24px rgba(201, 169, 110, 0.35);
+    }
+
+    .qd-subtitle {
+      font-family: var(--font-sans);
+      font-size: 0.62rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: rgba(201, 169, 110, 0.38);
+      margin-bottom: 22px;
+    }
+
+    .qd-qr-wrap {
+      background: #fff;
+      border-radius: 16px;
+      padding: 14px;
+      display: inline-block;
+      box-shadow:
+        0 0 0 3px rgba(201, 169, 110, 0.2),
+        0 8px 32px rgba(0, 0, 0, 0.5);
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    /* Corner dots on QR frame */
+    .qd-qr-wrap::before,
+    .qd-qr-wrap::after {
+      content: '';
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      border: 2px solid rgba(201, 169, 110, 0.6);
+    }
+
+    .qd-qr-wrap::before {
+      top: 6px;
+      left: 6px;
+      border-right: none;
+      border-bottom: none;
+    }
+
+    .qd-qr-wrap::after {
+      bottom: 6px;
+      right: 6px;
+      border-left: none;
+      border-top: none;
+    }
+
+    .qd-qr-wrap img {
+      width: 200px;
+      height: 200px;
+      object-fit: contain;
+      display: block;
+      border-radius: 8px;
+    }
+
+    .qd-label {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.45);
+      line-height: 1.7;
+    }
+
+    .qd-label strong {
+      color: rgba(201, 169, 110, 0.8);
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    .qd-divider {
+      width: 40px;
+      height: 1px;
+      background: rgba(201, 169, 110, 0.25);
+      margin: 16px auto;
+    }
+
+    /* ===== MAIN QR MODAL (fallback — kept for giftToggleBtn) ===== */
+    .gift-modal-body {
+      padding: 8px 16px 24px;
+    }
+
+    .qr-card {
+      background: linear-gradient(160deg, #fdf6ee 0%, #f5ead8 100%);
+      border-radius: 20px;
+      padding: 24px 20px;
+      border: 1px solid rgba(201, 169, 110, 0.25);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .qr-eyebrow {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--c-mid);
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .qr-img-wrap {
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(201, 169, 110, 0.15);
+    }
+
+    .qr-img {
+      width: 100%;
+      max-width: 240px;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+    }
+
+    .qr-note {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      color: #aaa;
+      text-align: center;
+      margin-top: 14px;
+      line-height: 1.6;
+    }
+
+    .qr-secret-btn {
+      display: block;
+      margin: 18px auto 0;
+      background: none;
+      border: 1px solid rgba(201, 169, 110, 0.3);
+      border-radius: 50px;
+      padding: 8px 20px;
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(201, 169, 110, 0.7);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .qr-secret-btn:hover {
+      background: rgba(201, 169, 110, 0.1);
+      color: var(--c-gold);
+      border-color: var(--c-gold);
+    }
+
     /* ===== AUDIO & GIFT BTNS ===== */
     #audioToggleBtn {
       position: fixed;
@@ -1442,11 +2078,81 @@
       box-shadow: 0 6px 24px rgba(201, 169, 110, 0.65);
     }
 
+    /* ===== FIX 2: RSVP ATTENDANCE SELECTOR ===== */
+    .rsvp-question {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      color: var(--c-mid);
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .rsvp-options {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    .rsvp-option {
+      flex: 1;
+      position: relative;
+    }
+
+    .rsvp-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .rsvp-option label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 11px 10px;
+      border-radius: 50px;
+      border: 1.5px solid rgba(201, 169, 110, 0.35);
+      background: rgba(201, 169, 110, 0.06);
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      color: var(--c-mid);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .rsvp-option input[type="radio"]:checked+label {
+      border-color: var(--c-rose);
+      background: linear-gradient(135deg, rgba(176, 112, 112, 0.12), rgba(176, 112, 112, 0.06));
+      color: var(--c-rose);
+      font-weight: 500;
+      box-shadow: 0 2px 12px rgba(176, 112, 112, 0.2);
+    }
+
+    .rsvp-option label:hover {
+      border-color: var(--c-gold);
+      background: rgba(201, 169, 110, 0.1);
+    }
+
+    .rsvp-emoji {
+      font-size: 1rem;
+    }
+
     /* ===== WISH TICKER ===== */
     .wish-ticker-wrap {
       position: relative;
       margin: 16px 0 8px;
       overflow: hidden;
+      /* FIX 3: allow grab cursor when dragging */
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .wish-ticker-wrap:active {
+      cursor: grabbing;
     }
 
     .wish-ticker-wrap::before,
@@ -1476,6 +2182,8 @@
       padding: 8px 0 20px;
       width: max-content;
       will-change: transform;
+      /* Smooth transition only when NOT dragging */
+      transition: none;
     }
 
     .wish-card {
@@ -1489,6 +2197,9 @@
       box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07), 0 1px 0 rgba(255, 255, 255, 0.9) inset;
       display: flex;
       flex-direction: column;
+      /* Prevent text selection while dragging */
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .wish-card::before {
@@ -1614,7 +2325,7 @@
       display: none;
     }
 
-    /* ===== FIX 4: WISH POPUP — scrollable, word-wrap, bounded height ===== */
+    /* ===== WISH POPUP ===== */
     #wishPopupOverlay {
       display: none;
       position: fixed;
@@ -1637,7 +2348,6 @@
       padding: 36px 28px 28px;
       max-width: 360px;
       width: 100%;
-      /* FIX 4: cap height and allow internal scroll */
       max-height: 80vh;
       display: flex;
       flex-direction: column;
@@ -1713,23 +2423,19 @@
       flex-shrink: 0;
     }
 
-    /* FIX 4: message scrolls inside popup, never overflows */
     .wish-popup-msg {
       font-family: var(--font-serif);
       font-style: italic;
       font-size: 1rem;
       color: #6a5a4e;
       line-height: 1.7;
-      /* word wrap */
       word-wrap: break-word;
       overflow-wrap: break-word;
       word-break: break-word;
       white-space: pre-wrap;
-      /* scroll for very long content */
       overflow-y: auto;
       flex: 1;
       max-height: 12em;
-      /* thin scrollbar */
       scrollbar-width: thin;
       scrollbar-color: rgba(201, 169, 110, 0.4) transparent;
     }
@@ -1861,7 +2567,6 @@
           </div>
         </div>
 
-        <!-- FIX 2 & 3: Separate labelled spans for balanced baseline + handwritten name -->
         <div class="text sr" id="invite-text-line">
           <span id="invite-text-label">Thân mời</span><span id="guest-name-typed"></span><span
             id="guest-invite-suffix"></span>
@@ -1934,7 +2639,6 @@
         <div class="cinematic-divider sr"></div>
       </div>
 
-      <!-- FILMSTRIP: khung phim + ảnh cùng chạy, xây bằng JS -->
       <div id="card-gallery-film-frame">
         <div id="filmTrack"></div>
       </div>
@@ -2030,9 +2734,102 @@
       </div>
     </div>
 
-    <!-- TIMELINE -->
-    <div id="card-timeline" style="background-image:url(images/image25.jpg)">
-      <div class="timeline-inner"></div>
+    <!-- TIMELINE + DRESSCODE -->
+    <div id="card-timeline">
+      <!-- Background photo: img drives the natural height -->
+      <img class="tl-bg-img" src="images/image25.jpg" alt="" aria-hidden="true">
+      <!-- Absolute overlay layers -->
+      <div class="tl-bg" style="background-image:url(images/image25.jpg)"></div>
+      <!-- Dark overlay for readability -->
+      <div class="tl-overlay"></div>
+
+      <!-- TIMELINE section -->
+      <div class="tl-section tl-timeline-section">
+        <div class="tl-section-title sr">
+          <span class="tl-dash">—</span>
+          <span class="tl-script">Timeline</span>
+        </div>
+        <div class="tl-events">
+          <div class="tl-event sr">
+            <div class="tl-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <rect x="6" y="14" width="36" height="26" rx="3" />
+                <circle cx="24" cy="27" r="8" />
+                <circle cx="24" cy="27" r="4" />
+                <path d="M16 14l3-5h10l3 5" />
+                <circle cx="37" cy="19" r="1.5" fill="white" />
+              </svg>
+            </div>
+            <div class="tl-line-dot">
+              <div class="tl-dot"></div>
+            </div>
+            <div class="tl-info">
+              <div class="tl-time">11:00</div>
+              <div class="tl-label">ĐÓN KHÁCH</div>
+            </div>
+          </div>
+          <div class="tl-event sr">
+            <div class="tl-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <circle cx="24" cy="24" r="12" />
+                <path d="M24 12v24M12 24h24" />
+                <path d="M8 14v6M8 28v6M40 14v6M40 28v6" />
+                <path d="M8 17h4M8 31h4M36 17h4M36 31h4" />
+              </svg>
+            </div>
+            <div class="tl-line-dot">
+              <div class="tl-dot"></div>
+            </div>
+            <div class="tl-info">
+              <div class="tl-time">11:30</div>
+              <div class="tl-label">LỄ THÀNH HÔN</div>
+            </div>
+          </div>
+          <div class="tl-event sr">
+            <div class="tl-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M24 6 C14 10 10 20 12 28 C14 36 20 40 24 42 C28 40 34 36 36 28 C38 20 34 10 24 6Z" />
+                <path d="M18 18 C18 14 22 11 24 11 C26 11 30 14 30 18" />
+                <circle cx="24" cy="24" r="3" />
+                <path d="M16 30 C18 26 22 24 24 24 C26 24 30 26 32 30" />
+              </svg>
+            </div>
+            <div class="tl-line-dot">
+              <div class="tl-dot"></div>
+            </div>
+            <div class="tl-info">
+              <div class="tl-time">11:45</div>
+              <div class="tl-label">TIỆC MỪNG</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DRESSCODE section -->
+      <div class="tl-section tl-dresscode-section sr">
+        <div class="tl-section-title tl-section-title-right">
+          <span class="tl-script">Dress code</span>
+          <span class="tl-dash">—</span>
+        </div>
+        <div class="tl-colors">
+          <div class="tl-color-swatch" style="background:#F5F0EB;" title="Ivory White">
+            <span class="tl-color-name">Ivory</span>
+          </div>
+          <div class="tl-color-swatch" style="background:#E8D5B0;" title="Champagne Gold">
+            <span class="tl-color-name">Gold</span>
+          </div>
+          <div class="tl-color-swatch" style="background:#E8C4C4;" title="Blush Pink">
+            <span class="tl-color-name">Blush</span>
+          </div>
+          <div class="tl-color-swatch" style="background:#8B6A5A;" title="Mocha Brown">
+            <span class="tl-color-name">Mocha</span>
+          </div>
+        </div>
+        <div class="tl-dresscode-note">Trang phục lịch sự, thanh lịch</div>
+      </div>
     </div>
 
     <!-- GIFT -->
@@ -2041,18 +2838,208 @@
         <h2 class="card-section-title font1 sr">Hộp mừng cưới</h2>
         <div class="card-section-subtitle sr">Cảm ơn tình cảm của mọi người đã dành cho chúng mình!</div>
         <div class="present-box sr sr-scale">
-          <div class="present-box-inner" data-bs-toggle="modal" data-bs-target="#weddingGiftModal">
-            <img class="animate__animated animate__pulse animate__infinite" src="images/present.png">
+          <!-- Gift box: click opens quỹ đen directly -->
+          <div class="gift-box-wrap" id="giftBoxBtn" role="button" aria-label="Mở quà mừng cưới">
+            <!-- Sparkles -->
+            <div class="gb-sparkle gb-sparkle-1">✦</div>
+            <div class="gb-sparkle gb-sparkle-2">✦</div>
+            <div class="gb-sparkle gb-sparkle-3">✦</div>
+            <div class="gb-sparkle gb-sparkle-4">✦</div>
+
+            <!-- Flat-design gift box SVG with embedded QR image -->
+            <svg class="gb-svg" viewBox="0 0 220 240" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <!-- Box gradients -->
+                <linearGradient id="boxBodyGrad" x1="0%" y1="0%" x2="110%" y2="110%">
+                  <stop offset="0%" stop-color="#f0b0b0" />
+                  <stop offset="40%" stop-color="#c87070" />
+                  <stop offset="100%" stop-color="#963c3c" />
+                </linearGradient>
+                <linearGradient id="boxSideGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#8a3838" />
+                  <stop offset="100%" stop-color="#6a2828" />
+                </linearGradient>
+                <linearGradient id="lidGrad" x1="0%" y1="0%" x2="100%" y2="120%">
+                  <stop offset="0%" stop-color="#f5c8c8" />
+                  <stop offset="55%" stop-color="#d07878" />
+                  <stop offset="100%" stop-color="#b05858" />
+                </linearGradient>
+                <linearGradient id="lidSideGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#a05050" />
+                  <stop offset="100%" stop-color="#803838" />
+                </linearGradient>
+                <!-- Ribbon: warm gold with shimmer -->
+                <linearGradient id="ribH" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#c8922a" />
+                  <stop offset="20%" stop-color="#e8c87a" />
+                  <stop offset="50%" stop-color="#f5e0a0" />
+                  <stop offset="80%" stop-color="#e0b84a" />
+                  <stop offset="100%" stop-color="#c07828" />
+                </linearGradient>
+                <linearGradient id="ribV" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#c8922a" />
+                  <stop offset="25%" stop-color="#f0d878" />
+                  <stop offset="55%" stop-color="#f5e8a8" />
+                  <stop offset="80%" stop-color="#e0b840" />
+                  <stop offset="100%" stop-color="#b87020" />
+                </linearGradient>
+                <!-- Bow loops -->
+                <linearGradient id="bowLoopL" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#f5e8b8" />
+                  <stop offset="35%" stop-color="#d4a030" />
+                  <stop offset="70%" stop-color="#b87820" />
+                  <stop offset="100%" stop-color="#8a5010" />
+                </linearGradient>
+                <linearGradient id="bowLoopR" x1="100%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#f5e8b8" />
+                  <stop offset="35%" stop-color="#d4a030" />
+                  <stop offset="70%" stop-color="#b87820" />
+                  <stop offset="100%" stop-color="#8a5010" />
+                </linearGradient>
+                <linearGradient id="bowTailL" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#e8d070" />
+                  <stop offset="100%" stop-color="#a06818" />
+                </linearGradient>
+                <linearGradient id="bowTailR" x1="100%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#e8d070" />
+                  <stop offset="100%" stop-color="#a06818" />
+                </linearGradient>
+                <radialGradient id="bowKnot" cx="40%" cy="35%" r="65%">
+                  <stop offset="0%" stop-color="#fdf0c0" />
+                  <stop offset="45%" stop-color="#d4a030" />
+                  <stop offset="100%" stop-color="#8a5818" />
+                </radialGradient>
+                <!-- Highlight overlays -->
+                <linearGradient id="boxHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="rgba(255,255,255,0.28)" />
+                  <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+                </linearGradient>
+                <linearGradient id="lidHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="rgba(255,255,255,0.35)" />
+                  <stop offset="100%" stop-color="rgba(255,255,255,0.04)" />
+                </linearGradient>
+                <!-- QR card shadow -->
+                <filter id="cardShadow" x="-8%" y="-8%" width="120%" height="125%">
+                  <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="rgba(80,20,20,0.28)" />
+                </filter>
+                <filter id="boxShadow" x="-5%" y="-3%" width="115%" height="120%">
+                  <feDropShadow dx="3" dy="6" stdDeviation="6" flood-color="rgba(80,20,20,0.3)" />
+                </filter>
+              </defs>
+
+              <!-- ═══ BOX BODY ═══ -->
+              <!-- Main front face -->
+              <rect x="16" y="108" width="164" height="120" rx="8" fill="url(#boxBodyGrad)" filter="url(#boxShadow)" />
+              <!-- Right side face (isometric depth) -->
+              <polygon points="180,108 200,118 200,228 180,228" fill="url(#boxSideGrad)" />
+              <!-- Front face highlight (top strip) -->
+              <rect x="16" y="108" width="164" height="38" rx="8" fill="url(#boxHighlight)" opacity="0.6" />
+              <!-- Bottom edge shadow -->
+              <rect x="16" y="220" width="164" height="8" rx="4" fill="rgba(80,20,20,0.35)" />
+
+              <!-- ═══ LID ═══ -->
+              <rect x="8" y="78" width="172" height="34" rx="8" fill="url(#lidGrad)" filter="url(#boxShadow)" />
+              <!-- Lid right side -->
+              <polygon points="180,78 200,88 200,112 180,112" fill="url(#lidSideGrad)" opacity="0.9" />
+              <!-- Lid highlight -->
+              <rect x="8" y="78" width="172" height="14" rx="8" fill="url(#lidHighlight)" />
+
+              <!-- ═══ HORIZONTAL RIBBON — across lid and body ═══ -->
+              <!-- On lid -->
+              <rect x="8" y="88" width="192" height="14" rx="3" fill="url(#ribH)" opacity="0.97" />
+              <!-- Ribbon crease / fold at lid bottom edge -->
+              <rect x="8" y="111" width="172" height="3" fill="rgba(140,90,10,0.35)" />
+              <!-- On body -->
+              <rect x="16" y="114" width="185" height="14" rx="2" fill="url(#ribH)" opacity="0.93" />
+              <!-- Ribbon shadow under body ribbon -->
+              <rect x="16" y="127" width="164" height="3" fill="rgba(100,55,5,0.25)" />
+
+              <!-- ═══ VERTICAL RIBBON — front face ═══ -->
+              <rect x="94" y="78" width="14" height="150" rx="3" fill="url(#ribV)" opacity="0.95" />
+              <!-- Vertical ribbon on right side face (narrower, skewed) -->
+              <polygon points="180,108 192,114 192,228 180,228" fill="url(#ribV)" opacity="0.6" />
+
+              <!-- ═══ QR WINDOW ═══ -->
+              <!-- Outer white card -->
+              <rect x="58" y="120" width="98" height="98" rx="10" fill="white" filter="url(#cardShadow)" />
+              <!-- Inner padding frame -->
+              <rect x="62" y="124" width="90" height="90" rx="7" fill="#fafafa" />
+              <!-- QR image -->
+              <foreignObject x="40" y="100" width="120" height="120">
+                <img xmlns="http://www.w3.org/1999/xhtml" src="images/present.png" class="gb-qr-img" alt="QR cô dâu" />
+              </foreignObject>
+
+              <!-- ═══ BOW — natural curved paths ═══ -->
+
+              <!-- LEFT LOOP: bezier curves for natural puffed bow loop -->
+              <path d="
+                M 101 75
+                C  88 65,  55 40,  42 48
+                C  30 56,  38 80,  60 82
+                C  72 83,  92 78, 101 75
+              " fill="url(#bowLoopL)" stroke="rgba(100,60,5,0.25)" stroke-width="1" />
+              <!-- Left loop inner shadow crease -->
+              <path d="
+                M 101 75
+                C  90 68,  65 48,  50 52
+                C  40 56,  45 72,  65 78
+              " fill="none" stroke="rgba(80,40,5,0.3)" stroke-width="2.5" stroke-linecap="round" />
+              <!-- Left loop highlight -->
+              <path d="
+                M  98 74
+                C  88 67,  66 48,  52 52
+              " fill="none" stroke="rgba(255,245,190,0.55)" stroke-width="2" stroke-linecap="round" />
+
+              <!-- RIGHT LOOP: mirror -->
+              <path d="
+                M 101 75
+                C 114 65, 147 40, 160 48
+                C 172 56, 164 80, 142 82
+                C 130 83, 110 78, 101 75
+              " fill="url(#bowLoopR)" stroke="rgba(100,60,5,0.25)" stroke-width="1" />
+              <!-- Right loop inner shadow crease -->
+              <path d="
+                M 101 75
+                C 112 68, 137 48, 152 52
+                C 162 56, 157 72, 137 78
+              " fill="none" stroke="rgba(80,40,5,0.3)" stroke-width="2.5" stroke-linecap="round" />
+              <!-- Right loop highlight -->
+              <path d="
+                M 104 74
+                C 114 67, 136 48, 150 52
+              " fill="none" stroke="rgba(255,245,190,0.55)" stroke-width="2" stroke-linecap="round" />
+
+
+
+              <!-- ═══ KNOT (centre of bow) ═══ -->
+              <ellipse cx="101" cy="76" rx="13" ry="10" fill="url(#bowKnot)" stroke="rgba(100,55,5,0.3)"
+                stroke-width="1" />
+              <!-- Knot top highlight -->
+              <ellipse cx="99" cy="73" rx="6" ry="4" fill="rgba(255,248,200,0.55)" />
+              <!-- Knot bottom shadow -->
+              <ellipse cx="102" cy="80" rx="8" ry="3" fill="rgba(80,35,5,0.22)" />
+
+              <!-- ═══ DECORATIVE DETAIL ═══ -->
+              <!-- Small star accents -->
+              <text x="22" y="66" font-size="9" fill="#C9A96E" opacity="0.65" font-family="serif">✦</text>
+              <text x="184" y="82" font-size="7" fill="#C9A96E" opacity="0.45" font-family="serif">✦</text>
+            </svg>
+
+            <!-- Pulse ring hint over QR area -->
+            <div class="gb-pulse-ring"></div>
+
+            <!-- Hint text -->
+            <div class="gb-hint">Nhấn để mừng cưới 🎁</div>
           </div>
         </div>
       </div>
     </div>
-
     <!-- COMMENTS -->
     <div id="card-comments" class="card-section">
       <div class="inner">
         <h2 class="card-section-title font1 sr">Sổ lưu bút</h2>
         <div class="card-section-subtitle sr">Gửi lời chúc đến cô dâu và chú rể nhé 💌</div>
+        <!-- FIX 2: Replaced select dropdown with RSVP attendance question -->
         <form id="wishForm" class="comment-form sr">
           <div class="form-group">
             <input type="text" class="form-control" id="wf-name" placeholder="Tên của bạn *" required>
@@ -2061,26 +3048,38 @@
             <textarea class="form-control" id="wf-msg" rows="3" placeholder="Lời chúc của bạn *" required></textarea>
           </div>
           <div class="form-group">
-            <select class="form-control" id="wf-rel">
-              <option value="">-- Bạn là gì với cô dâu chú rể --</option>
-              <option value="Bạn chú rể">Bạn chú rể</option>
-              <option value="Bạn cô dâu">Bạn cô dâu</option>
-              <option value="Bạn cả hai">Bạn cả hai</option>
-              <option value="Đồng nghiệp">Đồng nghiệp</option>
-              <option value="Họ hàng">Họ hàng</option>
-            </select>
+            <b>
+              <div class="rsvp-question">Bạn sẽ tham dự chứ? 🥂</div>
+            </b>
+            <div class="rsvp-options">
+              <div class="rsvp-option">
+                <input type="radio" name="wf-rsvp" id="rsvp-yes" value="Chắc chắn rồi!" checked>
+                <label for="rsvp-yes">
+                  <span class="rsvp-emoji">🎉</span>
+                  Chắc chắn rồi!
+                </label>
+              </div>
+              <div class="rsvp-option">
+                <input type="radio" name="wf-rsvp" id="rsvp-no" value="Mình bận...">
+                <label for="rsvp-no">
+                  <span class="rsvp-emoji">🥺</span>
+                  Bận mất rồi
+                </label>
+              </div>
+            </div>
           </div>
           <div class="group-btns text-center">
-            <button type="submit" class="btn">Gửi lời chúc 💌</button>
+            <button type="submit" class="btn">Gửi lời chúc và Xác nhận💌</button>
           </div>
           <div id="wf-status"
             style="text-align:center;margin-top:10px;font-size:0.85rem;color:var(--c-gold);display:none;"></div>
         </form>
         <div id="wishCountRow" style="text-align:center"></div>
+        <!-- FIX 3: Added drag-to-scroll hint -->
         <div class="wish-ticker-wrap" id="wishTickerWrap">
           <div class="wish-ticker-track" id="wishList"></div>
         </div>
-        <div class="wish-hint">← Lướt để đọc lời chúc →</div>
+        <div class="wish-hint">← Nhấn giữ &amp; kéo để đọc lời chúc →</div>
         <div class="wish-scroll-dots" id="wishDots"></div>
         <div class="thankyou font1 sr">Thank You!</div>
       </div>
@@ -2099,18 +3098,45 @@
     </svg>
   </button>
 
+  <!-- QR Cô dâu modal (kept for floating gift button) -->
   <div class="modal fade" id="weddingGiftModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5">Hộp quà cưới 💎</h1>
+          <h1 class="modal-title fs-5">💝 QR Mừng Cưới</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body text-center"><img src="images/image26.jpg"></div>
+        <div class="modal-body gift-modal-body">
+          <div class="qr-card">
+            <div class="qr-eyebrow">Quét mã để chuyển khoản 🌸</div>
+            <div class="qr-img-wrap">
+              <img src="images/present.png" alt="QR chuyển khoản cô dâu" class="qr-img">
+            </div>
+            <div class="qr-note">Cảm ơn tình cảm của bạn dành cho chúng mình 🌸</div>
+            <button class="qr-secret-btn" id="openQuyDen">🤫 Secret</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- Quỹ đen chú rể popup -->
+  <div id="quydenOverlay">
+    <div class="qd-box">
+      <button class="qd-close" id="quydenClose">✕</button>
+      <span class="qd-icon">🤫</span>
+      <div class="qd-title">Quỹ donate cho chú rể</div>
+      <div class="qd-subtitle"></div>
+      <div class="qd-qr-wrap">
+        <img src="images/present1.png" alt="QR chú rể">
+      </div>
+      <div class="qd-divider"></div>
+      <div class="qd-label">
+        Hoan hỉ nhận tiền mừng để <strong>chú rể</strong> có tiền lấy vợ<br>
+        Xin đa tạ 🍻
+      </div>
+    </div>
+  </div>
   <script src="js/jquery.min.js"></script>
   <script src="js/wow.min.js"></script>
   <script src="js/countdown.js"></script>
@@ -2200,7 +3226,7 @@
       setTimeout(type, 900);
     })();
 
-    /* 4. SCROLL REVEAL — FIX 1: fire earlier (5% threshold, no bottom clipping) */
+    /* 4. SCROLL REVEAL */
     (function () {
       var els = document.querySelectorAll('.sr');
       if (!('IntersectionObserver' in window)) {
@@ -2217,8 +3243,8 @@
           }
         });
       }, {
-        threshold: 0.05,              /* FIX 1: was 0.12 */
-        rootMargin: '0px 0px 0px 0px' /* FIX 1: removed -40px bottom margin */
+        threshold: 0.05,
+        rootMargin: '0px 0px 0px 0px'
       });
       els.forEach(function (e) { io.observe(e); });
     })();
@@ -2274,66 +3300,44 @@
       wrap.addEventListener('mouseleave', startAuto);
     })();
 
-    /* 7. FILMSTRIP — build complete film units (sprocket + photo) and scroll all together */
+    /* 7. FILMSTRIP */
     (function () {
       var track = qs('#filmTrack');
       var frame = qs('#card-gallery-film-frame');
       if (!track || !frame) return;
-
       var PHOTOS = [
-        'images/image6.jpg',
-        'images/image7.jpg',
-        'images/image8.jpg',
-        'images/image9.jpg',
-        'images/image10.jpg'
+        'images/image6.jpg', 'images/image7.jpg', 'images/image8.jpg',
+        'images/image9.jpg', 'images/image10.jpg'
       ];
       var FRAME_LABELS = ['01A', '02A', '03A', '04A', '05A'];
-      /* Speed in px/frame — lower = slower, ~0.35 feels like real film projector */
       var SPEED = 0.35;
       var offset = 0;
       var paused = false;
-      var unitWidth = 0; /* set by sizeUnits() */
-      var TOTAL_UNITS = 0; /* total .film-unit count after duplication */
-
-      /* Build a single film-unit DOM element */
+      var unitWidth = 0;
+      var TOTAL_UNITS = 0;
       function makeUnit(photoSrc, label, holeCount) {
-        var unit = document.createElement('div');
-        unit.className = 'film-unit';
-
+        var unit = document.createElement('div'); unit.className = 'film-unit';
         function makeSprocket() {
-          var sp = document.createElement('div');
-          sp.className = 'film-sprocket';
+          var sp = document.createElement('div'); sp.className = 'film-sprocket';
           for (var i = 0; i < holeCount; i++) {
-            var hole = document.createElement('div');
-            hole.className = 'film-hole';
-            sp.appendChild(hole);
+            var hole = document.createElement('div'); hole.className = 'film-hole'; sp.appendChild(hole);
           }
           return sp;
         }
-
         var edgeTop = document.createElement('div'); edgeTop.className = 'film-edge-top';
         var edgeBottom = document.createElement('div'); edgeBottom.className = 'film-edge-bottom';
         var photo = document.createElement('div'); photo.className = 'film-photo';
         photo.style.backgroundImage = 'url(' + photoSrc + ')';
         photo.setAttribute('data-frame', label);
-
-        unit.appendChild(makeSprocket());
-        unit.appendChild(edgeTop);
-        unit.appendChild(photo);
-        unit.appendChild(edgeBottom);
-        unit.appendChild(makeSprocket());
+        unit.appendChild(makeSprocket()); unit.appendChild(edgeTop);
+        unit.appendChild(photo); unit.appendChild(edgeBottom); unit.appendChild(makeSprocket());
         return unit;
       }
-
       function buildStrip() {
         track.innerHTML = '';
-        /* Calculate how many sprocket holes fit per unit width */
         var h = frame.offsetHeight || 220;
-        /* Unit width = ~4:3 ratio so photos look like real film frames */
         unitWidth = Math.round(h * 0.78);
         var holeCount = Math.max(2, Math.round(unitWidth / 18));
-
-        /* Build 2 full sets for seamless loop */
         var allPhotos = PHOTOS.concat(PHOTOS);
         var allLabels = FRAME_LABELS.concat(FRAME_LABELS);
         allPhotos.forEach(function (src, i) {
@@ -2343,17 +3347,11 @@
         });
         TOTAL_UNITS = allPhotos.length;
       }
-
-      function sizeUnits() {
-        buildStrip();
-        offset = 0;
-        track.style.transform = 'translateX(0)';
-      }
-
+      function sizeUnits() { buildStrip(); offset = 0; track.style.transform = 'translateX(0)'; }
       var rafId = null;
       function startLoop() {
         if (rafId) cancelAnimationFrame(rafId);
-        var loopWidth = unitWidth * (TOTAL_UNITS / 2); /* width of one full set */
+        var loopWidth = unitWidth * (TOTAL_UNITS / 2);
         function step() {
           if (!paused) {
             offset += SPEED;
@@ -2364,30 +3362,13 @@
         }
         rafId = requestAnimationFrame(step);
       }
-
-      /* Init after layout is ready */
-      function init() {
-        sizeUnits();
-        startLoop();
-      }
-
-      /* Wait one frame for the container to have height */
-      requestAnimationFrame(function () {
-        requestAnimationFrame(init);
-      });
-
-      /* Re-init on resize */
+      function init() { sizeUnits(); startLoop(); }
+      requestAnimationFrame(function () { requestAnimationFrame(init); });
       var resizeTimer;
       window.addEventListener('resize', function () {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function () {
-          if (rafId) cancelAnimationFrame(rafId);
-          sizeUnits();
-          startLoop();
-        }, 200);
+        resizeTimer = setTimeout(function () { if (rafId) cancelAnimationFrame(rafId); sizeUnits(); startLoop(); }, 200);
       });
-
-      /* Pause on hover / touch */
       frame.addEventListener('mouseenter', function () { paused = true; });
       frame.addEventListener('mouseleave', function () { paused = false; });
       frame.addEventListener('touchstart', function () { paused = true; }, { passive: true });
@@ -2427,7 +3408,7 @@
       var popName = qs('#wishPopupName'), popMsg = qs('#wishPopupMsg');
       function openPopup(name, msg) {
         popName.textContent = name; popMsg.textContent = msg;
-        popMsg.scrollTop = 0; /* reset scroll on each open */
+        popMsg.scrollTop = 0;
         overlay.classList.add('open');
         document.body.style.overflow = 'hidden';
       }
@@ -2438,13 +3419,21 @@
       window._openWishPopup = openPopup;
     })();
 
-    /* 10. WISHES — Google Sheets + ticker */
+    /* 10. WISHES — Google Sheets + ticker + FIX 3: drag-to-scroll */
     (function () {
       var GAS_URL = 'https://script.google.com/macros/s/AKfycbwkrSDvAaio7AzTojeuweNky2zXWAIETvD05-0vfaFQw9uCSrjCVyw33ufT6kvdBx2b/exec';
       var LONG_MSG_LIMIT = 80;
       var track = qs('#wishList'), wrap = qs('#wishTickerWrap'), countRow = qs('#wishCountRow');
       var form = qs('#wishForm'), status = qs('#wf-status');
       var IS_CONFIGURED = GAS_URL.indexOf('THAY_BANG') === -1;
+
+      /* --- FIX 3: drag-to-scroll state --- */
+      var drag = {
+        active: false,
+        startX: 0,
+        startOffset: 0
+      };
+
       var ticker = {
         raf: null, offset: 0, speed: 0.55, totalW: 0, paused: false,
         start: function () {
@@ -2461,12 +3450,63 @@
         stop: function () { if (this.raf) { cancelAnimationFrame(this.raf); this.raf = null; } },
         measure: function () { if (track) this.totalW = track.scrollWidth; }
       };
+
+      /* --- Drag events on the wrapper --- */
       if (wrap) {
-        wrap.addEventListener('mouseenter', function () { ticker.paused = true; });
-        wrap.addEventListener('mouseleave', function () { ticker.paused = false; });
-        wrap.addEventListener('touchstart', function () { ticker.paused = true; }, { passive: true });
-        wrap.addEventListener('touchend', function () { setTimeout(function () { ticker.paused = false; }, 2000); }, { passive: true });
+        /* MOUSE drag */
+        wrap.addEventListener('mousedown', function (e) {
+          drag.active = true;
+          drag.startX = e.clientX;
+          drag.startOffset = ticker.offset;
+          ticker.paused = true;
+          wrap.style.cursor = 'grabbing';
+          e.preventDefault();
+        });
+        document.addEventListener('mousemove', function (e) {
+          if (!drag.active) return;
+          var delta = drag.startX - e.clientX;
+          var newOffset = drag.startOffset + delta;
+          /* Clamp within looping range */
+          var half = ticker.totalW / 2;
+          if (half > 0) {
+            newOffset = ((newOffset % half) + half) % half;
+          }
+          ticker.offset = newOffset;
+          if (track) track.style.transform = 'translateX(-' + ticker.offset + 'px)';
+        });
+        document.addEventListener('mouseup', function () {
+          if (!drag.active) return;
+          drag.active = false;
+          wrap.style.cursor = 'grab';
+          /* Resume auto-scroll after a short pause */
+          setTimeout(function () { ticker.paused = false; }, 800);
+        });
+
+        /* TOUCH drag */
+        wrap.addEventListener('touchstart', function (e) {
+          if (e.touches.length !== 1) return;
+          drag.active = true;
+          drag.startX = e.touches[0].clientX;
+          drag.startOffset = ticker.offset;
+          ticker.paused = true;
+        }, { passive: true });
+        wrap.addEventListener('touchmove', function (e) {
+          if (!drag.active || e.touches.length !== 1) return;
+          var delta = drag.startX - e.touches[0].clientX;
+          var newOffset = drag.startOffset + delta;
+          var half = ticker.totalW / 2;
+          if (half > 0) {
+            newOffset = ((newOffset % half) + half) % half;
+          }
+          ticker.offset = newOffset;
+          if (track) track.style.transform = 'translateX(-' + ticker.offset + 'px)';
+        }, { passive: true });
+        wrap.addEventListener('touchend', function () {
+          drag.active = false;
+          setTimeout(function () { ticker.paused = false; }, 1500);
+        }, { passive: true });
       }
+
       function esc(s) { return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
       function makeCard(w) {
         var name = w.NAME || w.name || '', msg = w.MSG || w.msg || '';
@@ -2519,7 +3559,11 @@
       if (form) {
         form.addEventListener('submit', function (e) {
           e.preventDefault();
-          var name = qs('#wf-name').value.trim(), msg = qs('#wf-msg').value.trim(), rel = qs('#wf-rel').value || 'Khách mời';
+          var name = qs('#wf-name').value.trim();
+          var msg = qs('#wf-msg').value.trim();
+          /* FIX 2: Read RSVP radio value instead of select */
+          var rsvpRadio = document.querySelector('input[name="wf-rsvp"]:checked');
+          var rel = rsvpRadio ? rsvpRadio.value : 'Chắc chắn rồi!';
           if (!name || !msg) { alert('Vui lòng điền tên và lời chúc nhé! 🌸'); return; }
           if (!IS_CONFIGURED) { alert('Chưa cấu hình Google Sheets URL.'); return; }
           var btn = form.querySelector('button[type=submit]');
@@ -2539,6 +3583,43 @@
             });
         });
       }
+    })();
+
+    /* QUỸ ĐEN POPUP */
+    (function () {
+      var overlay = document.getElementById('quydenOverlay');
+      var closeBtn = document.getElementById('quydenClose');
+      var openBtn = document.getElementById('openQuyDen');   // inside main modal
+      var giftBoxBtn = document.getElementById('giftBoxBtn');  // gift box on card
+
+      function openQD() {
+        // Close Bootstrap modal if open, then show quỹ đen
+        var bsModal = bootstrap.Modal.getInstance(document.getElementById('weddingGiftModal'));
+        if (bsModal) { bsModal.hide(); }
+        setTimeout(function () {
+          overlay.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        }, bsModal ? 320 : 0);
+      }
+
+      function closeQD() {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      /* Gift box on card → directly opens quỹ đen */
+      if (giftBoxBtn) giftBoxBtn.addEventListener('click', openQD);
+
+      /* Secret button inside bride modal → also opens quỹ đen */
+      if (openBtn) openBtn.addEventListener('click', openQD);
+
+      if (closeBtn) closeBtn.addEventListener('click', closeQD);
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) closeQD();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeQD();
+      });
     })();
   </script>
 </body>
