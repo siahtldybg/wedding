@@ -1395,7 +1395,8 @@
     }
 
     .tl-timeline-section {
-      top: 0;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     .tl-dresscode-section {
@@ -1409,6 +1410,7 @@
     .tl-section-title {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 12px;
       margin-bottom: 14px;
     }
@@ -1443,6 +1445,8 @@
       gap: 0;
       padding-left: 8px;
       position: relative;
+      width: fit-content;
+      margin: 0 auto;
     }
 
     .tl-events::before {
@@ -1513,7 +1517,7 @@
 
     .tl-time {
       font-family: var(--font-mono);
-      font-size: 0.95rem;
+      font-size: 1.14rem;
       font-weight: 400;
       color: rgba(255, 255, 255, 0.95);
       letter-spacing: 1px;
@@ -1524,7 +1528,7 @@
 
     .tl-label {
       font-family: var(--font-sans);
-      font-size: 0.6rem;
+      font-size: 0.72rem;
       font-weight: 500;
       letter-spacing: 3px;
       text-transform: uppercase;
