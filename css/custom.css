@@ -1582,156 +1582,268 @@
       letter-spacing: 0.5px;
     }
 
-    /* ===== 3D GIFT BOX ===== */
-    /* ===== GIFT BOX — flat design với QR ở mặt trước ===== */
+    /* ===== NEW PARISIAN GIFT CARD ===== */
     .present-box {
       display: flex;
       justify-content: center;
       margin: 28px 0 52px;
+      perspective: 1000px;
     }
 
-    .gift-box-wrap {
+    .parisian-card {
       position: relative;
-      width: 820px;
+      width: 320px;
+      padding: 36px 32px 32px;
+      background: linear-gradient(160deg, #faf7f0 0%, #f5f0e4 40%, #ede5d0 100%);
+      border: 1px solid rgba(196, 164, 84, 0.4);
+      box-shadow:
+        0 0 0 1px rgba(196, 164, 84, 0.15),
+        0 4px 12px rgba(0, 0, 0, 0.3),
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
       cursor: pointer;
-      user-select: none;
-      animation: giftFloat 3.5s ease-in-out infinite;
-      filter: drop-shadow(0 18px 32px rgba(176, 90, 90, 0.28)) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.12));
-      transition: filter 0.3s;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      animation: floatCard 4s ease-in-out infinite;
     }
 
-    .gift-box-wrap:hover {
+    .parisian-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(196, 164, 84, 0.5);
       animation-play-state: paused;
-      filter: drop-shadow(0 24px 40px rgba(176, 90, 90, 0.38)) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.16));
-      transform: translateY(-6px) scale(1.03);
     }
 
-    .gift-box-wrap:active {
-      transform: scale(0.97) translateY(0);
-    }
-
-    @keyframes giftFloat {
+    @keyframes floatCard {
 
       0%,
       100% {
-        transform: translateY(0) rotate(-0.4deg);
+        transform: translateY(0);
       }
 
       50% {
-        transform: translateY(-9px) rotate(0.4deg);
+        transform: translateY(-8px);
       }
     }
 
-    /* ── SVG wrapper fills the width ── */
-    .gift-box-wrap svg.gb-svg {
-      width: 100%;
-      height: auto;
-      display: block;
-      overflow: visible;
+    /* Corner ornaments */
+    .corner {
+      position: absolute;
+      width: 40px;
+      height: 40px;
     }
 
-    /* ── QR image inside the foreign object ── */
-    .gb-qr-img {
+    .corner svg {
       width: 100%;
       height: 100%;
-      object-fit: contain;
-      display: block;
-      border-radius: 6px;
     }
 
-    /* ── Sparkles around box ── */
-    .gb-sparkle {
+    .corner--tl {
+      top: 12px;
+      left: 12px;
+    }
+
+    .corner--tr {
+      top: 12px;
+      right: 12px;
+      transform: scaleX(-1);
+    }
+
+    .corner--bl {
+      bottom: 12px;
+      left: 12px;
+      transform: scaleY(-1);
+    }
+
+    .corner--br {
+      bottom: 12px;
+      right: 12px;
+      transform: scale(-1);
+    }
+
+    .parisian-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .pre-title {
+      font-family: 'Cinzel', serif;
+      font-size: 9px;
+      letter-spacing: 0.35em;
+      color: #a8904e;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .divider-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 10px 0;
+      color: #c4a454;
+    }
+
+    .divider-line::before,
+    .divider-line::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #c4a454, transparent);
+    }
+
+    .divider-line svg {
+      flex-shrink: 0;
+    }
+
+    .couple-names {
+      font-family: 'Cinzel', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: #2c1f0a;
+      letter-spacing: 0.08em;
+      line-height: 1.3;
+    }
+
+    .parisian-qr-wrapper {
+      position: relative;
+      margin: 0 auto;
+      width: 250px;
+    }
+
+    .qr-frame {
+      position: relative;
+      padding: 14px;
+      background: #fff;
+      border: 1px solid rgba(196, 164, 84, 0.5);
+      box-shadow:
+        0 2px 20px rgba(196, 164, 84, 0.15),
+        inset 0 0 0 1px rgba(196, 164, 84, 0.1);
+    }
+
+    /* QR frame corners */
+    .qr-frame::before,
+    .qr-frame::after {
+      content: '';
       position: absolute;
-      color: #C9A96E;
-      opacity: 0;
-      animation: sparkle 2.6s ease-in-out infinite;
-      pointer-events: none;
-      font-size: 0.85rem;
+      width: 20px;
+      height: 20px;
+      border-color: #c4a454;
+      border-style: solid;
     }
 
-    .gb-sparkle-1 {
-      top: 15%;
-      left: 2%;
-      animation-delay: 0s;
-      font-size: 0.6rem;
+    .qr-frame::before {
+      top: -1px;
+      left: -1px;
+      border-width: 2px 0 0 2px;
     }
 
-    .gb-sparkle-2 {
-      top: 10%;
-      right: 5%;
-      animation-delay: 1s;
-      font-size: 0.9rem;
+    .qr-frame::after {
+      bottom: -1px;
+      right: -1px;
+      border-width: 0 2px 2px 0;
     }
 
-    .gb-sparkle-3 {
-      bottom: 22%;
-      right: 3%;
-      animation-delay: 1.9s;
-      font-size: 0.55rem;
+    .qr-inner-corners::before,
+    .qr-inner-corners::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-color: #c4a454;
+      border-style: solid;
     }
 
-    .gb-sparkle-4 {
-      bottom: 30%;
-      left: 4%;
-      animation-delay: 0.6s;
-      font-size: 0.7rem;
+    .qr-inner-corners::before {
+      top: -1px;
+      right: -1px;
+      border-width: 2px 2px 0 0;
     }
 
-    @keyframes sparkle {
+    .qr-inner-corners::after {
+      bottom: -1px;
+      left: -1px;
+      border-width: 0 0 2px 2px;
+    }
+
+    .qr-img {
+      display: block;
+      width: 100%;
+      image-rendering: pixelated;
+      filter: sepia(0.3) saturate(1.2);
+    }
+
+    .qr-heart {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 56px;
+      height: 56px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 2px rgba(196, 164, 84, 0.3);
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
 
       0%,
       100% {
-        opacity: 0;
-        transform: scale(0.4) rotate(0deg);
+        box-shadow: 0 0 0 2px rgba(196, 164, 84, 0.3), 0 0 0 0 rgba(196, 164, 84, 0);
       }
 
       50% {
-        opacity: 1;
-        transform: scale(1.3) rotate(25deg);
+        box-shadow: 0 0 0 2px rgba(196, 164, 84, 0.3), 0 0 12px 4px rgba(196, 164, 84, 0.15);
       }
     }
 
-    /* ── Hint ── */
-    .gb-hint {
+    .parisian-footer {
       text-align: center;
-      margin-top: 14px;
-      font-family: var(--font-sans);
-      font-size: 0.65rem;
-      letter-spacing: 2.5px;
+      margin-top: 28px;
+    }
+
+    .cta {
+      font-family: 'Cinzel', serif;
+      font-size: 9px;
+      letter-spacing: 0.35em;
+      color: #a8904e;
       text-transform: uppercase;
-      color: var(--c-gold);
-      opacity: 0.75;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
     }
 
-    /* ── Pulsing ring around QR area ── */
-    @keyframes qrPulse {
-      0% {
-        opacity: 0;
-        transform: scale(0.9);
-      }
-
-      40% {
-        opacity: 0.6;
-      }
-
-      100% {
-        opacity: 0;
-        transform: scale(1.15);
-      }
+    .cta::before,
+    .cta::after {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #c4a454);
     }
 
-    .gb-pulse-ring {
-      position: absolute;
-      border-radius: 12px;
-      border: 2px solid rgba(201, 169, 110, 0.65);
-      pointer-events: none;
-      animation: qrPulse 2.4s ease-out infinite;
-      /* Align over QR window: roughly 53% down, centred */
-      top: 53%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 102px;
-      height: 102px;
+    .cta::before {
+      background: linear-gradient(to left, transparent, #c4a454);
+    }
+
+    .date {
+      margin-top: 10px;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 13px;
+      color: #7a6535;
+      letter-spacing: 0.1em;
+    }
+
+    .elegant-hint {
+      margin-top: 24px;
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #967a4d;
+      font-weight: 500;
     }
 
     /* ===== QUỸ ĐEN POPUP ===== */
@@ -2505,19 +2617,19 @@
 
     /* NOBLE FORM DESIGN - REFINED & COMPACT */
     .noble-form {
-      max-width: 460px;
-      margin: 30px auto;
-      padding: 30px 20px;
+      max-width: 360px;
+      margin: 15px auto;
+      padding: 24px 15px;
       background: rgba(255, 255, 255, 0.6);
       backdrop-filter: blur(10px);
-      border-radius: 24px;
+      border-radius: 20px;
       border: 1px solid rgba(201, 169, 110, 0.2);
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.03);
     }
 
     .form-group.floating-input {
       position: relative;
-      margin-bottom: 22px;
+      margin-bottom: 18px;
     }
 
     .noble-form .form-control {
@@ -2525,9 +2637,9 @@
       background: transparent !important;
       border: none;
       border-bottom: 1px solid rgba(201, 169, 110, 0.2);
-      padding: 10px 10px 10px 30px;
+      padding: 6px 6px 6px 24px;
       font-family: var(--font-serif);
-      font-size: 1rem;
+      font-size: 0.9rem;
       color: var(--c-dark);
       border-radius: 0;
       transition: all 0.3s ease;
@@ -2710,4 +2822,10 @@
         opacity: 1;
         transform: translateY(0);
       }
+    }
+
+    /* ===== WISH FORM CONSTAIN ===== */
+    .noble-form {
+      max-width: 80%;
+      margin: 0 auto;
     }

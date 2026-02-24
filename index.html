@@ -555,199 +555,103 @@
         <h2 class="card-section-title font1 sr">Hộp mừng cưới</h2>
         <div class="card-section-subtitle sr">Cảm ơn tình cảm của mọi người đã dành cho cô dâu, chú rể!</div>
         <div class="present-box sr sr-scale">
-          <!-- Gift box: click opens quỹ đen directly -->
-          <div class="gift-box-wrap" id="giftBoxBtn" role="button" aria-label="Mở quà mừng cưới">
-            <!-- Sparkles -->
-            <div class="gb-sparkle gb-sparkle-1">✦</div>
-            <div class="gb-sparkle gb-sparkle-2">✦</div>
-            <div class="gb-sparkle gb-sparkle-3">✦</div>
-            <div class="gb-sparkle gb-sparkle-4">✦</div>
+          <!-- Parisian Gift Card -->
+          <div class="parisian-card" id="giftBoxBtn" role="button" aria-label="Mở quà mừng cưới">
+            <!-- Corner ornaments -->
+            <div class="corner corner--tl">
+              <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 38 L2 10 Q2 2 10 2 L38 2" stroke="#c4a454" stroke-width="1.5" fill="none" />
+                <path d="M2 20 Q2 2 20 2" stroke="#c4a454" stroke-width="0.5" fill="none" opacity="0.5" />
+                <circle cx="2" cy="2" r="2" fill="#c4a454" />
+              </svg>
+            </div>
+            <div class="corner corner--tr">
+              <svg viewBox="0 0 40 40" fill="none">
+                <path d="M2 38 L2 10 Q2 2 10 2 L38 2" stroke="#c4a454" stroke-width="1.5" fill="none" />
+                <path d="M2 20 Q2 2 20 2" stroke="#c4a454" stroke-width="0.5" fill="none" opacity="0.5" />
+                <circle cx="2" cy="2" r="2" fill="#c4a454" />
+              </svg>
+            </div>
+            <div class="corner corner--bl">
+              <svg viewBox="0 0 40 40" fill="none">
+                <path d="M2 38 L2 10 Q2 2 10 2 L38 2" stroke="#c4a454" stroke-width="1.5" fill="none" />
+                <path d="M2 20 Q2 2 20 2" stroke="#c4a454" stroke-width="0.5" fill="none" opacity="0.5" />
+                <circle cx="2" cy="2" r="2" fill="#c4a454" />
+              </svg>
+            </div>
+            <div class="corner corner--br">
+              <svg viewBox="0 0 40 40" fill="none">
+                <path d="M2 38 L2 10 Q2 2 10 2 L38 2" stroke="#c4a454" stroke-width="1.5" fill="none" />
+                <path d="M2 20 Q2 2 20 2" stroke="#c4a454" stroke-width="0.5" fill="none" opacity="0.5" />
+                <circle cx="2" cy="2" r="2" fill="#c4a454" />
+              </svg>
+            </div>
 
-            <!-- Flat-design gift box SVG with embedded QR image -->
-            <svg class="gb-svg" viewBox="0 0 220 240" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <!-- Box gradients -->
-                <linearGradient id="boxBodyGrad" x1="0%" y1="0%" x2="110%" y2="110%">
-                  <stop offset="0%" stop-color="#f0b0b0" />
-                  <stop offset="40%" stop-color="#c87070" />
-                  <stop offset="100%" stop-color="#963c3c" />
-                </linearGradient>
-                <linearGradient id="boxSideGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#8a3838" />
-                  <stop offset="100%" stop-color="#6a2828" />
-                </linearGradient>
-                <linearGradient id="lidGrad" x1="0%" y1="0%" x2="100%" y2="120%">
-                  <stop offset="0%" stop-color="#f5c8c8" />
-                  <stop offset="55%" stop-color="#d07878" />
-                  <stop offset="100%" stop-color="#b05858" />
-                </linearGradient>
-                <linearGradient id="lidSideGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#a05050" />
-                  <stop offset="100%" stop-color="#803838" />
-                </linearGradient>
-                <!-- Ribbon: warm gold with shimmer -->
-                <linearGradient id="ribH" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#c8922a" />
-                  <stop offset="20%" stop-color="#e8c87a" />
-                  <stop offset="50%" stop-color="#f5e0a0" />
-                  <stop offset="80%" stop-color="#e0b84a" />
-                  <stop offset="100%" stop-color="#c07828" />
-                </linearGradient>
-                <linearGradient id="ribV" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stop-color="#c8922a" />
-                  <stop offset="25%" stop-color="#f0d878" />
-                  <stop offset="55%" stop-color="#f5e8a8" />
-                  <stop offset="80%" stop-color="#e0b840" />
-                  <stop offset="100%" stop-color="#b87020" />
-                </linearGradient>
-                <!-- Bow loops -->
-                <linearGradient id="bowLoopL" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#f5e8b8" />
-                  <stop offset="35%" stop-color="#d4a030" />
-                  <stop offset="70%" stop-color="#b87820" />
-                  <stop offset="100%" stop-color="#8a5010" />
-                </linearGradient>
-                <linearGradient id="bowLoopR" x1="100%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stop-color="#f5e8b8" />
-                  <stop offset="35%" stop-color="#d4a030" />
-                  <stop offset="70%" stop-color="#b87820" />
-                  <stop offset="100%" stop-color="#8a5010" />
-                </linearGradient>
-                <linearGradient id="bowTailL" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#e8d070" />
-                  <stop offset="100%" stop-color="#a06818" />
-                </linearGradient>
-                <linearGradient id="bowTailR" x1="100%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stop-color="#e8d070" />
-                  <stop offset="100%" stop-color="#a06818" />
-                </linearGradient>
-                <radialGradient id="bowKnot" cx="40%" cy="35%" r="65%">
-                  <stop offset="0%" stop-color="#fdf0c0" />
-                  <stop offset="45%" stop-color="#d4a030" />
-                  <stop offset="100%" stop-color="#8a5818" />
-                </radialGradient>
-                <!-- Highlight overlays -->
-                <linearGradient id="boxHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stop-color="rgba(255,255,255,0.28)" />
-                  <stop offset="100%" stop-color="rgba(255,255,255,0)" />
-                </linearGradient>
-                <linearGradient id="lidHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stop-color="rgba(255,255,255,0.35)" />
-                  <stop offset="100%" stop-color="rgba(255,255,255,0.04)" />
-                </linearGradient>
-                <!-- QR card shadow -->
-                <filter id="cardShadow" x="-8%" y="-8%" width="120%" height="125%">
-                  <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="rgba(80,20,20,0.28)" />
-                </filter>
-                <filter id="boxShadow" x="-5%" y="-3%" width="115%" height="120%">
-                  <feDropShadow dx="3" dy="6" stdDeviation="6" flood-color="rgba(80,20,20,0.3)" />
-                </filter>
-              </defs>
+            <div class="parisian-header">
+              <p class="pre-title">Vous êtes cordialement invités</p>
 
-              <!-- ═══ BOX BODY ═══ -->
-              <!-- Main front face -->
-              <rect x="16" y="108" width="164" height="120" rx="8" fill="url(#boxBodyGrad)" filter="url(#boxShadow)" />
-              <!-- Right side face (isometric depth) -->
-              <polygon points="180,108 200,118 200,228 180,228" fill="url(#boxSideGrad)" />
-              <!-- Front face highlight (top strip) -->
-              <rect x="16" y="108" width="164" height="38" rx="8" fill="url(#boxHighlight)" opacity="0.6" />
-              <!-- Bottom edge shadow -->
-              <rect x="16" y="220" width="164" height="8" rx="4" fill="rgba(80,20,20,0.35)" />
+              <div class="divider-line">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M7 1 L8.2 5H12.5L9 7.5L10.2 11.5L7 9L3.8 11.5L5 7.5L1.5 5H5.8Z" fill="#c4a454" />
+                </svg>
+              </div>
 
-              <!-- ═══ LID ═══ -->
-              <rect x="8" y="78" width="172" height="34" rx="8" fill="url(#lidGrad)" filter="url(#boxShadow)" />
-              <!-- Lid right side -->
-              <polygon points="180,78 200,88 200,112 180,112" fill="url(#lidSideGrad)" opacity="0.9" />
-              <!-- Lid highlight -->
-              <rect x="8" y="78" width="172" height="14" rx="8" fill="url(#lidHighlight)" />
+              <div class="couple-names"
+                style="font-size:11px; letter-spacing:0.25em; color:#a8904e; font-family:'Cinzel',serif; text-transform:uppercase; margin: 4px 0;">
+                Enveloppe de Mariage
+              </div>
 
-              <!-- ═══ HORIZONTAL RIBBON — across lid and body ═══ -->
-              <!-- On lid -->
-              <rect x="8" y="88" width="192" height="14" rx="3" fill="url(#ribH)" opacity="0.97" />
-              <!-- Ribbon crease / fold at lid bottom edge -->
-              <rect x="8" y="111" width="172" height="3" fill="rgba(140,90,10,0.35)" />
-              <!-- On body -->
-              <rect x="16" y="114" width="185" height="14" rx="2" fill="url(#ribH)" opacity="0.93" />
-              <!-- Ribbon shadow under body ribbon -->
-              <rect x="16" y="127" width="164" height="3" fill="rgba(100,55,5,0.25)" />
+              <div class="divider-line" style="margin-top: 10px;">
+                <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+                  <circle cx="4" cy="4" r="3" stroke="#c4a454" stroke-width="1" />
+                  <circle cx="4" cy="4" r="1" fill="#c4a454" />
+                </svg>
+              </div>
+            </div>
 
-              <!-- ═══ VERTICAL RIBBON — front face ═══ -->
-              <rect x="94" y="78" width="14" height="150" rx="3" fill="url(#ribV)" opacity="0.95" />
-              <!-- Vertical ribbon on right side face (narrower, skewed) -->
-              <polygon points="180,108 192,114 192,228 180,228" fill="url(#ribV)" opacity="0.6" />
+            <!-- QR Code -->
+            <div class="parisian-qr-wrapper">
+              <div class="qr-frame">
+                <div class="qr-inner-corners">
+                  <img src="images/present.png" class="qr-img" alt="QR Mừng Cưới" style="display:none" id="srcImg" />
+                  <canvas id="qrCanvas" width="262" height="262" style="display:block; width:100%;"></canvas>
+                </div>
+                <div class="qr-heart">
+                  <svg width="20" height="18" viewBox="0 0 20 18" fill="none">
+                    <path
+                      d="M10 17C10 17 1 11 1 5C1 2.8 2.8 1 5 1C7 1 8.8 2.2 10 4C11.2 2.2 13 1 15 1C17.2 1 19 2.8 19 5C19 11 10 17 10 17Z"
+                      fill="#c4a454" />
+                  </svg>
+                </div>
+              </div>
+            </div>
 
-              <!-- ═══ QR WINDOW ═══ -->
-              <!-- Outer white card -->
-              <rect x="58" y="120" width="98" height="98" rx="10" fill="white" filter="url(#cardShadow)" />
-              <!-- Inner padding frame -->
-              <rect x="62" y="124" width="90" height="90" rx="7" fill="#fafafa" />
-              <!-- QR image -->
-              <foreignObject x="40" y="100" width="120" height="120">
-                <img loading="lazy" xmlns="http://www.w3.org/1999/xhtml" src="images/present.png" class="gb-qr-img"
-                  alt="QR cô dâu" />
-              </foreignObject>
+            <div class="parisian-footer">
+              <div class="cta">Nhấn để mừng cưới</div>
+              <p class="date">TPBANK — huongnnq</p>
+            </div>
 
-              <!-- ═══ BOW — natural curved paths ═══ -->
-
-              <!-- LEFT LOOP: bezier curves for natural puffed bow loop -->
-              <path d="
-                M 101 75
-                C  88 65,  55 40,  42 48
-                C  30 56,  38 80,  60 82
-                C  72 83,  92 78, 101 75
-              " fill="url(#bowLoopL)" stroke="rgba(100,60,5,0.25)" stroke-width="1" />
-              <!-- Left loop inner shadow crease -->
-              <path d="
-                M 101 75
-                C  90 68,  65 48,  50 52
-                C  40 56,  45 72,  65 78
-              " fill="none" stroke="rgba(80,40,5,0.3)" stroke-width="2.5" stroke-linecap="round" />
-              <!-- Left loop highlight -->
-              <path d="
-                M  98 74
-                C  88 67,  66 48,  52 52
-              " fill="none" stroke="rgba(255,245,190,0.55)" stroke-width="2" stroke-linecap="round" />
-
-              <!-- RIGHT LOOP: mirror -->
-              <path d="
-                M 101 75
-                C 114 65, 147 40, 160 48
-                C 172 56, 164 80, 142 82
-                C 130 83, 110 78, 101 75
-              " fill="url(#bowLoopR)" stroke="rgba(100,60,5,0.25)" stroke-width="1" />
-              <!-- Right loop inner shadow crease -->
-              <path d="
-                M 101 75
-                C 112 68, 137 48, 152 52
-                C 162 56, 157 72, 137 78
-              " fill="none" stroke="rgba(80,40,5,0.3)" stroke-width="2.5" stroke-linecap="round" />
-              <!-- Right loop highlight -->
-              <path d="
-                M 104 74
-                C 114 67, 136 48, 150 52
-              " fill="none" stroke="rgba(255,245,190,0.55)" stroke-width="2" stroke-linecap="round" />
-
-
-
-              <!-- ═══ KNOT (centre of bow) ═══ -->
-              <ellipse cx="101" cy="76" rx="13" ry="10" fill="url(#bowKnot)" stroke="rgba(100,55,5,0.3)"
-                stroke-width="1" />
-              <!-- Knot top highlight -->
-              <ellipse cx="99" cy="73" rx="6" ry="4" fill="rgba(255,248,200,0.55)" />
-              <!-- Knot bottom shadow -->
-              <ellipse cx="102" cy="80" rx="8" ry="3" fill="rgba(80,35,5,0.22)" />
-
-              <!-- ═══ DECORATIVE DETAIL ═══ -->
-              <!-- Small star accents -->
-              <text x="22" y="66" font-size="9" fill="#C9A96E" opacity="0.65" font-family="serif">✦</text>
-              <text x="184" y="82" font-size="7" fill="#C9A96E" opacity="0.45" font-family="serif">✦</text>
+            <!-- Multiple Eiffel Tower silhouettes -->
+            <svg style="position:absolute;bottom:-10px;right:-10px;opacity:0.07;pointer-events:none;" width="90"
+              height="150" viewBox="0 0 80 140" fill="#c4a454">
+              <path
+                d="M40 5 L35 30 L28 30 L25 45 L32 45 L20 80 L18 80 L10 100 L30 100 L30 90 L35 90 L35 135 L45 135 L45 90 L50 90 L50 100 L70 100 L62 80 L60 80 L48 45 L55 45 L52 30 L45 30 Z M30 100 L50 100 L50 105 L30 105 Z" />
             </svg>
-
-            <!-- Pulse ring hint over QR area -->
-            <div class="gb-pulse-ring"></div>
-
-            <!-- Hint text -->
-            <div class="gb-hint">Nhấn để mừng cưới 🎁</div>
+            <svg style="position:absolute;top:-5px;left:10px;opacity:0.05;pointer-events:none;" width="45" height="75"
+              viewBox="0 0 80 140" fill="#c4a454">
+              <path
+                d="M40 5 L35 30 L28 30 L25 45 L32 45 L20 80 L18 80 L10 100 L30 100 L30 90 L35 90 L35 135 L45 135 L45 90 L50 90 L50 100 L70 100 L62 80 L60 80 L48 45 L55 45 L52 30 L45 30 Z M30 100 L50 100 L50 105 L30 105 Z" />
+            </svg>
+            <svg style="position:absolute;bottom:-5px;left:20px;opacity:0.055;pointer-events:none;" width="60"
+              height="100" viewBox="0 0 80 140" fill="#c4a454">
+              <path
+                d="M40 5 L35 30 L28 30 L25 45 L32 45 L20 80 L18 80 L10 100 L30 100 L30 90 L35 90 L35 135 L45 135 L45 90 L50 90 L50 100 L70 100 L62 80 L60 80 L48 45 L55 45 L52 30 L45 30 Z M30 100 L50 100 L50 105 L30 105 Z" />
+            </svg>
+            <svg style="position:absolute;top:30px;right:8px;opacity:0.045;pointer-events:none;" width="32" height="55"
+              viewBox="0 0 80 140" fill="#c4a454">
+              <path
+                d="M40 5 L35 30 L28 30 L25 45 L32 45 L20 80 L18 80 L10 100 L30 100 L30 90 L35 90 L35 135 L45 135 L45 90 L50 90 L50 100 L70 100 L62 80 L60 80 L48 45 L55 45 L52 30 L45 30 Z M30 100 L50 100 L50 105 L30 105 Z" />
+            </svg>
           </div>
         </div>
       </div>
@@ -862,7 +766,7 @@
               <img loading="lazy" src="images/present.png" alt="QR chuyển khoản cô dâu" class="qr-img">
             </div>
             <div class="qr-note">Cảm ơn tình cảm của bạn dành cho cô dâu, chú rể 🌸</div>
-            <button class="qr-secret-btn" id="openQuyDen">🤫 Secret</button>
+            <button class="qr-secret-btn" id="openQuyDen">🤫 Groom</button>
           </div>
         </div>
       </div>
@@ -874,14 +778,13 @@
     <div class="qd-box">
       <button class="qd-close" id="quydenClose">✕</button>
       <span class="qd-icon">🤫</span>
-      <div class="qd-title">Quỹ donate cho chú rể</div>
-      <div class="qd-subtitle"></div>
+      <div class="qd-title">Donate cho chú rể</div>
+      <div class="qd-subtitle"> Hoan hỉ nhận tiền mừng để <strong>chú rể</strong> có tiền lấy vợ</div>
       <div class="qd-qr-wrap">
         <img loading="lazy" src="images/present1.png" alt="QR chú rể">
       </div>
       <div class="qd-divider"></div>
       <div class="qd-label">
-        Hoan hỉ nhận tiền mừng để <strong>chú rể</strong> có tiền lấy vợ<br>
         Xin đa tạ 🍻
       </div>
     </div>
@@ -891,6 +794,48 @@
   <script src="js/countdown.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/app.js"></script>
+  <script>
+    // Draw QR from the uploaded image onto canvas with gold tint
+    const img = document.getElementById('srcImg');
+    const canvas = document.getElementById('qrCanvas');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+    function drawQR() {
+      // Use dimensions based on actual element size to avoid blurriness
+      const width = canvas.width;
+      const height = canvas.height;
+      ctx.drawImage(img, 0, 0, width, height);
+
+      // Apply gold color overlay to dark pixels
+      const imageData = ctx.getImageData(0, 0, width, height);
+      const data = imageData.data;
+      for (let i = 0; i < data.length; i += 4) {
+        const brightness = (data[i] + data[i + 1] + data[i + 2]) / 3;
+        // Check for completely transparent pixels
+        if (data[i + 3] === 0) continue;
+
+        if (brightness < 120) {
+          // Dark pixels → gold
+          data[i] = 139; // R
+          data[i + 1] = 110; // G
+          data[i + 2] = 47; // B
+        } else {
+          // Light pixels → cream white
+          data[i] = 255;
+          data[i + 1] = 252;
+          data[i + 2] = 244;
+          // Optionally, make it fully transparent Instead: 
+          // data[i + 3] = 0;
+        }
+      }
+      ctx.putImageData(imageData, 0, 0);
+    }
+
+    if (img) {
+      img.onload = drawQR;
+      if (img.complete) drawQR();
+    }
+  </script>
 </body>
 
 </html>
