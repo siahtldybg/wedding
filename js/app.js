@@ -162,7 +162,7 @@ function qs(s) { return document.querySelector(s); }
     'images/image9.jpg', 'images/image10.jpg'
   ];
   var FRAME_LABELS = ['01A', '02A', '03A', '04A', '05A'];
-  var SPEED = 0.35;
+  var SPEED = 0.82;
   var offset = 0;
   var paused = false;
   var unitWidth = 0;
@@ -409,32 +409,56 @@ function qs(s) { return document.querySelector(s); }
   }
   fetchWishes(); setInterval(fetchWishes, 60000);
   if (form) {
+    /* Dynamic guest count visibility */
+    var rsvpYes = qs('#rsvp-yes');
+    var rsvpNo = qs('#rsvp-no');
+    var guestGroup = qs('#guest-count-group');
+    if (rsvpYes && rsvpNo && guestGroup) {
+      var updateGuestVis = function () { guestGroup.style.display = rsvpYes.checked ? 'block' : 'none'; };
+      rsvpYes.addEventListener('change', updateGuestVis);
+      rsvpNo.addEventListener('change', updateGuestVis);
+      updateGuestVis();
+    }
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var name = qs('#wf-name').value.trim();
       var msg = qs('#wf-msg').value.trim();
-      /* FIX 2: Read RSVP radio value instead of select */
+      var guests = qs('#wf-guests').value.trim() || '0';
       var rsvpRadio = document.querySelector('input[name="wf-rsvp"]:checked');
-      var rel = rsvpRadio ? rsvpRadio.value : 'Chắc chắn rồi!';
+      var rsvpVal = rsvpRadio ? rsvpRadio.value : 'Chắc chắn rồi!';
+
+      // 'rel' now only represents RSVP status
+      var rel = rsvpVal;
+
       if (!name || !msg) { alert('Vui lòng điền tên và lời chúc nhé! 🌸'); return; }
-      /* Giới hạn độ dài — bảo vệ khỏi spam */
       if (name.length > 100) { alert('Tên quá dài (tối đa 100 ký tự)!'); return; }
       if (msg.length > 500) { alert('Lời chúc quá dài (tối đa 500 ký tự)!'); return; }
       if (!IS_CONFIGURED) { alert('Chưa cấu hình Google Sheets URL.'); return; }
-      var btn = form.querySelector('button[type=submit]');
-      btn.disabled = true; btn.textContent = 'Đang gửi...';
-      fetch(GAS_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: name, rel: rel, msg: msg }) })
+
+      var btn = form.querySelector('.submit-btn-noble');
+      btn.disabled = true;
+      var originalBtnInner = btn.innerHTML;
+      btn.querySelector('span').textContent = 'Đang gửi...';
+
+      fetch(GAS_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, rel: rel, msg: msg, guestNum: guests })
+      })
         .then(function () {
           status.style.display = 'block'; status.textContent = 'Đã gửi lời chúc! Cảm ơn bạn rất nhiều 🌸';
-          form.reset(); btn.disabled = false; btn.textContent = 'Gửi lời chúc 💌';
-          setTimeout(function () { status.style.display = 'none'; }, 3500);
-          setTimeout(fetchWishes, 2500);
+          form.reset(); btn.disabled = false; btn.innerHTML = originalBtnInner;
+          if (updateGuestVis) updateGuestVis();
+          setTimeout(function () { status.style.display = 'none'; }, 5000);
+          setTimeout(fetchWishes, 2000);
         })
         .catch(function () {
           status.style.display = 'block'; status.style.color = '#c0392b';
           status.textContent = 'Có lỗi khi gửi, vui lòng thử lại!';
-          btn.disabled = false; btn.textContent = 'Gửi lời chúc 💌';
-          setTimeout(function () { status.style.display = 'none'; status.style.color = 'var(--c-gold)'; }, 4000);
+          btn.disabled = false; btn.innerHTML = originalBtnInner;
+          setTimeout(function () { status.style.display = 'none'; status.style.color = ''; }, 5000);
         });
     });
   }

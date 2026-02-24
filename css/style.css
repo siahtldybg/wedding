@@ -4,18 +4,21 @@
   font-weight: 400;
   font-style: normal;
 }
+
 @font-face {
   font-family: "Lora";
   src: url(../fonts/lora-semibold.ttf);
   font-weight: 500;
   font-style: normal;
 }
+
 @font-face {
   font-family: "Ergisa";
   src: url(../fonts/ergisa-regular.otf);
   font-weight: 400;
   font-style: normal;
 }
+
 @font-face {
   font-family: "High Spirited";
   src: url(../fonts/high-spirited.otf);
@@ -30,15 +33,18 @@ body {
   --color-primary-raw: 146, 131, 98;
   --text-color-primary: rgb(146, 131, 98);
 }
+
 body a {
   text-decoration: none;
   color: inherit;
 }
+
 body .btn-link {
   text-decoration: none;
   color: inherit;
   color: #3f51b5;
 }
+
 body img {
   max-width: 100%;
 }
@@ -50,9 +56,9 @@ body img {
   overflow: hidden;
 }
 
-.card-wrapper.lesser-angle #card-countdown .card-countdown-inner h2 span span{
-    transform: rotate(3deg);
-    top: 35%;
+.card-wrapper.lesser-angle #card-countdown .card-countdown-inner h2 span span {
+  transform: rotate(3deg);
+  top: 35%;
 }
 
 .card-wrapper.theme-pink {
@@ -60,9 +66,11 @@ body img {
   --color-primary-raw: 254, 130, 140;
   --text-color-primary: #333;
 }
+
 .card-wrapper.theme-pink img.img-themeable {
   filter: brightness(0) saturate(100%) invert(78%) sepia(26%) saturate(5007%) hue-rotate(304deg) brightness(99%) contrast(101%);
 }
+
 .card-wrapper.theme-pink div.div-themeable {
   background: rgb(254, 130, 140) !important;
 }
@@ -72,9 +80,11 @@ body img {
   --color-primary-raw: 131, 4, 13;
   --text-color-primary: rgb(131, 4, 13);
 }
+
 .card-wrapper.theme-red img.img-themeable {
   filter: brightness(0) saturate(100%) invert(12%) sepia(20%) saturate(7291%) hue-rotate(335deg) brightness(123%) contrast(121%);
 }
+
 .card-wrapper.theme-red div.div-themeable {
   background: var(--color-primary) !important;
 }
@@ -89,6 +99,7 @@ body img {
 #envelop-photo {
   position: relative;
 }
+
 #envelop-photo .pt1 {
   width: 50%;
   aspect-ratio: 1;
@@ -102,6 +113,7 @@ body img {
   transform-origin: center;
   z-index: 1;
 }
+
 #envelop-photo .pt2 {
   background-image: url(./images/img-4.jpg);
   width: 46%;
@@ -117,10 +129,12 @@ body img {
   background-color: #fff;
   border: 5px solid #fff;
 }
-#envelop-photo > img {
+
+#envelop-photo>img {
   width: 100%;
 }
-#envelop-photo > img.front {
+
+#envelop-photo>img.front {
   position: absolute;
   z-index: 3;
   bottom: 0;
@@ -135,6 +149,7 @@ body img {
   position: relative;
   padding: 0;
 }
+
 #card-banner .card-banner-inner {
   padding: 32px 12px;
   height: 100%;
@@ -147,6 +162,7 @@ body img {
   color: #fff;
   z-index: 1;
 }
+
 #card-banner::after {
   height: 260px;
   width: 100%;
@@ -164,14 +180,15 @@ body img {
   background-attachment: initial;
   -webkit-background-clip: initial;
 }
+
 #card-banner .wedding-text {
   font-size: 70px;
   line-height: 1;
   text-shadow: rgba(0, 0, 0, 0.2) 1px 2px 3px;
 }
 
-#card-banner .wedding-text.smaller{
-    font-size:50px;
+#card-banner .wedding-text.smaller {
+  font-size: 50px;
 }
 
 #card-banner .wedding-name {
@@ -180,6 +197,7 @@ body img {
   text-transform: uppercase;
   letter-spacing: 1px;
 }
+
 #card-banner .wedding-date {
   font-size: 19px;
   line-height: 1.6;
@@ -194,7 +212,9 @@ body img {
   position: relative;
   overflow: hidden;
 }
-#card-countdown::before, #card-countdown::after {
+
+#card-countdown::before,
+#card-countdown::after {
   content: "";
   display: block;
   width: 100%;
@@ -207,16 +227,19 @@ body img {
   background-attachment: scroll;
   background-origin: content-box;
 }
+
 #card-countdown::before {
   background-image: url(../images/bg-1.jpg);
   top: 0;
   height: 420px;
 }
+
 #card-countdown::after {
   background-image: url(../images/bg-2.jpg);
   bottom: -80px;
   height: 420px;
 }
+
 #card-countdown .card-countdown-inner {
   position: relative;
   z-index: 1;
@@ -224,19 +247,22 @@ body img {
   color: var(--text-color-primary);
   padding: 30px 16px;
 }
+
 #card-countdown .card-countdown-inner h2 {
   text-transform: uppercase;
   margin-top: 32px;
   margin-bottom: 45px;
   font-size: 90px;
   line-height: 1;
-  color:var(--color-primary);
+  color: var(--color-primary);
 }
+
 #card-countdown .card-countdown-inner h2 span {
   display: inline-block;
   position: relative;
   margin-left: -10%;
 }
+
 #card-countdown .card-countdown-inner h2 span span {
   transform: rotate(25deg);
   position: absolute;
@@ -251,6 +277,7 @@ body img {
   letter-spacing: 1px;
   font-weight: 400;
 }
+
 #card-countdown .card-countdown-inner .img {
   margin-top: 24px;
   padding: 0 16px;
@@ -261,14 +288,17 @@ body img {
   align-items: center;
   justify-content: center;
 }
+
 #countdown .box,
 #countdown .colon {
   font-size: 33px;
   color: var(--text-color-primary);
 }
+
 #countdown .colon {
   padding: 0 12px;
 }
+
 #countdown .box {
   min-width: 45px;
 }
@@ -276,25 +306,29 @@ body img {
 #card-gallery-film-frame {
   position: relative;
 }
-#card-gallery-film-frame > img {
+
+#card-gallery-film-frame>img {
   position: absolute;
   z-index: 0;
   left: 0;
   top: 0;
 }
+
 #card-gallery-film-frame .fill-frame-inner {
   aspect-ratio: 575/153;
   width: 100%;
-  padding:0;
+  padding: 0;
 }
-#card-gallery-film-frame .fill-frame-inner > div {
+
+#card-gallery-film-frame .fill-frame-inner>div {
   padding: 4% 0;
   height: 100%;
   display: flex;
   align-items: center;
   margin-left: -18.5%;
-  gap:1.5px;
+  gap: 1.5px;
 }
+
 #card-gallery-film-frame .fill-frame-inner .img {
   aspect-ratio: 314/216;
   height: 100%;
@@ -316,73 +350,92 @@ body img {
   background-color: #3f5c84;
   color: #fff;
 }
+
 #card-gallery .card-gallery-header {
   color: var(--text-color-primary);
   padding: 20px;
 }
+
 #card-gallery .card-gallery-header .groom {
   display: flex;
 }
+
 #card-gallery .card-gallery-header .groom .info {
   width: 50%;
 }
-#card-gallery .card-gallery-header .groom .info > div {
+
+#card-gallery .card-gallery-header .groom .info>div {
   top: 20px;
   left: -5px;
 }
-#card-gallery .card-gallery-header .groom .info > div .name {
+
+#card-gallery .card-gallery-header .groom .info>div .name {
   margin-top: -16px;
   padding-left: 24px;
 }
-#card-gallery .card-gallery-header .groom .info > div .font1 {
+
+#card-gallery .card-gallery-header .groom .info>div .font1 {
   font-size: 70px;
 }
+
 #card-gallery .card-gallery-header .groom .img {
   width: 50%;
 }
+
 #card-gallery .card-gallery-header .groom .img .img-inner {
   width: calc(100% + 60px);
   transform: rotate(-5deg) translateX(-10px);
 }
+
 #card-gallery .card-gallery-header .bride {
   margin-top: -80px;
   display: flex;
 }
+
 #card-gallery .card-gallery-header .bride .info {
   width: 45%;
 }
-#card-gallery .card-gallery-header .bride .info > div {
+
+#card-gallery .card-gallery-header .bride .info>div {
   bottom: 20%;
   left: 15%;
 }
+
 #card-gallery .card-gallery-header .bride .img {
   padding-left: 15px;
   width: 55%;
 }
+
 #card-gallery .card-gallery-header .info {
   position: relative;
 }
-#card-gallery .card-gallery-header .info > div {
+
+#card-gallery .card-gallery-header .info>div {
   position: absolute;
 }
-#card-gallery .card-gallery-header .info > div .label {
+
+#card-gallery .card-gallery-header .info>div .label {
   font-size: 40px;
   line-height: 1;
   font-weight: 500;
 }
-#card-gallery .card-gallery-header .info > div .name {
+
+#card-gallery .card-gallery-header .info>div .name {
   font-size: 24px;
   text-transform: uppercase;
 }
-#card-gallery .card-gallery-header .info > div .dob {
+
+#card-gallery .card-gallery-header .info>div .dob {
   font-size: 20px;
 }
+
 #card-gallery .card-gallery-header .img {
   position: relative;
   flex: 1;
   text-align: center;
   z-index: 1;
 }
+
 #card-gallery .card-gallery-header .img .img-inner {
   text-align: center;
   position: relative;
@@ -394,13 +447,16 @@ body img {
   border-radius: 2px;
   transform: rotate(-8deg);
 }
+
 #card-gallery .card-gallery-header .img .img-inner img {
   position: relative;
 }
+
 #card-gallery .card-gallery-header .img:last-child {
   transform: rotate(20deg) translate(-15%, -15%);
   z-index: 0;
 }
+
 #card-gallery .card-gallery-header-background {
   background-image: url(../images/bg-6.jpg);
   height: 300px;
@@ -412,39 +468,42 @@ body img {
 
 .photo-grid {
   -moz-column-count: 2;
-       column-count: 2;
+  column-count: 2;
   -moz-column-gap: 5px;
-       column-gap: 5px;
+  column-gap: 5px;
 }
+
 .photo-grid .photo {
   width: 100%;
   display: block;
   margin-bottom: 5px;
 }
+
 .photo-grid .photo img {
   width: 100%;
   display: block;
 }
-.photo-grid + .view-more {
+
+.photo-grid+.view-more {
   margin-top: 50px;
 }
 
 .photo-grid[data-masonry] {
-    -moz-column-gap: unset;
-    column-gap: unset;
-    -moz-column-count: unset;
-    column-count: unset;
-    margin: 0 -3px;
+  -moz-column-gap: unset;
+  column-gap: unset;
+  -moz-column-count: unset;
+  column-count: unset;
+  margin: 0 -3px;
 }
 
 .photo-grid[data-masonry] .photo {
-    padding: 3px;
-    width: 50%;
-    margin-bottom: 0;
+  padding: 3px;
+  width: 50%;
+  margin-bottom: 0;
 }
 
 .photo-grid[data-masonry] .photo img {
-    height: auto;
+  height: auto;
 }
 
 #card-save-the-date {
@@ -454,6 +513,7 @@ body img {
   background-size: cover;
   position: relative;
 }
+
 #card-save-the-date::before {
   content: "";
   background-color: rgba(1, 1, 1, 0.3);
@@ -464,6 +524,7 @@ body img {
   height: 100%;
   width: 100%;
 }
+
 #card-save-the-date h2 {
   position: absolute;
   z-index: 1;
@@ -479,6 +540,7 @@ body img {
   margin-bottom: 0;
   font-weight: 400;
 }
+
 #card-save-the-date h2 .font1 {
   text-transform: none;
   font-size: 84px;
@@ -493,7 +555,9 @@ body img {
   position: relative;
   overflow: hidden;
 }
-#card-info::before, #card-info::after {
+
+#card-info::before,
+#card-info::after {
   content: "";
   display: block;
   width: 100%;
@@ -505,26 +569,30 @@ body img {
   background-attachment: scroll;
   background-origin: content-box;
 }
+
 #card-info::before {
   background-image: url(../images/bg-4.jpg);
   top: -20px;
   left: -20px;
   height: 420px;
 }
+
 #card-info::after {
   background-image: url(../images/bg-5.jpg);
   bottom: -70px;
   height: 210px;
   background-repeat: repeat-x;
 }
+
 #card-info .card-info-inner {
   color: var(--text-color-primary);
   text-align: center;
   position: relative;
   z-index: 1;
   padding: 30px 12px;
-  padding-top:0;
+  padding-top: 0;
 }
+
 #card-info .parents {
   margin-top: 50px;
   margin-bottom: 36px;
@@ -532,74 +600,89 @@ body img {
   align-items: start;
   justify-content: center;
 }
+
 #card-info .parents .parent {
   text-align: center;
   font-size: 14px;
-  flex:1;
+  flex: 1;
 }
+
 #card-info .parents .parent .label {
   text-transform: uppercase;
 }
+
 #card-info .parents .v-divider {
   height: 90px;
   background-color: var(--color-primary);
   width: 2px;
   margin: 0 20px;
 }
-#card-info .parents.hide-titles .name-title{
-  display:none;
+
+#card-info .parents.hide-titles .name-title {
+  display: none;
 }
 
 #card-info .text {
   font-size: 14px;
 }
+
 #card-info .names {
   margin-top: 24px;
   margin-bottom: 10px;
 }
+
 #card-info .names .name {
   font-size: 40px;
   line-height: 1.3;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
+
 #card-info .names .and {
   font-size: 59px;
   line-height: 45px;
   letter-spacing: 1px;
   margin-top: -8px;
 }
+
 #card-info .date-and-time {
   margin: 16px 0;
 }
+
 #card-info .date-and-time .date-and-time-inner {
   display: inline-block;
   border-top: 2px solid currentColor;
   border-bottom: 2px solid currentColor;
   padding: 8px 0;
 }
+
 #card-info .date-and-time .date-and-time-inner .time {
   font-size: 30px;
   line-height: 1.3;
   text-transform: uppercase;
 }
+
 #card-info .date-and-time .date-and-time-inner .date {
   font-size: 32px;
   line-height: 1.3;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
+
 #card-info .date-and-time .lunar-date {
   margin-top: 12px;
 }
+
 #card-info .hotel {
   font-size: 23px;
   text-transform: uppercase;
 }
+
 #card-info .address {
   font-size: 16px;
   font-style: italic;
 }
+
 #card-info .btn {
   margin: auto;
   display: inline-block;
@@ -609,26 +692,33 @@ body img {
   font-size: 110%;
   margin-top: 16px;
 }
+
 #card-info .event-separator {
   margin: 24px auto;
 }
+
 #card-info .event-separator img {
   width: 180px;
   opacity: 0.5;
 }
+
 #card-info .multiple-events .names {
   margin-bottom: 16px;
 }
+
 #card-info .multiple-events .date-and-time {
   margin-top: 5px;
 }
+
 #card-info .multiple-events .date-and-time .date-and-time-inner {
   border-top: 0;
   border-bottom: 0;
 }
+
 #card-info .multiple-events .date-and-time .lunar-date {
   margin-top: 0;
 }
+
 #card-info .multiple-events .event-title {
   font-size: 16px;
 }
@@ -636,16 +726,20 @@ body img {
 #card-info .both-sides .names {
   margin-bottom: 24px;
 }
+
 #card-info .both-sides .date-and-time {
   margin-top: 5px;
 }
+
 #card-info .both-sides .date-and-time .date-and-time-inner {
   border-top: 0;
   border-bottom: 0;
 }
+
 #card-info .both-sides .date-and-time .lunar-date {
   margin-top: 0;
 }
+
 #card-info .both-sides .side-event-title {
   display: inline-block;
   padding: 8px 32px;
@@ -658,6 +752,7 @@ body img {
   font-size: 16px;
   margin-bottom: 12px;
 }
+
 #card-info .both-sides .horizontal-divider {
   border-top: 2px dashed var(--color-primary);
   opacity: 0.5;
@@ -676,6 +771,7 @@ body img {
   justify-content: center;
   align-items: center;
 }
+
 #card-timeline .timeline-title {
   font-size: 40px;
   line-height: 1.1;
@@ -685,6 +781,7 @@ body img {
   font-weight: 400;
   margin-bottom: 24px;
 }
+
 #card-timeline::before {
   content: "";
   background-color: rgba(1, 1, 1, 0.4);
@@ -695,17 +792,20 @@ body img {
   height: 100%;
   width: 100%;
 }
+
 #card-timeline .timeline-inner {
   position: relative;
   text-align: center;
   color: #fff;
 }
+
 #card-timeline .timeline-items {
   display: flex;
   justify-content: center;
   position: relative;
   color: #fff;
 }
+
 #card-timeline .timeline-items::before {
   content: "";
   position: absolute;
@@ -715,21 +815,25 @@ body img {
   width: 100%;
   top: 46px;
 }
+
 #card-timeline .timeline-items .timeline-item {
   position: relative;
   text-align: center;
   flex: 1;
-  min-width:85px;
+  min-width: 85px;
 }
+
 #card-timeline .timeline-items .timeline-item .timeline-item-icon {
   position: relative;
   display: inline-block;
   height: 36px;
   margin-bottom: 16px;
 }
+
 #card-timeline .timeline-items .timeline-item .timeline-item-icon img {
   max-height: 100%;
 }
+
 #card-timeline .timeline-items .timeline-item .timeline-item-icon::after {
   content: "";
   display: inline-block;
@@ -742,15 +846,18 @@ body img {
   left: 50%;
   transform: translateX(-50%);
 }
+
 #card-timeline .timeline-items .timeline-item .timeline-item-content {
   margin-top: 12px;
   position: relative;
 }
+
 #card-timeline .timeline-items .timeline-item .timeline-item-content .time {
   font-size: 17px;
   line-height: 1.1;
   margin-bottom: 4px;
 }
+
 #card-timeline .timeline-items .timeline-item .timeline-item-content .title {
   font-size: 10px;
   line-height: 1.4;
@@ -758,21 +865,21 @@ body img {
 }
 
 #card-dresscode {
-    position: relative;
-    background-repeat: no-repeat;
-    background-position: bottom;
-    background-size: cover;
-    background-image: url(../images/bg-0.jpg);
-    text-align: center;
-    position: relative;
-    overflow: hidden;
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: cover;
+  background-image: url(../images/bg-0.jpg);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
-#card-dresscode .dresscode-inner{
-    position: relative;
-    text-align: center;
-    padding: 40px 12px;
-    text-align: center;
+#card-dresscode .dresscode-inner {
+  position: relative;
+  text-align: center;
+  padding: 40px 12px;
+  text-align: center;
 }
 
 #card-dresscode .dresscode-title {
@@ -783,35 +890,35 @@ body img {
   text-align: center;
   font-weight: 400;
   margin-bottom: 24px;
-  color:var(--color-primary);
+  color: var(--color-primary);
 }
 
-#card-dresscode .dresscode-wrapper{
-    position:relative;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+#card-dresscode .dresscode-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#card-dresscode .dresscode-wrapper .code-box{
-    position: relative;
-    width: 40px;
-    height: 40px;
-    box-shadow: rgb(0, 0, 0) 0px 15px 20px -15px;
-    background-color: var(--color);
-    border-radius: 40px;
-    margin-left: -8px;
+#card-dresscode .dresscode-wrapper .code-box {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  box-shadow: rgb(0, 0, 0) 0px 15px 20px -15px;
+  background-color: var(--color);
+  border-radius: 40px;
+  margin-left: -8px;
 }
 
 #card-calendar {
-    border-bottom: 2px solid var(--color-primary);
-    background-repeat: no-repeat;
-    background-position: bottom;
-    background-size: cover;
-    background-image: url(../images/bg-0.jpg);
-    text-align: center;
-    position: relative;
-    overflow: hidden;
+  border-bottom: 2px solid var(--color-primary);
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: cover;
+  background-image: url(../images/bg-0.jpg);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
 #card-calendar::before {
@@ -826,6 +933,7 @@ body img {
   background-attachment: scroll;
   background-origin: content-box;
 }
+
 #card-calendar::before {
   background-image: url(../images/bg-4.jpg);
   top: -20px;
@@ -833,7 +941,7 @@ body img {
   height: 420px;
 }
 
-#card-calendar > .inner {
+#card-calendar>.inner {
   position: relative;
   z-index: 1;
   padding: 36px 16px;
@@ -884,10 +992,12 @@ body img {
   position: relative;
   overflow: hidden;
 }
+
 #card-love-story .card-love-story-inner {
   position: relative;
   z-index: 1;
 }
+
 #card-love-story h2 {
   margin-bottom: 50px;
   font-size: 30px;
@@ -895,30 +1005,34 @@ body img {
   color: var(--color-primary);
   text-transform: uppercase;
 }
+
 #card-love-story h2 .font1 {
   text-transform: none;
   font-size: 60px;
 }
 
-#card-love-story div.sub-title{
-    margin-bottom: 50px;
-    color: var(--text-color-primary);
-    text-align: center;
-    margin-top: -44px;
-    padding: 0 16px;
+#card-love-story div.sub-title {
+  margin-bottom: 50px;
+  color: var(--text-color-primary);
+  text-align: center;
+  margin-top: -44px;
+  padding: 0 16px;
 }
 
 #card-love-story .groom-bride {
   color: var(--text-color-primary);
 }
+
 #card-love-story .groom-bride .groom {
   display: flex;
 }
+
 #card-love-story .groom-bride .groom .img,
 #card-love-story .groom-bride .groom .info {
   width: 50%;
 }
-#card-love-story .groom-bride .groom .info > div {
+
+#card-love-story .groom-bride .groom .info>div {
   top: 40px;
   left: 45%;
   transform: translateX(-50%);
@@ -929,45 +1043,54 @@ body img {
   width: calc(100% + 24px);
   transform: rotate(-10deg) translateX(-10px);
 }
+
 #card-love-story .groom-bride .bride {
   display: flex;
 }
+
 #card-love-story .groom-bride .bride .img,
 #card-love-story .groom-bride .bride .info {
   width: 50%;
 }
-#card-love-story .groom-bride .bride .info > div {
+
+#card-love-story .groom-bride .bride .info>div {
   top: 16px;
   left: 52%;
   transform: translateX(-50%);
   width: 100%;
 }
+
 #card-love-story .groom-bride .info {
   position: relative;
 }
-#card-love-story .groom-bride .info > div {
+
+#card-love-story .groom-bride .info>div {
   position: absolute;
   text-align: center;
 }
-#card-love-story .groom-bride .info > div .label {
+
+#card-love-story .groom-bride .info>div .label {
   font-size: 40px;
   line-height: 1;
   font-weight: 500;
 }
-#card-love-story .groom-bride .info > div .name {
+
+#card-love-story .groom-bride .info>div .name {
   font-size: 24px;
   text-transform: uppercase;
 }
 
-#card-love-story .groom-bride .info > div .dob {
+#card-love-story .groom-bride .info>div .dob {
   font-size: 20px;
 }
+
 #card-love-story .groom-bride .img {
   position: relative;
   flex: 1;
   text-align: center;
   z-index: 1;
 }
+
 #card-love-story .groom-bride .img .img-inner {
   text-align: center;
   position: relative;
@@ -979,9 +1102,11 @@ body img {
   border-radius: 2px;
   transform: rotate(-15deg);
 }
+
 #card-love-story .groom-bride .img .img-inner img {
   position: relative;
 }
+
 #card-love-story .groom-bride .img:last-child {
   transform: rotate(20deg) translate(-15%, -15%);
   z-index: 0;
@@ -993,6 +1118,7 @@ body img {
   color: var(--text-color-primary);
   position: relative;
 }
+
 #card-love-story .timeline::before {
   content: "";
   display: block;
@@ -1005,8 +1131,8 @@ body img {
   height: calc(100% - 12px);
 }
 
-#card-love-story .timeline.paragraph::before{
-    content:none;
+#card-love-story .timeline.paragraph::before {
+  content: none;
 }
 
 #card-love-story .timeline .timeline-event {
@@ -1014,9 +1140,9 @@ body img {
   margin-bottom: 28px;
 }
 
-#card-love-story .timeline.paragraph .timeline-event{
-    padding-left:0;
-    text-align:justify;
+#card-love-story .timeline.paragraph .timeline-event {
+  padding-left: 0;
+  text-align: justify;
 }
 
 #card-love-story .timeline .timeline-event .name {
@@ -1026,6 +1152,7 @@ body img {
   line-height: 1.6;
   position: relative;
 }
+
 #card-love-story .timeline .timeline-event .name::before {
   content: "";
   position: absolute;
@@ -1039,6 +1166,7 @@ body img {
   z-index: 1;
   transform: translateY(-50%);
 }
+
 #card-love-story .timeline .timeline-event .text {
   margin-top: 4px;
   font-size: 15px;
@@ -1061,6 +1189,7 @@ body img {
   position: relative;
   overflow: hidden;
 }
+
 #card-comments::after {
   content: "";
   display: block;
@@ -1074,28 +1203,35 @@ body img {
   background-attachment: scroll;
   background-origin: content-box;
 }
+
 #card-comments::after {
   background-image: url(../images/bg-7.jpg);
   bottom: 0;
   height: 420px;
 }
+
 #card-comments .inner {
   position: relative;
   padding: 0 20px;
   z-index: 1;
 }
-#card-comments .card-section-title,#card-banks .card-section-title {
+
+#card-comments .card-section-title,
+#card-banks .card-section-title {
   font-size: 60px;
   color: inherit;
   margin-bottom: 0;
   color: var(--color-primary);
   text-align: center;
 }
-#card-comments .card-section-subtitle, #card-banks .card-section-subtitle {
+
+#card-comments .card-section-subtitle,
+#card-banks .card-section-subtitle {
   margin-bottom: 24px;
   color: var(--text-color-primary);
   text-align: center;
 }
+
 #card-comments .comment-form {
   background-color: rgba(var(--color-primary-raw), 0.25);
   padding: 16px;
@@ -1105,10 +1241,12 @@ body img {
   padding: 12px 0;
   color: var(--text-color-primary, #333);
 }
+
 #card-comments .comment-list .comment-box .fullname {
   font-weight: 500;
-  color:var(--color-primary);
+  color: var(--color-primary);
 }
+
 #card-comments .thankyou {
   font-size: 65px;
   color: var(--color-primary);
@@ -1126,10 +1264,10 @@ body img {
   border-bottom: 2px solid var(--color-primary);
 }
 
-#card-gift .inner{
-    position: relative;
-    padding: 0 20px;
-    z-index: 1;
+#card-gift .inner {
+  position: relative;
+  padding: 0 20px;
+  z-index: 1;
 }
 
 #card-gift .card-section-title {
@@ -1139,14 +1277,17 @@ body img {
   color: var(--color-primary);
   text-align: center;
 }
+
 #card-gift .card-section-subtitle {
   margin-bottom: 24px;
   color: var(--color-primary);
   text-align: center;
 }
+
 #card-gift .present-box {
   text-align: center;
 }
+
 #card-gift .present-box .present-box-inner {
   color: var(--color-primary);
   border: 2px solid currentColor;
@@ -1154,15 +1295,16 @@ body img {
   border-radius: 8px;
   display: inline-block;
   margin: auto;
-  cursor:pointer;
+  cursor: pointer;
 }
+
 #card-gift .present-box .present-box-inner img {
   width: 200px;
 }
 
-#card-banks{
-    padding-left:24px;
-    padding-right:24px;
+#card-banks {
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 .bank-list {
@@ -1172,16 +1314,16 @@ body img {
 }
 
 .bank-list .bank-box {
-    flex: 1; 
-    padding: 16px;
-    border: 2px dashed var(--color-primary);
-    border-radius: 12px;
-    text-align: center;
-    color: var(--color-primary);
+  flex: 1;
+  padding: 16px;
+  border: 2px dashed var(--color-primary);
+  border-radius: 12px;
+  text-align: center;
+  color: var(--color-primary);
 }
 
 .bank-list .bank-box.single {
-    border: 0;
+  border: 0;
 }
 
 .bank-list .bank-box .title {
@@ -1189,22 +1331,24 @@ body img {
   margin-bottom: 10px;
   font-weight: 500;
 }
+
 .bank-list .bank-box .qr-code img {
   width: 100%;
   display: block;
   cursor: zoom-in;
   margin: auto;
-  max-width:300px;
+  max-width: 300px;
 }
 
 .bank-list .bank-box.single .qr-code img {
   max-width: 85%;
 }
 
-.bank-list .bank-box .info > div {
+.bank-list .bank-box .info>div {
   margin: 10px 0;
 }
-.bank-list .bank-box .info > div:last-child {
+
+.bank-list .bank-box .info>div:last-child {
   margin-bottom: 0;
 }
 
@@ -1217,29 +1361,30 @@ body img {
   font-family: "Ergisa";
 }
 
-@media screen and (max-width:480px){
-    #card-love-story .groom-bride.smaller .info > div .name {
-        font-size: 22px;
-    }
-    #card-love-story .groom-bride.smaller .img:last-child {
-        transform: rotate(20deg) translate(-10%, -15%);
-    }
+@media screen and (max-width:480px) {
+  #card-love-story .groom-bride.smaller .info>div .name {
+    font-size: 22px;
+  }
+
+  #card-love-story .groom-bride.smaller .img:last-child {
+    transform: rotate(20deg) translate(-10%, -15%);
+  }
 }
 
-@media screen and (min-width:400px){
-    #card-banner .wedding-text {
-        font-size: 75px;
-    }
+@media screen and (min-width:400px) {
+  #card-banner .wedding-text {
+    font-size: 75px;
+  }
 }
 
-@media screen and (min-width:500px){
-    #card-timeline .timeline-items .timeline-item {
-        min-width: 120px;
-    }
+@media screen and (min-width:500px) {
+  #card-timeline .timeline-items .timeline-item {
+    min-width: 120px;
+  }
 
-    #card-banner .wedding-text.smaller {
-        font-size: 65px;
-    }
+  #card-banner .wedding-text.smaller {
+    font-size: 65px;
+  }
 }
 
 @media screen and (min-width: 600px) {
@@ -1248,14 +1393,17 @@ body img {
     width: 100%;
     height: 300px;
   }
-  #card-love-story .groom-bride .bride .info > div {
+
+  #card-love-story .groom-bride .bride .info>div {
     top: 16px;
     transform: scale(1.15) translateX(-50%);
   }
-  #card-love-story .groom-bride .groom .info > div {
+
+  #card-love-story .groom-bride .groom .info>div {
     top: 80px;
     transform: scale(1.15) translateX(-50%);
   }
+
   #envelop-photo .pt2 {
     border: 12px solid #fff;
   }

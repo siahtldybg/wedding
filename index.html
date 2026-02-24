@@ -23,7 +23,7 @@
   <link href="css/style.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&family=Dancing+Script:wght@500;600&family=DM+Mono:wght@400;500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&family=Dancing+Script:wght@500;600&family=DM+Mono:wght@400;500&family=Ms+Madi&display=swap"
     rel="stylesheet">
 
   <link rel="stylesheet" href="css/custom.css">
@@ -85,7 +85,13 @@
     <!-- COUNTDOWN -->
     <div id="card-countdown" class="card-section">
       <div class="card-countdown-inner">
-        <h2><span class="bride font1">TH<span class="groom font1"></span></span></h2>
+        <div class="noble-monogram sr sr-scale">
+          <div class="m-wrap">
+            <span class="m-letter t-letter">T</span>
+            <span class="m-letter h-letter">H</span>
+          </div>
+          <div class="m-divider"></div>
+        </div>
         <h3 class="sr">We will become<br>Husband and wife in</h3>
         <div id="live-countdown" class="sr">
           <div class="lcd-box">
@@ -752,42 +758,59 @@
         <h2 class="card-section-title font1 sr">Sổ lưu bút</h2>
         <div class="card-section-subtitle sr">Gửi lời chúc đến cô dâu và chú rể nhé 💌</div>
         <!-- FIX 2: Replaced select dropdown with RSVP attendance question -->
-        <form id="wishForm" class="comment-form sr">
-          <div class="form-group">
-            <input type="text" class="form-control" id="wf-name" placeholder="Tên của bạn *" required maxlength="100">
-          </div>
-          <div class="form-group">
-            <textarea class="form-control" id="wf-msg" rows="3" placeholder="Lời chúc của bạn *" required
-              maxlength="500"></textarea>
-            <div id="wf-char-counter" style="text-align:right;font-size:0.72rem;color:#bbb;margin-top:3px;">0 / 500
+        <form id="wishForm" class="noble-form sr">
+          <div class="form-row">
+            <div class="form-group floating-input">
+              <input type="text" class="form-control" id="wf-name" placeholder=" " required maxlength="100">
+              <label for="wf-name">Tên của bạn *</label>
+              <span class="input-icon">👤</span>
+            </div>
+
+            <div class="form-group floating-input">
+              <textarea class="form-control" id="wf-msg" rows="3" placeholder=" " required maxlength="500"></textarea>
+              <label for="wf-msg">Lời chúc của bạn *</label>
+              <span class="input-icon">✍️</span>
+              <div id="wf-char-counter" class="char-counter">0 / 500</div>
             </div>
           </div>
-          <div class="form-group">
-            <b>
-              <div class="rsvp-question">Bạn sẽ tham dự chứ? 🥂</div>
-            </b>
-            <div class="rsvp-options">
-              <div class="rsvp-option">
+
+          <div class="rsvp-section">
+            <h4 class="rsvp-title">Bạn sẽ tham dự chứ?</h4>
+            <div class="rsvp-modern-options">
+              <label class="rsvp-card">
                 <input type="radio" name="wf-rsvp" id="rsvp-yes" value="Chắc chắn rồi!" checked>
-                <label for="rsvp-yes">
-                  <span class="rsvp-emoji">🎉</span>
-                  Chắc chắn rồi!
-                </label>
-              </div>
-              <div class="rsvp-option">
+                <div class="rsvp-card-content">
+                  <span class="rsvp-icon">🥂</span>
+                  <span class="rsvp-text">Tham dự</span>
+                </div>
+              </label>
+
+              <label class="rsvp-card">
                 <input type="radio" name="wf-rsvp" id="rsvp-no" value="Mình bận...">
-                <label for="rsvp-no">
-                  <span class="rsvp-emoji">🥺</span>
-                  Bận mất rồi
-                </label>
-              </div>
+                <div class="rsvp-card-content">
+                  <span class="rsvp-icon">✉️</span>
+                  <span class="rsvp-text">Không tham dự</span>
+                </div>
+              </label>
             </div>
           </div>
-          <div class="group-btns text-center">
-            <button type="submit" class="btn">Gửi lời chúc và Xác nhận💌</button>
+
+          <div id="guest-count-group" class="guest-input-wrap">
+            <div class="form-group floating-input">
+              <input type="number" class="form-control" id="wf-guests" placeholder=" " min="1" max="10" value="1">
+              <label for="wf-guests">Số người tham dự *</label>
+              <span class="input-icon">👥</span>
+            </div>
+            <p class="guest-note">* Nhập 1 nếu bạn đi một mình nhé</p>
           </div>
-          <div id="wf-status"
-            style="text-align:center;margin-top:10px;font-size:0.85rem;color:var(--c-gold);display:none;"></div>
+
+          <div class="form-actions">
+            <button type="submit" class="submit-btn-noble">
+              <span>Gửi lời chúc & Xác nhận</span>
+              <i class="btn-shine"></i>
+            </button>
+            <div id="wf-status" class="form-status"></div>
+          </div>
         </form>
         <div id="wishCountRow" style="text-align:center"></div>
         <!-- FIX 3: Added drag-to-scroll hint -->
