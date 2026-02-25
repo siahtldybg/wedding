@@ -2325,6 +2325,7 @@
       line-height: 1.55;
       display: -webkit-box;
       -webkit-line-clamp: 3;
+      line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
       flex: 1;
@@ -2646,6 +2647,13 @@
       box-shadow: none !important;
     }
 
+    #wf-guests {
+      font-family: var(--font-sans) !important;
+      font-size: 1.2rem !important;
+      font-weight: 500;
+      text-align: center;
+    }
+
     .noble-form .form-control:focus {
       border-bottom-color: var(--c-gold);
     }
@@ -2828,4 +2836,111 @@
     .noble-form {
       max-width: 80%;
       margin: 0 auto;
+    }
+
+    /* ===== NEW PARISIAN GIFT MODAL (PGM) ===== */
+    #giftModalOverlay {
+      position: fixed;
+      inset: 0;
+      z-index: 25000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    #giftModalOverlay.open {
+      display: flex;
+    }
+
+    .pgm-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(14, 11, 9, 0.7);
+      backdrop-filter: blur(8px);
+    }
+
+    .pgm-wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 360px;
+      perspective: 1000px;
+    }
+
+    .pgm-card {
+      position: relative;
+      background: linear-gradient(160deg, #faf7f0 0%, #f5f0e4 40%, #ede5d0 100%);
+      border: 1px solid rgba(196, 164, 84, 0.4);
+      padding: 44px 32px 36px;
+      border-radius: 4px;
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(196, 164, 84, 0.2);
+      animation: pgmSlideIn 0.5s cubic-bezier(.22, .68, 0, 1.2) both;
+    }
+
+    @keyframes pgmSlideIn {
+      from {
+        transform: translateY(30px) scale(0.95);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    .pgm-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      color: #a8904e;
+      font-size: 1.2rem;
+      cursor: pointer;
+      z-index: 10;
+      padding: 5px;
+      line-height: 1;
+      transition: transform 0.2s;
+    }
+
+    .pgm-close:hover {
+      transform: scale(1.1);
+      color: #2c1f0a;
+    }
+
+    /* Secret button inside cards */
+    .pgm-card .qr-secret-btn,
+    .parisian-card .qr-secret-btn {
+      margin-top: 24px;
+      background: none;
+      border: 1px dashed rgba(196, 164, 84, 0.3);
+      color: #a8904e;
+      font-size: 10px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      opacity: 0.6;
+      transition: all 0.2s;
+      width: fit-content;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    .pgm-card .qr-secret-btn:hover,
+    .parisian-card .qr-secret-btn:hover {
+      opacity: 1;
+      border-color: #c4a454;
+      background: rgba(196, 164, 84, 0.05);
+    }
+
+    @media (max-width: 400px) {
+      .pgm-card {
+        padding: 38px 24px 30px;
+      }
     }

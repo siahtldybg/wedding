@@ -464,42 +464,73 @@ function qs(s) { return document.querySelector(s); }
   }
 })();
 
-/* QUỸ ĐEN POPUP */
+
+/* 11. GIFT MODALS (Parisian + Quỹ Đen) */
 (function () {
-  var overlay = document.getElementById('quydenOverlay');
-  var closeBtn = document.getElementById('quydenClose');
-  var openBtn = document.getElementById('openQuyDen');   // inside main modal
-  var giftBoxBtn = document.getElementById('giftBoxBtn');  // gift box on card
+  var giftOverlay = document.getElementById('giftModalOverlay');
+  var giftClose = document.getElementById('giftModalClose');
+  var giftToggle = document.getElementById('giftToggleBtn');
 
-  function openQD() {
-    // Close Bootstrap modal if open, then show quỹ đen
-    var bsModal = bootstrap.Modal.getInstance(document.getElementById('weddingGiftModal'));
-    if (bsModal) { bsModal.hide(); }
-    setTimeout(function () {
-      overlay.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }, bsModal ? 320 : 0);
+  var qdOverlay = document.getElementById('quydenOverlay');
+  var qdClose = document.getElementById('quydenClose');
+  var qdTriggers = document.querySelectorAll('.qd-trigger-btn');
+  var qdOpenBtn = document.getElementById('openQuyDen'); // Legacy support
+  var giftBoxCard = document.getElementById('giftBoxBtn'); // Gift card in the content
+
+  function openGift() {
+    if (giftOverlay) giftOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
-
-  function closeQD() {
-    overlay.classList.remove('open');
+  function closeGift() {
+    if (giftOverlay) giftOverlay.classList.remove('open');
     document.body.style.overflow = '';
   }
 
-  /* Gift box on card → directly opens quỹ đen */
-  if (giftBoxBtn) giftBoxBtn.addEventListener('click', openQD);
+  function openQD() {
+    // Close Gift modal if opening Quỹ Đen
+    closeGift();
+    setTimeout(function () {
+      if (qdOverlay) qdOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }, 100);
+  }
+  function closeQD() {
+    if (qdOverlay) qdOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
 
-  /* Secret button inside bride modal → also opens quỹ đen */
-  if (openBtn) openBtn.addEventListener('click', openQD);
+  // Event Listeners
+  if (giftToggle) giftToggle.addEventListener('click', openGift);
+  if (giftClose) giftClose.addEventListener('click', closeGift);
+  if (giftOverlay) {
+    giftOverlay.addEventListener('click', function (e) {
+      if (e.target.classList.contains('pgm-backdrop') || e.target.classList.contains('pgm-wrap')) closeGift();
+    });
+  }
 
-  if (closeBtn) closeBtn.addEventListener('click', closeQD);
-  overlay.addEventListener('click', function (e) {
-    if (e.target === overlay) closeQD();
-  });
+  if (giftBoxCard) giftBoxCard.addEventListener('click', openQD);
+  if (qdTriggers) {
+    qdTriggers.forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation(); // Prevent opening the main gift modal if clicking from card
+        openQD();
+      });
+    });
+  }
+  if (qdOpenBtn) qdOpenBtn.addEventListener('click', openQD);
+  if (qdClose) qdClose.addEventListener('click', closeQD);
+  if (qdOverlay) {
+    qdOverlay.addEventListener('click', function (e) {
+      if (e.target === qdOverlay) closeQD();
+    });
+  }
+
+  // Esc key to close both
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closeQD();
+    if (e.key === 'Escape') { closeGift(); closeQD(); }
   });
 })();
+
 
 /* Character counter for wish textarea */
 (function () {

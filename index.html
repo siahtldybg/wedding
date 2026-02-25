@@ -613,8 +613,8 @@
             <div class="parisian-qr-wrapper">
               <div class="qr-frame">
                 <div class="qr-inner-corners">
-                  <img src="images/present.png" class="qr-img" alt="QR Mừng Cưới" style="display:none" id="srcImg" />
-                  <canvas id="qrCanvas" width="262" height="262" style="display:block; width:100%;"></canvas>
+                  <img src="images/present.png" class="qr-img" alt="QR Mừng Cưới"
+                    style="display:block; width:100%; filter: sepia(1) saturate(2.5) hue-rotate(5deg) brightness(0.85);" />
                 </div>
                 <div class="qr-heart">
                   <svg width="20" height="18" viewBox="0 0 20 18" fill="none">
@@ -629,6 +629,7 @@
             <div class="parisian-footer">
               <div class="cta">Nhấn để mừng cưới</div>
               <p class="date">TPBANK — huongnnq</p>
+              <button class="qr-secret-btn qd-trigger-btn">For Groom 🤫</button>
             </div>
 
             <!-- Multiple Eiffel Tower silhouettes -->
@@ -679,7 +680,7 @@
           </div>
 
           <div class="rsvp-section">
-            <h4 class="rsvp-title">Bạn sẽ tham dự chứ?</h4>
+            <h3 class="rsvp-title">Bạn sẽ tham dự chứ ?</h3>
             <div class="rsvp-modern-options">
               <label class="rsvp-card">
                 <input type="radio" name="wf-rsvp" id="rsvp-yes" value="Chắc chắn rồi!" checked>
@@ -740,7 +741,7 @@
       <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
     </svg>
   </button>
-  <button id="giftToggleBtn" data-bs-toggle="modal" data-bs-target="#weddingGiftModal" title="Mừng cưới">
+  <button id="giftToggleBtn" title="Mừng cưới">
     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
       stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="20 12 20 22 4 22 4 12"></polyline>
@@ -751,24 +752,99 @@
     </svg>
   </button>
 
-  <!-- QR Cô dâu modal (kept for floating gift button) -->
-  <div class="modal fade" id="weddingGiftModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5">💝 QR Mừng Cưới</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <!-- QR Cô dâu modal — Parisian style overlay -->
+  <div id="giftModalOverlay" aria-hidden="true">
+    <div class="pgm-backdrop"></div>
+    <div class="pgm-wrap">
+      <!-- Parisian card -->
+      <div class="pgm-card">
+        <button class="pgm-close" id="giftModalClose" aria-label="Đóng">✕</button>
+
+        <!-- Corner ornaments -->
+        <div class="corner corner--tl">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 38 L2 10 Q2 2 10 2 L38 2" stroke="#c4a454" stroke-width="1.5" fill="none" />
+            <path d="M2 20 Q2 2 20 2" stroke="#c4a454" stroke-width="0.5" fill="none" opacity="0.5" />
+            <circle cx="2" cy="2" r="2" fill="#c4a454" />
+          </svg>
         </div>
-        <div class="modal-body gift-modal-body">
-          <div class="qr-card">
-            <div class="qr-eyebrow">Quét mã để chuyển khoản 🌸</div>
-            <div class="qr-img-wrap">
-              <img loading="lazy" src="images/present.png" alt="QR chuyển khoản cô dâu" class="qr-img">
-            </div>
-            <div class="qr-note">Cảm ơn tình cảm của bạn dành cho cô dâu, chú rể 🌸</div>
-            <button class="qr-secret-btn" id="openQuyDen">🤫 Groom</button>
+        <div class="corner corner--tr">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M2 38 L2 10 Q2 2 10 2 L38 2" stroke="#c4a454" stroke-width="1.5" fill="none" />
+            <path d="M2 20 Q2 2 20 2" stroke="#c4a454" stroke-width="0.5" fill="none" opacity="0.5" />
+            <circle cx="2" cy="2" r="2" fill="#c4a454" />
+          </svg>
+        </div>
+        <div class="corner corner--bl">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M2 38 L2 10 Q2 2 10 2 L38 2" stroke="#c4a454" stroke-width="1.5" fill="none" />
+            <path d="M2 20 Q2 2 20 2" stroke="#c4a454" stroke-width="0.5" fill="none" opacity="0.5" />
+            <circle cx="2" cy="2" r="2" fill="#c4a454" />
+          </svg>
+        </div>
+        <div class="corner corner--br">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M2 38 L2 10 Q2 2 10 2 L38 2" stroke="#c4a454" stroke-width="1.5" fill="none" />
+            <path d="M2 20 Q2 2 20 2" stroke="#c4a454" stroke-width="0.5" fill="none" opacity="0.5" />
+            <circle cx="2" cy="2" r="2" fill="#c4a454" />
+          </svg>
+        </div>
+
+        <!-- Header -->
+        <div class="parisian-header">
+          <p class="pre-title">Vous êtes cordialement invités</p>
+          <div class="divider-line">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M7 1 L8.2 5H12.5L9 7.5L10.2 11.5L7 9L3.8 11.5L5 7.5L1.5 5H5.8Z" fill="#c4a454" />
+            </svg>
+          </div>
+          <div
+            style="font-size:11px; letter-spacing:0.25em; color:#a8904e; font-family:'Cinzel',serif; text-transform:uppercase; margin:4px 0;">
+            Enveloppe de Mariage
+          </div>
+          <div class="divider-line" style="margin-top:10px;">
+            <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+              <circle cx="4" cy="4" r="3" stroke="#c4a454" stroke-width="1" />
+              <circle cx="4" cy="4" r="1" fill="#c4a454" />
+            </svg>
           </div>
         </div>
+
+        <!-- QR Frame -->
+        <div class="parisian-qr-wrapper">
+          <div class="qr-frame">
+            <div class="qr-inner-corners">
+              <img src="images/present.png" class="qr-img" alt="QR Mừng Cưới"
+                style="filter: sepia(1) saturate(2.5) hue-rotate(5deg) brightness(0.85);" />
+            </div>
+            <div class="qr-heart">
+              <svg width="20" height="18" viewBox="0 0 20 18" fill="none">
+                <path
+                  d="M10 17C10 17 1 11 1 5C1 2.8 2.8 1 5 1C7 1 8.8 2.2 10 4C11.2 2.2 13 1 15 1C17.2 1 19 2.8 19 5C19 11 10 17 10 17Z"
+                  fill="#c4a454" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="parisian-footer">
+          <div class="cta">Quét mã để mừng cưới</div>
+          <p class="date">TPBANK — huongnnq</p>
+          <button class="qr-secret-btn qd-trigger-btn"> For Groom 🤫</button>
+        </div>
+
+        <!-- Eiffel bg deco -->
+        <svg style="position:absolute;bottom:-10px;right:-10px;opacity:0.06;pointer-events:none;" width="80"
+          height="130" viewBox="0 0 80 140" fill="#c4a454">
+          <path
+            d="M40 5 L35 30 L28 30 L25 45 L32 45 L20 80 L18 80 L10 100 L30 100 L30 90 L35 90 L35 135 L45 135 L45 90 L50 90 L50 100 L70 100 L62 80 L60 80 L48 45 L55 45 L52 30 L45 30 Z M30 100 L50 100 L50 105 L30 105 Z" />
+        </svg>
+        <svg style="position:absolute;top:-5px;left:10px;opacity:0.04;pointer-events:none;" width="40" height="68"
+          viewBox="0 0 80 140" fill="#c4a454">
+          <path
+            d="M40 5 L35 30 L28 30 L25 45 L32 45 L20 80 L18 80 L10 100 L30 100 L30 90 L35 90 L35 135 L45 135 L45 90 L50 90 L50 100 L70 100 L62 80 L60 80 L48 45 L55 45 L52 30 L45 30 Z M30 100 L50 100 L50 105 L30 105 Z" />
+        </svg>
       </div>
     </div>
   </div>
@@ -794,48 +870,7 @@
   <script src="js/countdown.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/app.js"></script>
-  <script>
-    // Draw QR from the uploaded image onto canvas with gold tint
-    const img = document.getElementById('srcImg');
-    const canvas = document.getElementById('qrCanvas');
-    const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
-    function drawQR() {
-      // Use dimensions based on actual element size to avoid blurriness
-      const width = canvas.width;
-      const height = canvas.height;
-      ctx.drawImage(img, 0, 0, width, height);
-
-      // Apply gold color overlay to dark pixels
-      const imageData = ctx.getImageData(0, 0, width, height);
-      const data = imageData.data;
-      for (let i = 0; i < data.length; i += 4) {
-        const brightness = (data[i] + data[i + 1] + data[i + 2]) / 3;
-        // Check for completely transparent pixels
-        if (data[i + 3] === 0) continue;
-
-        if (brightness < 120) {
-          // Dark pixels → gold
-          data[i] = 139; // R
-          data[i + 1] = 110; // G
-          data[i + 2] = 47; // B
-        } else {
-          // Light pixels → cream white
-          data[i] = 255;
-          data[i + 1] = 252;
-          data[i + 2] = 244;
-          // Optionally, make it fully transparent Instead: 
-          // data[i + 3] = 0;
-        }
-      }
-      ctx.putImageData(imageData, 0, 0);
-    }
-
-    if (img) {
-      img.onload = drawQR;
-      if (img.complete) drawQR();
-    }
-  </script>
 </body>
 
 </html>
