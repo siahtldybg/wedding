@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quỳnh Hương & Nguyên Thái · 28.03.2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playwrite+VN:wght@100;200;300;400&family=Dancing+Script:wght@400;500;600;700&family=Ms+Madi&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --bg:         #EDE6F5;
+  --paper:      #F7F2FB;
+  --paper-warm: #F2EBF8;
+  --purple:     #9470B5;
+  --purple-dk:  #6B4A94;
+  --purple-lt:  #C3A8D8;
+  --purple-pale:#EDE6F5;
+  --wax:        #8B5E9E;
+  --wax-dk:     #6A4580;
+  --wax-shine:  #B88FCC;
+  --ink:        #3A2855;
+  --text-md:    #5A4475;
+  --text-lt:    #9470B5;
+}
+
+html, body { min-height:100%; background:var(--bg); overflow-x:hidden; }
+
+/* ── Grain overlay ── */
+body::after {
+  content:'';
+  position:fixed; inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");
+  pointer-events:none; z-index:9999; mix-blend-mode:multiply;
+}
+
+/* ── Background mesh ── */
+body {
+  background-image:
+    radial-gradient(ellipse at 15% 15%, rgba(185,145,225,0.22) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 75%, rgba(148,112,181,0.14) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 45%, rgba(215,195,238,0.12) 0%, transparent 60%);
+}
+
+/* ════ SCENE ════ */
+.scene {
+  display:flex; flex-direction:column; align-items:center;
+  min-height:100vh; padding:48px 16px 80px;
+}
+
+/* ════ ENVELOPE ════ */
+.env-wrap { width:min(500px, 94vw); position:relative; }
+
+.envelope {
+  width:100%; cursor:pointer;
+  transition:transform 0.3s ease, opacity 0.6s ease;
+  user-select:none; position:relative;
+}
+.envelope:not(.opened):hover { transform:scale(1.015) translateY(-6px); }
+.envelope.opened  { cursor:default; }
+.envelope.fading  { opacity:0; transform:translateY(-18px) scale(0.97); pointer-events:none; }
+
+.env-body {
+  background:linear-gradient(160deg, #E8D8F5 0%, #D8C5EE 100%);
+  border-radius:6px 6px 18px 18px;
+  width:100%; padding-bottom:62%; position:relative; overflow:hidden;
+  box-shadow:
+    0 24px 70px rgba(90,50,140,0.22),
+    0 8px 24px rgba(90,50,140,0.12),
+    inset 0 2px 4px rgba(255,255,255,0.6),
+    -2px 0 4px rgba(255,255,255,0.4),
+     2px 0 4px rgba(140,100,190,0.2);
+}
+.env-body::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:56%;
+  background:linear-gradient(180deg, #CEBCE8 0%, #C4AEE2 100%);
+  clip-path:polygon(0 100%, 50% 0%, 100% 100%);
+  border-radius:0 0 18px 18px;
+}
+.env-side-l { position:absolute; top:0; left:0; width:51%; height:100%; background:linear-gradient(90deg,#D5C2EC,#CBB8E6); clip-path:polygon(0 0,100% 50%,0 100%); opacity:.75; }
+.env-side-r { position:absolute; top:0; right:0; width:51%; height:100%; background:linear-gradient(270deg,#D5C2EC,#CBB8E6); clip-path:polygon(100% 0,0 50%,100% 100%); opacity:.75; }
+
+.env-flap {
+  position:absolute; top:0; left:0; width:100%; height:54%;
+  background:linear-gradient(180deg,#D8C5EE,#CEBCE8);
+  clip-path:polygon(0 0,100% 0,50% 90%);
+  transform-origin:top center;
+  transition:transform 0.85s cubic-bezier(0.4,0,0.2,1);
+  z-index:10;
+  box-shadow:0 6px 18px rgba(90,50,140,0.12);
+}
+.env-flap::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.2) 0%,transparent 55%);
+  clip-path:polygon(0 0,100% 0,50% 90%);
+}
+.envelope.opened .env-flap { transform:rotateX(180deg); }
+
+.env-address {
+  position:absolute; bottom:26%; left:50%; transform:translateX(-50%);
+  text-align:center; z-index:5; pointer-events:none;
+}
+.env-to { font-family:'Playwrite VN',cursive; font-size:.68rem; font-weight:300; color:var(--text-lt); display:block; letter-spacing:.15em; margin-bottom:2px; }
+.env-rcpt { font-family:'Playwrite VN',cursive; font-size:1.2rem; font-weight:300; color:var(--text-md); display:block; }
+
+/* ── Botanical on envelope ── */
+.env-bot { position:absolute; pointer-events:none; opacity:.2; }
+
+/* ════ WAX SEAL ════ */
+.wax-seal {
+  position:absolute; top:43%; left:50%; transform:translate(-50%,-50%);
+  z-index:20; cursor:pointer; display:flex; flex-direction:column; align-items:center;
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1), opacity .6s ease;
+}
+.wax-seal:hover .wax-circle { transform:scale(1.08) rotate(4deg); }
+.envelope.opened .wax-seal { opacity:0; pointer-events:none; transform:translate(-50%,-50%) scale(.4) rotate(25deg); }
+
+.wax-circle {
+  width:78px; height:78px; border-radius:50%;
+  background:radial-gradient(circle at 33% 30%,var(--wax-shine),var(--wax) 38%,var(--wax-dk) 78%);
+  display:flex; align-items:center; justify-content:center; position:relative;
+  transition:transform .35s ease;
+  box-shadow:
+    0 6px 20px rgba(107,69,128,.55),
+    0 2px 8px rgba(0,0,0,.22),
+    inset -2px -2px 4px rgba(0,0,0,.25),
+    inset  2px  2px 4px rgba(255,255,255,.25),
+    inset 0 0 12px rgba(107,69,128,.3);
+}
+.wax-circle::before { content:''; position:absolute; inset:5px; border-radius:50%; border:1px solid rgba(255,255,255,.22); }
+.wax-circle::after  { content:''; position:absolute; inset:10px; border-radius:50%; border:1px solid rgba(255,255,255,.14); }
+.wax-mono { font-family:'Ms Madi',cursive; font-size:1.55rem; color:rgba(255,255,255,.93); text-shadow:0 1px 4px rgba(0,0,0,.28); position:relative; z-index:1; letter-spacing:-1px; }
+
+.wax-hint {
+  margin-top:10px; font-family:'Dancing Script',cursive; font-weight:600;
+  font-size:.82rem; color:var(--text-lt); letter-spacing:.06em;
+  animation:floatHint 2.8s ease-in-out infinite;
+}
+@keyframes floatHint { 0%,100%{opacity:.55;transform:translateY(0)} 50%{opacity:1;transform:translateY(-4px)} }
+.envelope.opened .wax-hint { display:none; }
+
+/* ════ CARD CONTAINER ════ */
+.card-wrap {
+  width:min(500px,94vw);
+  max-height:0; overflow:hidden; opacity:0; pointer-events:none;
+  transition:max-height .01s, opacity .7s ease, margin-top .5s ease;
+}
+.card-wrap.visible {
+  max-height:none; opacity:1; pointer-events:auto; margin-top:20px;
+  animation:paperDrop .7s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes paperDrop {
+  from { transform:translateY(-14px) scale(.983); opacity:.5; }
+  70%  { transform:translateY(3px) scale(1.002); }
+  to   { transform:translateY(0) scale(1); opacity:1; }
+}
+
+/* ════════════════════════════════════════════════
+   THE CARD — flat paper, no curves, letterpress
+════════════════════════════════════════════════ */
+.inv-card {
+  position:relative; text-align:center; overflow:hidden;
+  /* Paper: crisp rectangle, slight warm off-white */
+  background:var(--paper);
+  border-radius:0;
+
+  /* Cotton laid paper texture */
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(150,120,190,.018) 3px, rgba(150,120,190,.018) 4px),
+    repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(150,120,190,.013) 3px, rgba(150,120,190,.013) 4px),
+    repeating-linear-gradient(-28deg, transparent, transparent 20px, rgba(170,140,210,.014) 20px, rgba(170,140,210,.014) 21px),
+    radial-gradient(ellipse at 35% 10%, rgba(255,255,255,.65) 0%, transparent 55%),
+    radial-gradient(ellipse at 72% 88%, rgba(215,195,238,.15) 0%, transparent 45%),
+    var(--paper);
+
+  /* Thick card shadow — stacked paper edges */
+  box-shadow:
+    /* Stacked card edges */
+    3px  3px 0 rgba(210,185,235,.7),
+    5px  5px 0 rgba(200,172,228,.5),
+    7px  7px 0 rgba(190,160,220,.35),
+    8px  8px 0 rgba(180,148,210,.2),
+    /* Card left/top light edges */
+   -1px 0   0 rgba(255,255,255,.95),
+    0  -1px  0 rgba(255,255,255,.95),
+    /* Card right/bottom shadow edges */
+    1px  0   0 rgba(130,90,175,.25),
+    0    1px  0 rgba(130,90,175,.18),
+    /* Ambient drop shadow */
+    0 18px 55px rgba(90,50,140,.18),
+    0  8px 24px rgba(90,50,140,.12),
+    0  3px  8px rgba(90,50,140,.1),
+    /* Inner vellum surface glow */
+    inset 0 0 80px rgba(255,255,255,.18);
+
+  padding:0;
+}
+
+/* ── LETTERPRESS DOUBLE-RULE BORDER ──
+   Debossed frame: shadow top-left + light bottom-right = pressed in */
+.card-border-outer {
+  position:absolute; inset:16px;
+  border:1px solid rgba(160,120,200,.3);
+  box-shadow:
+    -1px -1px 0 rgba(255,255,255,.9),
+     1px  1px 0 rgba(100,60,150,.22),
+    inset 1px 1px 2px rgba(255,255,255,.5),
+    inset -1px -1px 1px rgba(100,60,150,.1);
+  pointer-events:none; z-index:1;
+}
+.card-border-inner {
+  position:absolute; inset:22px;
+  border:1px solid rgba(160,120,200,.16);
+  box-shadow:
+    -0.5px -0.5px 0 rgba(255,255,255,.7),
+     0.5px  0.5px 0 rgba(100,60,150,.14);
+  pointer-events:none; z-index:1;
+}
+
+/* ── CARD CONTENT PADDING ── */
+.card-inner { padding:52px 40px 44px; position:relative; z-index:2; }
+
+/* ── PAPER FIBER overlay (SVG noise) ── */
+.paper-noise {
+  position:absolute; inset:0; pointer-events:none; z-index:1; opacity:.45;
+}
+
+/* ── CORNER BOTANICAL ── */
+.cbot { position:absolute; pointer-events:none; opacity:.24; z-index:2; }
+.cbot-tl { top:0; left:0; }
+.cbot-tr { top:0; right:0; transform:scaleX(-1); }
+.cbot-br { bottom:0; right:0; transform:scale(-1,-1); }
+
+/* ── TOP GARLAND RULE ── */
+.garland {
+  position:absolute; top:0; left:0; right:0; pointer-events:none; z-index:3; opacity:.55;
+}
+/* ── BOTTOM GARLAND ── */
+.garland-b {
+  position:absolute; bottom:0; left:0; right:0; pointer-events:none; z-index:3; opacity:.45;
+  transform:scaleY(-1);
+}
+
+/* ── SIDE EDGE BANDS ── */
+.edge-l {
+  position:absolute; top:0; left:0; width:18px; height:100%; pointer-events:none; z-index:2;
+  background:linear-gradient(90deg, rgba(255,255,255,.65) 0%, rgba(240,228,252,.35) 35%, transparent 100%);
+}
+.edge-r {
+  position:absolute; top:0; right:0; width:18px; height:100%; pointer-events:none; z-index:2;
+  background:linear-gradient(270deg, rgba(110,65,160,.18) 0%, rgba(160,120,200,.1) 40%, transparent 100%);
+}
+
+/* ════ TYPOGRAPHY ════ */
+.hw-label {
+  font-family:'Dancing Script',cursive; font-weight:500; font-size:1.05rem;
+  color:var(--text-lt); letter-spacing:.12em; display:block;
+  position:relative; z-index:3;
+  text-shadow: -0.5px -0.5px 0 rgba(255,255,255,.8), 0.5px 0.5px 1px rgba(80,40,120,.2);
+}
+
+.hw-grace {
+  font-family:'Playwrite VN',cursive; font-size:.8rem; font-weight:300;
+  color:var(--text-lt); line-height:2; display:block; letter-spacing:.04em;
+  position:relative; z-index:3;
+}
+
+/* ── BIG MONOGRAM ── */
+.mono-block {
+  position:relative; height:205px;
+  display:flex; align-items:center; justify-content:center;
+  margin:10px auto 6px;
+}
+.mono-logo-block {
+  justify-content:center;
+}
+.mono-logo {
+  max-width:40%;
+  height:auto;
+  object-fit:contain;
+  /* Đổi phần đen của logo sang tím pastel nhạt để đồng bộ tông thiệp */
+  filter: brightness(0) saturate(100%)
+          invert(63%) sepia(23%) saturate(420%)
+          hue-rotate(227deg) brightness(108%) contrast(96%);
+}
+.mono-h {
+  font-family:'Ms Madi',cursive;
+  font-size:clamp(7rem,20vw,10rem);
+  color:var(--purple); opacity:.82; line-height:1;
+  position:absolute; left:14%;
+  /* Deep letterpress deboss with subtle color flow */
+  background:linear-gradient(135deg,#7B5EA7,#C3A8D8,#F2EAD3);
+  background-size:200% 200%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  animation:monoGradient 18s ease-in-out infinite;
+  filter:
+    drop-shadow(-1.5px -1.5px 0 rgba(255,255,255,.7))
+    drop-shadow( 1.5px  1.5px 2px rgba(50,20,90,.45))
+    drop-shadow(0 4px 8px rgba(50,20,90,.15));
+}
+.mono-t {
+  font-family:'Ms Madi',cursive;
+  font-size:clamp(7rem,20vw,10rem);
+  color:var(--text-md); opacity:.55; line-height:1;
+  position:absolute; right:12%; bottom:-4px;
+  background:linear-gradient(135deg,#3A2855,#7B5EA7,#C3A8D8);
+  background-size:200% 200%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  animation:monoGradient 18s ease-in-out infinite reverse;
+  filter:
+    drop-shadow(-1.5px -1.5px 0 rgba(255,255,255,.6))
+    drop-shadow( 1.5px  1.5px 2px rgba(50,20,90,.35))
+    drop-shadow(0 3px 6px rgba(50,20,90,.12));
+}
+.mono-amp {
+  font-family:'Dancing Script',cursive;
+  font-size:clamp(2.2rem,5.5vw,3rem);
+  color:var(--purple-dk);
+  position:absolute; z-index:2; top:43%; left:50%; transform:translate(-50%,-50%);
+  text-shadow:
+    -1px -1px 0 rgba(255,255,255,.9),
+     1px  1px 1px rgba(80,40,130,.35);
+}
+.mono-name-h {
+  position:absolute; left:5%; top:63%;
+  font-family:'Dancing Script',cursive; font-size:clamp(1rem,2.6vw,1.3rem); font-weight:600;
+  color:var(--purple-dk); white-space:nowrap; z-index:3;
+  text-shadow: -0.5px -0.5px 0 rgba(255,255,255,.9), 0.5px 0.5px 1px rgba(80,40,120,.2);
+}
+.mono-name-t {
+  position:absolute; right:4%; top:20%;
+  font-family:'Dancing Script',cursive; font-size:clamp(1rem,2.6vw,1.3rem); font-weight:600;
+  color:var(--text-md); white-space:nowrap; z-index:3;
+  text-shadow: -0.5px -0.5px 0 rgba(255,255,255,.9), 0.5px 0.5px 1px rgba(80,40,120,.2);
+}
+
+@keyframes monoGradient {
+  0%   { background-position:0% 50%; }
+  50%  { background-position:100% 50%; }
+  100% { background-position:0% 50%; }
+}
+
+/* ── DATE BLOCK ── */
+.date-block {
+  display:flex; align-items:center; justify-content:center;
+  margin:20px 0 8px; position:relative; z-index:3;
+}
+.db-side {
+  font-family:'Playwrite VN',cursive; font-size:.88rem; font-weight:300;
+  color:var(--text-md); line-height:1.8;
+}
+.db-side.l {
+  text-align:right; padding-right:14px;
+  box-shadow: 1px 0 0 rgba(255,255,255,.8), 2px 0 0 rgba(180,140,220,.28);
+}
+.db-side.r {
+  text-align:left; padding-left:14px;
+  box-shadow: -1px 0 0 rgba(255,255,255,.8), -2px 0 0 rgba(180,140,220,.28);
+}
+.db-num {
+  font-family:'Dancing Script',cursive; font-weight:700;
+  font-size:clamp(3rem,9vw,4.5rem);
+  color:var(--purple); padding:0 10px; line-height:1;
+  text-shadow:
+    -1.5px -1.5px 0 rgba(255,255,255,.95),
+     1.5px  1.5px 2px rgba(60,20,110,.45),
+     0      2px   4px rgba(60,20,110,.18);
+}
+
+.venue-small {
+  font-family:'Playwrite VN',cursive; font-size:.85rem; font-weight:300;
+  color:var(--text-lt); letter-spacing:.06em; display:block;
+  position:relative; z-index:3;
+}
+
+/* ── SCROLLABLE SECTION — always open ── */
+.inv-scroll { display: block; }
+
+/* ── CONTACT BLOCK ── */
+.contact-row {
+  display: flex; flex-direction: column; gap: 10px;
+  align-items: center; position: relative; z-index: 3;
+}
+.contact-btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  text-decoration: none; color: var(--purple-dk);
+  font-family: 'Playwrite VN', cursive; font-size: .75rem; font-weight: 300;
+  border: 1.5px solid var(--purple-lt); padding: 9px 22px;
+  letter-spacing: .05em; transition: all .3s;
+  box-shadow: -1px -1px 0 rgba(255,255,255,.8), 1px 1px 2px rgba(120,80,170,.2);
+}
+.contact-btn:hover { background: var(--purple); border-color: var(--purple); color: white; }
+/* ── INFO BLOCK: Trang phục · Nhắc nhở · Chi tiết ── */
+.info-block {
+  background: rgba(195,168,216,.07);
+  border: 1px solid rgba(180,140,220,.2);
+  box-shadow: -1px -1px 0 rgba(255,255,255,.8), 1px 1px 2px rgba(120,80,170,.12), inset 0 1px 3px rgba(255,255,255,.5);
+  padding: 18px 16px 16px;
+  margin: 0 0 2px;
+  position: relative; z-index: 3;
+  text-align: left;
+}
+.info-label {
+  font-family: 'Playwrite VN', cursive; font-size: .65rem; font-weight: 300;
+  color: var(--text-lt); letter-spacing: .1em; margin-bottom: 2px;
+  position: relative; z-index: 3;
+}
+.info-divider {
+  height: 1px; margin: 12px 0;
+  background: linear-gradient(to right, transparent, rgba(180,140,220,.4), transparent);
+  box-shadow: 0 1px 0 rgba(255,255,255,.6);
+}
+/* Nhắc nhở: horizontal row of icon+text */
+.mini-rem {
+  display: flex; justify-content: space-between; gap: 4px;
+  margin-top: 8px;
+}
+.mini-rem-item {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  flex: 1;
+}
+.mini-rem-item span {
+  font-family: 'Lora', serif; font-style: italic; font-size: .6rem;
+  color: var(--text-lt); text-align: center; line-height: 1.3;
+}
+/* Chi tiết: horizontal row */
+.mini-det {
+  display: flex; justify-content: space-between; gap: 2px;
+  margin-top: 8px;
+}
+.mini-det-item {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  flex: 1;
+}
+.mini-det-item span {
+  font-family: 'Lora', serif; font-style: italic; font-size: .58rem;
+  color: var(--text-lt); text-align: center; line-height: 1.3;
+}
+
+
+/* ── SECTION TITLES — letterpress deboss ── */
+.sec-title {
+  font-family:'Playwrite VN',cursive; font-size:clamp(1.7rem,5vw,2.4rem); font-weight:300;
+  color:var(--text-md); display:block; margin-bottom:2px;
+  position:relative; z-index:3;
+  text-shadow:
+    -1px -1px 0   rgba(255,255,255,.92),
+    -0.5px -0.5px 0 rgba(255,255,255,.65),
+     1px   1px  1.5px rgba(60,20,110,.42),
+     0.5px 0.5px 1px rgba(60,20,110,.25);
+}
+.sec-sub {
+  font-family:'Lora',serif; font-style:italic; font-size:.76rem;
+  color:var(--text-lt); letter-spacing:.12em; display:block; margin-bottom:18px;
+  position:relative; z-index:3;
+}
+
+/* ── BODY TEXT ── */
+.hw-body {
+  font-family:'Playwrite VN',cursive; font-size:.95rem; font-weight:300;
+  color:var(--ink); line-height:2.1; position:relative; z-index:3;
+}
+.hw-body .hw-names {
+  font-family:'Dancing Script',cursive;
+  font-size:1.35em;
+  color:var(--purple-dk);
+  font-weight:600;
+}
+.hw-body em {
+  font-family:'Dancing Script',cursive; font-size:1.45em;
+  color:var(--purple-dk); font-style:normal;
+  text-shadow:-0.5px -0.5px 0 rgba(255,255,255,.8), 0.5px 0.5px 1px rgba(80,40,120,.25);
+}
+
+/* ── FLORAL DIVIDER ── */
+.div-floral {
+  display:flex; align-items:center; gap:8px;
+  margin:24px 0; position:relative; z-index:3;
+}
+.div-floral::before, .div-floral::after {
+  content:''; flex:1; height:1px;
+  background:linear-gradient(to right,transparent,rgba(180,140,220,.55) 40%,rgba(180,140,220,.55) 60%,transparent);
+  box-shadow:0 1px 0 rgba(255,255,255,.7), 0 -0.5px 0 rgba(120,80,170,.15);
+}
+.div-floral-icon { display:flex; align-items:center; flex-shrink:0; }
+
+/* ── VENUE ── */
+.venue-tag { font-family:'Playwrite VN',cursive; font-size:.72rem; font-weight:300; color:var(--text-lt); display:block; position:relative; z-index:3; }
+.venue-name { font-family:'Playwrite VN',cursive; font-size:1.75rem; font-weight:300; color:var(--text-md); display:block; margin-bottom:14px; position:relative; z-index:3; }
+.map-btn {
+  display:inline-flex; align-items:center; gap:7px;
+  text-decoration:none; color:var(--purple-dk);
+  border:1.5px solid var(--purple-lt); border-radius:0;
+  padding:8px 22px;
+  font-family:'Playwrite VN',cursive; font-size:.74rem; font-weight:300;
+  letter-spacing:.07em; transition:all .3s; position:relative; z-index:3;
+  box-shadow:-1px -1px 0 rgba(255,255,255,.8), 1px 1px 2px rgba(120,80,170,.22);
+}
+.map-btn:hover { background:var(--purple); border-color:var(--purple); color:white; }
+
+/* ═══ TIMELINE — horizontal ═══ */
+.tl { width:100%; position:relative; z-index:3; padding:6px 0 4px; }
+.tl-track {
+  position:relative; display:flex; align-items:flex-start; justify-content:center;
+}
+.tl-track::before {
+  content:''; position:absolute; top:22px; left:8%; right:8%; height:1px;
+  background:linear-gradient(to right,transparent,var(--purple-lt) 10%,var(--purple-lt) 90%,transparent);
+  box-shadow:0 1px 0 rgba(255,255,255,.7), 0 -0.5px 0 rgba(120,80,170,.15);
+}
+.tl-step {
+  flex:1; display:flex; flex-direction:column; align-items:center; position:relative;
+  opacity:0; transform:translateY(20px);
+  transition:opacity .55s ease, transform .55s ease;
+}
+.tl-step.revealed { opacity:1; transform:translateY(0); }
+.tl-step:nth-child(1){transition-delay:0s}
+.tl-step:nth-child(2){transition-delay:.1s}
+.tl-step:nth-child(3){transition-delay:.2s}
+.tl-step:nth-child(4){transition-delay:.3s}
+.tl-step:nth-child(5){transition-delay:.4s}
+
+.tl-time {
+  font-family:'Dancing Script',cursive; font-size:.8rem; font-weight:700;
+  color:var(--purple); text-align:center; order:-1;
+  text-shadow:-0.5px -0.5px 0 rgba(255,255,255,.85), 0.5px 0.5px 1px rgba(80,40,130,.25);
+}
+.tl-dot {
+  width:10px; height:10px; border-radius:50%; margin-top:16px;
+  background:var(--paper); border:2px solid var(--purple); flex-shrink:0; z-index:2;
+  box-shadow:0 0 0 3px rgba(195,168,216,.22), -0.5px -0.5px 0 rgba(255,255,255,.8), 0.5px 0.5px 1px rgba(100,60,150,.28);
+  transition:background .3s, transform .3s;
+}
+.tl-step.revealed .tl-dot { background:var(--purple-lt); transform:scale(1.25); }
+.tl-icon {
+  width:42px; height:42px; border-radius:0; /* Square for paper aesthetic */
+  background:rgba(195,168,216,.12); border:1px solid rgba(195,168,216,.32);
+  display:flex; align-items:center; justify-content:center; margin-top:9px; flex-shrink:0;
+  color:var(--text-md);
+  box-shadow:-1px -1px 2px rgba(255,255,255,.8), 1px 1px 2px rgba(120,80,170,.18);
+}
+.tl-label {
+  font-family:'Playwrite VN',cursive; font-size:.58rem; font-weight:300;
+  color:var(--ink); text-align:center; line-height:1.45; margin-top:6px; padding:0 2px;
+}
+
+/* ═══ SCROLL REVEAL ═══ */
+.sr { opacity:0; transform:translateY(24px); transition:opacity .6s ease,transform .6s ease; }
+.sr.revealed { opacity:1; transform:translateY(0); }
+.sr-scale { opacity:0; transform:scale(.9); transition:opacity .6s ease,transform .6s ease; }
+.sr-scale.revealed { opacity:1; transform:scale(1); }
+.sr-d1{transition-delay:.1s} .sr-d2{transition-delay:.2s} .sr-d3{transition-delay:.3s}
+
+/* ─ COUPLE ─ */
+.couple-wrap { display:flex; justify-content:center; margin:0 0 14px; position:relative; z-index:3; }
+
+/* ─ PALETTE ─ */
+.palette-row { display:flex; justify-content:center; gap:8px; margin:12px 0; flex-wrap:wrap; position:relative; z-index:3; }
+.swatch {
+  width:34px; height:34px; border-radius:0; /* Square swatches for paper feel */
+  box-shadow:-1px -1px 2px rgba(255,255,255,.8), 1px 1px 3px rgba(0,0,0,.18), inset 0 1px 1px rgba(255,255,255,.3);
+  transition:transform .2s;
+}
+.swatch:hover { transform:scale(1.1) rotate(4deg); }
+
+/* ─ REMINDERS ─ */
+.rem-grid { display:flex; justify-content:center; gap:22px; margin:8px 0 0; flex-wrap:wrap; position:relative; z-index:3; }
+.rem-item { display:flex; flex-direction:column; align-items:center; gap:8px; width:88px; }
+.rem-icon {
+  width:68px; height:68px; border-radius:0; /* Square */
+  background:rgba(195,168,216,.15);
+  display:flex; align-items:center; justify-content:center;
+  border:1px solid rgba(195,168,216,.32);
+  box-shadow:-1px -1px 2px rgba(255,255,255,.82), 1px 1px 3px rgba(120,80,170,.22), inset 0 1px 2px rgba(255,255,255,.45);
+}
+.rem-lbl { font-family:'Lora',serif; font-size:.7rem; font-style:italic; color:var(--text-lt); text-align:center; line-height:1.4; }
+
+/* ─ DETAILS ROW ─ */
+.det-row {
+  display:flex; justify-content:center; align-items:flex-start;
+  border-top:1px solid rgba(195,168,216,.28); padding-top:22px; flex-wrap:nowrap;
+  position:relative; z-index:3; overflow-x:auto;
+  box-shadow:0 -1px 0 rgba(255,255,255,.7);
+}
+.det-item { display:flex; flex-direction:column; align-items:center; gap:7px; padding:0 12px; min-width:66px; border-right:1px solid rgba(195,168,216,.2); }
+.det-item:last-child { border-right:none; }
+.det-icon { width:32px; height:32px; color:var(--text-md); }
+.det-lbl { font-family:'Lora',serif; font-size:.68rem; font-style:italic; color:var(--text-lt); text-align:center; line-height:1.3; }
+
+/* ─ RSVP ─ */
+.rsvp-form { max-width:300px; margin:0 auto; display:flex; flex-direction:column; gap:13px; position:relative; z-index:3; }
+.fg { display:flex; flex-direction:column; gap:4px; text-align:left; }
+.fg label { font-family:'Playwrite VN',cursive; font-size:.7rem; font-weight:300; color:var(--text-lt); }
+.fg input, .fg select {
+  background:transparent; border:none; border-bottom:1.5px solid rgba(180,140,220,.4);
+  padding:7px 2px; font-family:'Playwrite VN',cursive; font-size:.88rem; color:var(--ink); font-weight:300;
+  outline:none; transition:border-color .3s; -webkit-appearance:none; border-radius:0;
+}
+.fg input:focus, .fg select:focus { border-color:var(--purple); }
+.rsvp-btn {
+  background:transparent; border:1.5px solid var(--purple); border-radius:0;
+  color:var(--purple-dk); padding:11px;
+  font-family:'Playwrite VN',cursive; font-size:.82rem; font-weight:300;
+  cursor:pointer; transition:all .3s; letter-spacing:.07em; margin-top:5px;
+  box-shadow:-1px -1px 0 rgba(255,255,255,.8), 1px 1px 2px rgba(120,80,170,.22);
+}
+.rsvp-btn:hover { background:var(--purple); color:white; }
+#rsvp-msg { display:none; font-family:'Playwrite VN',cursive; font-size:.85rem; font-weight:300; color:var(--text-md); margin-top:14px; line-height:1.8; }
+
+/* ─ FOOTER ─ */
+.footer-quote {
+  font-family:'Dancing Script',cursive; font-size:clamp(1.8rem,5.2vw,2.4rem);
+  color:var(--text-md); line-height:1.5; position:relative; z-index:3;
+  text-shadow:-1px -1px 0 rgba(255,255,255,.88), 1px 1px 1px rgba(60,20,110,.35);
+}
+.footer-verse {
+  font-family:'Playwrite VN',cursive; font-size:.62rem; font-weight:300;
+  letter-spacing:.2em; color:var(--text-lt); text-transform:uppercase; margin-top:5px;
+  display:block; position:relative; z-index:3;
+}
+
+/* ═══ APPLY FOOTER SCRIPT FONT TO WHOLE CARD ═══ */
+body,
+.scene,
+.inv-card,
+.card-inner,
+.inv-scroll,
+.hw-label,
+.hw-grace,
+.hw-body,
+.venue-small,
+.venue-tag,
+.venue-name,
+.sec-title,
+.sec-sub,
+.db-side,
+.db-num,
+.tl-label,
+.rem-lbl,
+.det-lbl,
+.rsvp-form,
+.rsvp-form .fg label,
+.rsvp-form input,
+.rsvp-form select,
+.rsvp-form button,
+.footer-verse {
+  font-family:'Dancing Script',cursive !important;
+}
+
+/* ─ PETALS ─ */
+.petals-wrap { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:100; overflow:hidden; }
+.petal { position:absolute; top:-60px; opacity:0; animation:petalFall linear infinite; will-change:transform,opacity; }
+@keyframes petalFall {
+  0%   { opacity:0; transform:translateY(-60px) rotate(0deg) scale(var(--ps,1)); }
+  8%   { opacity:var(--po,.7); }
+  90%  { opacity:var(--po,.7); }
+  100% { opacity:0; transform:translateY(110vh) rotate(var(--pr,300deg)) translateX(var(--pd,40px)) scale(var(--ps,1)); }
+}
+
+/* ── Floral corner rings ── */
+.floral-ring { position:absolute; pointer-events:none; opacity:0; animation:floralReveal 1.2s ease forwards; z-index:4; }
+.floral-ring.tl { top:20px; left:20px; }
+.floral-ring.tr { top:20px; right:20px; transform:scaleX(-1); }
+.floral-ring.br { bottom:20px; right:20px; transform:scale(-1,-1); }
+@keyframes floralReveal {
+  0%  { opacity:0; transform:scale(.7) rotate(-15deg); }
+  60% { opacity:1; transform:scale(1.04) rotate(2deg); }
+  100%{ opacity:1; transform:scale(1) rotate(0deg); }
+}
+.floral-ring.tr { animation-delay:.15s; }
+.floral-ring.br { animation-delay:.3s; }
+
+@media(max-width:480px){
+  .inv-card .card-inner { padding:40px 22px 36px; }
+  .mono-block { height:155px; }
+  .rem-grid { gap:12px; }
+  .rem-item { width:76px; }
+  .rem-icon { width:58px; height:58px; }
+}
+</style>
+</head>
+<body>
+
+<!-- SVG Filters -->
+<svg width="0" height="0" style="position:absolute;overflow:hidden;">
+  <defs>
+    <filter id="emboss" x="-8%" y="-8%" width="116%" height="116%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="0.8" result="b"/>
+      <feOffset dx="-1.2" dy="-1.2" in="b" result="b1"/>
+      <feOffset dx="1.2"  dy="1.2"  in="b" result="b2"/>
+      <feFlood flood-color="white"          flood-opacity=".95" result="hi"/>
+      <feFlood flood-color="rgb(70,30,120)" flood-opacity=".42" result="sh"/>
+      <feComposite in="hi" in2="b1" operator="in" result="hiE"/>
+      <feComposite in="sh" in2="b2" operator="in" result="shE"/>
+      <feMerge><feMergeNode in="shE"/><feMergeNode in="SourceGraphic"/><feMergeNode in="hiE"/></feMerge>
+    </filter>
+    <filter id="deboss" x="-8%" y="-8%" width="116%" height="116%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="0.9" result="b"/>
+      <feOffset dx="-1" dy="-1" in="b" result="b1"/>
+      <feOffset dx="1.2" dy="1.2" in="b" result="b2"/>
+      <feFlood flood-color="rgb(55,18,95)" flood-opacity=".52" result="sh"/>
+      <feFlood flood-color="white"          flood-opacity=".85" result="hi"/>
+      <feComposite in="sh" in2="b1" operator="in" result="shE"/>
+      <feComposite in="hi" in2="b2" operator="in" result="hiE"/>
+      <feMerge><feMergeNode in="shE"/><feMergeNode in="SourceGraphic"/><feMergeNode in="hiE"/></feMerge>
+    </filter>
+  </defs>
+</svg>
+
+<!-- Petals -->
+<div class="petals-wrap" id="petalsWrap"></div>
+
+<div class="scene">
+<div class="env-wrap">
+
+<!-- ════════ ENVELOPE ════════ -->
+<div class="envelope" id="envelope" onclick="openEnvelope()">
+
+  <!-- Botanicals on envelope -->
+  <svg class="env-bot" style="top:2%;left:2%;width:88px;" viewBox="0 0 90 130" fill="none">
+    <path d="M10 120 C18 80 35 45 60 12" stroke="#9470B5" stroke-width=".9" fill="none"/>
+    <path d="M60 12 C45 30 35 60 42 100" stroke="#9470B5" stroke-width=".6" fill="none"/>
+    <ellipse cx="40" cy="65" rx="7" ry="3.2" fill="none" stroke="#9470B5" stroke-width=".6" transform="rotate(-30 40 65)"/>
+    <ellipse cx="55" cy="38" rx="6" ry="3" fill="none" stroke="#9470B5" stroke-width=".6" transform="rotate(-18 55 38)"/>
+    <g transform="translate(25,95)"><circle cx="0" cy="-5" r="3" fill="none" stroke="#9470B5" stroke-width=".6"/><circle cx="4.7" cy="-1.5" r="3" fill="none" stroke="#9470B5" stroke-width=".6"/><circle cx="2.9" cy="4" r="3" fill="none" stroke="#9470B5" stroke-width=".6"/><circle cx="-2.9" cy="4" r="3" fill="none" stroke="#9470B5" stroke-width=".6"/><circle cx="-4.7" cy="-1.5" r="3" fill="none" stroke="#9470B5" stroke-width=".6"/><circle r="2" fill="#9470B5" opacity=".3"/></g>
+  </svg>
+  <svg class="env-bot" style="top:2%;right:2%;width:78px;transform:scaleX(-1);" viewBox="0 0 80 100" fill="none">
+    <path d="M8 90 C15 60 30 30 55 8" stroke="#9470B5" stroke-width=".8" fill="none"/>
+    <path d="M55 8 C40 25 32 55 38 88" stroke="#9470B5" stroke-width=".55" fill="none"/>
+    <ellipse cx="36" cy="55" rx="6" ry="3" fill="none" stroke="#9470B5" stroke-width=".55" transform="rotate(-28 36 55)"/>
+    <path d="M55 8 C68 4 72 14 65 20 C55 18 52 12 55 8Z" fill="none" stroke="#9470B5" stroke-width=".7"/>
+  </svg>
+
+  <div class="env-body">
+    <div class="env-side-l"></div><div class="env-side-r"></div>
+    <div class="env-address">
+      <!-- <span class="env-to">Trân trọng kính mời</span>
+      <span class="env-rcpt">Quý khách</span> -->
+    </div>
+  </div>
+  <div class="env-flap"></div>
+
+  <div class="wax-seal" id="waxSeal">
+    <div class="wax-circle"><span class="wax-mono">H&T</span></div>
+    <span class="wax-hint">✦ An intimate celebration awaits ✦</span>
+  </div>
+</div><!-- /envelope -->
+
+<!-- ════════ CARD ════════ -->
+<div class="card-wrap" id="cardWrap">
+<div class="inv-card" id="invCard">
+
+  <!-- Paper noise SVG overlay -->
+  <svg class="paper-noise" preserveAspectRatio="xMidYMid slice">
+    <filter id="pn"><feTurbulence type="fractalNoise" baseFrequency=".72 .6" numOctaves="4" seed="12"/><feColorMatrix type="saturate" values="0"/><feBlend in="SourceGraphic" mode="multiply"/><feComponentTransfer><feFuncA type="linear" slope=".06"/></feComponentTransfer></filter>
+    <rect width="100%" height="100%" filter="url(#pn)" fill="rgba(148,112,181,1)"/>
+  </svg>
+
+  <!-- Structural borders -->
+  <div class="card-border-outer"></div>
+  <div class="card-border-inner"></div>
+
+  <!-- Edge bands (simulate card thickness) -->
+  <div class="edge-l"></div>
+  <div class="edge-r"></div>
+
+  <!-- Top garland rule -->
+  <svg class="garland" viewBox="0 0 500 44" fill="none" style="height:44px;">
+    <path d="M24 22 L476 22" stroke="rgba(180,140,220,.38)" stroke-width=".7"/>
+    <path d="M24 30 L476 30" stroke="rgba(180,140,220,.18)" stroke-width=".45"/>
+    <g transform="translate(250,22)"><ellipse cx="0" cy="-5" rx="2" ry="3.5" fill="rgba(195,168,216,.68)" transform="rotate(0)"/><ellipse cx="0" cy="-5" rx="2" ry="3.5" fill="rgba(195,168,216,.68)" transform="rotate(72)"/><ellipse cx="0" cy="-5" rx="2" ry="3.5" fill="rgba(195,168,216,.68)" transform="rotate(144)"/><ellipse cx="0" cy="-5" rx="2" ry="3.5" fill="rgba(195,168,216,.68)" transform="rotate(216)"/><ellipse cx="0" cy="-5" rx="2" ry="3.5" fill="rgba(195,168,216,.68)" transform="rotate(288)"/><circle r="1.8" fill="rgba(148,112,181,.8)"/></g>
+    <g transform="translate(88,22)"><ellipse cx="0" cy="-4" rx="1.5" ry="2.8" fill="rgba(195,168,216,.52)" transform="rotate(0)"/><ellipse cx="0" cy="-4" rx="1.5" ry="2.8" fill="rgba(195,168,216,.52)" transform="rotate(72)"/><ellipse cx="0" cy="-4" rx="1.5" ry="2.8" fill="rgba(195,168,216,.52)" transform="rotate(144)"/><ellipse cx="0" cy="-4" rx="1.5" ry="2.8" fill="rgba(195,168,216,.52)" transform="rotate(216)"/><ellipse cx="0" cy="-4" rx="1.5" ry="2.8" fill="rgba(195,168,216,.52)" transform="rotate(288)"/><circle r="1.5" fill="rgba(148,112,181,.65)"/></g>
+    <g transform="translate(412,22)"><ellipse cx="0" cy="-4" rx="1.5" ry="2.8" fill="rgba(195,168,216,.52)" transform="rotate(0)"/><ellipse cx="0" cy="-4" rx="1.5" ry="2.8" fill="rgba(195,168,216,.52)" transform="rotate(72)"/><ellipse cx="0" cy="-4" rx="1.5" ry="2.8" fill="rgba(195,168,216,.52)" transform="rotate(144)"/><ellipse cx="0" cy="-4" rx="1.5" ry="2.8" fill="rgba(195,168,216,.52)" transform="rotate(216)"/><ellipse cx="0" cy="-4" rx="1.5" ry="2.8" fill="rgba(195,168,216,.52)" transform="rotate(288)"/><circle r="1.5" fill="rgba(148,112,181,.65)"/></g>
+    <ellipse cx="168" cy="22" rx="4" ry="2" fill="rgba(170,205,175,.32)" transform="rotate(-8,168,22)"/>
+    <ellipse cx="332" cy="22" rx="4" ry="2" fill="rgba(170,205,175,.32)" transform="rotate(8,332,22)"/>
+  </svg>
+
+  <!-- Bottom garland (mirrored) -->
+  <svg class="garland-b" viewBox="0 0 500 44" fill="none" style="height:44px;">
+    <path d="M24 22 L476 22" stroke="rgba(180,140,220,.32)" stroke-width=".7"/>
+    <g transform="translate(250,22)"><ellipse cx="0" cy="-5" rx="2" ry="3.5" fill="rgba(195,168,216,.6)" transform="rotate(0)"/><ellipse cx="0" cy="-5" rx="2" ry="3.5" fill="rgba(195,168,216,.6)" transform="rotate(72)"/><ellipse cx="0" cy="-5" rx="2" ry="3.5" fill="rgba(195,168,216,.6)" transform="rotate(144)"/><ellipse cx="0" cy="-5" rx="2" ry="3.5" fill="rgba(195,168,216,.6)" transform="rotate(216)"/><ellipse cx="0" cy="-5" rx="2" ry="3.5" fill="rgba(195,168,216,.6)" transform="rotate(288)"/><circle r="1.8" fill="rgba(148,112,181,.72)"/></g>
+    <ellipse cx="140" cy="22" rx="3.5" ry="1.8" fill="rgba(170,205,175,.28)" transform="rotate(-6,140,22)"/>
+    <ellipse cx="360" cy="22" rx="3.5" ry="1.8" fill="rgba(170,205,175,.28)" transform="rotate(6,360,22)"/>
+  </svg>
+
+  <!-- Floral corner rings -->
+  <svg class="floral-ring tl" width="72" height="72" viewBox="0 0 80 80" fill="none" style="animation-delay:.55s;">
+    <path d="M10 70 C10 40 30 15 60 10" stroke="rgba(180,140,220,.4)" stroke-width=".9" fill="none"/>
+    <path d="M60 10 C45 25 35 48 38 68" stroke="rgba(180,140,220,.28)" stroke-width=".7" fill="none"/>
+    <g transform="translate(36,30)"><ellipse cx="0" cy="-5" rx="2" ry="3.8" fill="rgba(210,180,235,.55)" transform="rotate(0)"/><ellipse cx="0" cy="-5" rx="2" ry="3.8" fill="rgba(210,180,235,.55)" transform="rotate(72)"/><ellipse cx="0" cy="-5" rx="2" ry="3.8" fill="rgba(210,180,235,.55)" transform="rotate(144)"/><ellipse cx="0" cy="-5" rx="2" ry="3.8" fill="rgba(210,180,235,.55)" transform="rotate(216)"/><ellipse cx="0" cy="-5" rx="2" ry="3.8" fill="rgba(210,180,235,.55)" transform="rotate(288)"/><circle r="2" fill="rgba(148,112,181,.62)"/></g>
+    <ellipse cx="20" cy="54" rx="5.5" ry="2.5" fill="rgba(180,210,180,.28)" transform="rotate(-48,20,54)"/>
+  </svg>
+  <svg class="floral-ring tr" width="72" height="72" viewBox="0 0 80 80" fill="none" style="animation-delay:.7s;">
+    <path d="M10 70 C10 40 30 15 60 10" stroke="rgba(180,140,220,.4)" stroke-width=".9" fill="none"/>
+    <path d="M60 10 C45 25 35 48 38 68" stroke="rgba(180,140,220,.28)" stroke-width=".7" fill="none"/>
+    <g transform="translate(36,30)"><ellipse cx="0" cy="-5" rx="2" ry="3.8" fill="rgba(210,180,235,.55)" transform="rotate(0)"/><ellipse cx="0" cy="-5" rx="2" ry="3.8" fill="rgba(210,180,235,.55)" transform="rotate(72)"/><ellipse cx="0" cy="-5" rx="2" ry="3.8" fill="rgba(210,180,235,.55)" transform="rotate(144)"/><ellipse cx="0" cy="-5" rx="2" ry="3.8" fill="rgba(210,180,235,.55)" transform="rotate(216)"/><ellipse cx="0" cy="-5" rx="2" ry="3.8" fill="rgba(210,180,235,.55)" transform="rotate(288)"/><circle r="2" fill="rgba(148,112,181,.62)"/></g>
+    <ellipse cx="20" cy="54" rx="5.5" ry="2.5" fill="rgba(180,210,180,.28)" transform="rotate(-48,20,54)"/>
+  </svg>
+  <svg class="floral-ring br" width="72" height="72" viewBox="0 0 80 80" fill="none" style="animation-delay:.85s;">
+    <path d="M10 70 C10 40 30 15 60 10" stroke="rgba(180,140,220,.35)" stroke-width=".9" fill="none"/>
+    <g transform="translate(36,30)"><ellipse cx="0" cy="-5" rx="2" ry="3.8" fill="rgba(210,180,235,.5)" transform="rotate(0)"/><ellipse cx="0" cy="-5" rx="2" ry="3.8" fill="rgba(210,180,235,.5)" transform="rotate(72)"/><ellipse cx="0" cy="-5" rx="2" ry="3.8" fill="rgba(210,180,235,.5)" transform="rotate(144)"/><ellipse cx="0" cy="-5" rx="2" ry="3.8" fill="rgba(210,180,235,.5)" transform="rotate(216)"/><ellipse cx="0" cy="-5" rx="2" ry="3.8" fill="rgba(210,180,235,.5)" transform="rotate(288)"/><circle r="2" fill="rgba(148,112,181,.58)"/></g>
+  </svg>
+
+  <!-- Botanical corners -->
+  <svg class="cbot cbot-tl" width="148" height="200" viewBox="0 0 155 210" fill="none">
+    <path d="M14 195 C18 135 32 72 82 20" stroke="#9470B5" stroke-width="1.1" fill="none"/>
+    <path d="M82 20 C62 48 46 95 53 155" stroke="#9470B5" stroke-width=".7" fill="none"/>
+    <path d="M82 20 C106 42 138 35 150 12" stroke="#9470B5" stroke-width=".7" fill="none"/>
+    <ellipse cx="150" cy="10" rx="10" ry="6" fill="none" stroke="#9470B5" stroke-width=".7" transform="rotate(-22 150 10)"/>
+    <path d="M82 20 C56 8 40 -2 22 3" stroke="#9470B5" stroke-width=".6" fill="none"/>
+    <ellipse cx="20" cy="3" rx="8" ry="5" fill="none" stroke="#9470B5" stroke-width=".7" transform="rotate(18 20 3)"/>
+    <g transform="translate(45,112)"><circle cx="0" cy="-6" r="3.8" fill="none" stroke="#9470B5" stroke-width=".75"/><circle cx="5.7" cy="-1.9" r="3.8" fill="none" stroke="#9470B5" stroke-width=".75"/><circle cx="3.5" cy="5.1" r="3.8" fill="none" stroke="#9470B5" stroke-width=".75"/><circle cx="-3.5" cy="5.1" r="3.8" fill="none" stroke="#9470B5" stroke-width=".75"/><circle cx="-5.7" cy="-1.9" r="3.8" fill="none" stroke="#9470B5" stroke-width=".75"/><circle r="2.6" fill="#9470B5" opacity=".26"/></g>
+    <ellipse cx="28" cy="152" rx="8" ry="4" fill="none" stroke="#9470B5" stroke-width=".65" transform="rotate(-46 28 152)"/>
+    <ellipse cx="66" cy="72" rx="7" ry="3.2" fill="none" stroke="#9470B5" stroke-width=".65" transform="rotate(-26 66 72)"/>
+  </svg>
+  <svg class="cbot cbot-tr" width="115" height="200" viewBox="0 0 120 210" fill="none">
+    <path d="M106 195 C95 135 70 72 28 20" stroke="#9470B5" stroke-width="1" fill="none"/>
+    <path d="M28 20 C50 48 60 95 54 155" stroke="#9470B5" stroke-width=".65" fill="none"/>
+    <path d="M28 20 C12 6 4 16 8 32" stroke="#9470B5" stroke-width=".65" fill="none"/>
+    <ellipse cx="7" cy="34" rx="9" ry="5" fill="none" stroke="#9470B5" stroke-width=".65" transform="rotate(28 7 34)"/>
+    <ellipse cx="58" cy="130" rx="7" ry="3.5" fill="none" stroke="#9470B5" stroke-width=".6" transform="rotate(38 58 130)"/>
+  </svg>
+  <svg class="cbot cbot-br" width="125" height="178" viewBox="0 0 130 185" fill="none">
+    <path d="M8 10 C22 68 52 128 28 178" stroke="#9470B5" stroke-width="1" fill="none"/>
+    <path d="M28 178 C52 148 62 108 55 62" stroke="#9470B5" stroke-width=".68" fill="none"/>
+    <path d="M28 178 C58 170 88 152 98 134" stroke="#9470B5" stroke-width=".68" fill="none"/>
+    <path d="M98 134 C120 118 142 125 140 142 C124 155 100 150 98 134Z" fill="none" stroke="#9470B5" stroke-width=".85"/>
+    <path d="M98 134 C84 118 80 96 96 90 C108 106 110 128 98 134Z" fill="none" stroke="#9470B5" stroke-width=".85"/>
+    <ellipse cx="58" cy="82" rx="8" ry="4" fill="none" stroke="#9470B5" stroke-width=".6" transform="rotate(33 58 82)"/>
+  </svg>
+
+  <!-- ════ CARD INNER CONTENT ════ -->
+  <div class="card-inner">
+
+    <span class="hw-label" style="margin-bottom:8px;">✦ Save the Date ✦</span>
+
+    <div class="mono-block mono-logo-block">
+      <img loading="lazy" src="images/HT_logo.png" alt="H &amp; T" class="mono-logo">
+    </div>
+
+    <div class="date-block">
+      <div class="db-side l">Thứ Bảy<br>14:00</div>
+      <div class="db-num">28</div>
+      <div class="db-side r">Tháng 3<br>2026</div>
+    </div>
+
+    <span class="venue-small">Lam Mạc Retreat</span>
+
+    <!-- ════ SCROLLABLE CONTENT ════ -->
+    <div class="inv-scroll" id="invScroll">
+
+      <!-- Divider -->
+      <div class="div-floral" style="margin-top:30px;"><div class="div-floral-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><g transform="translate(9,9)"><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(0)"/><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(72)"/><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(144)"/><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(216)"/><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(288)"/><circle r="2" fill="rgba(148,112,181,.82)"/></g></svg></div></div>
+
+      <!-- Invitation text -->
+      <p class="hw-body sr sr-d1" style="margin:10px 0 22px;">
+        An intimate celebration of love<br>
+        <span class="hw-names">Nguyên Thái &amp; Quỳnh Hương</span>.<br><br>
+        Một buổi lễ nhỏ, nơi tình yêu được kể bằng sự hiện diện<br>
+        của gia đình và những người thân thương nhất.<br>
+        Chúng mình trân trọng mời bạn đến chung vui<br>
+        và chứng kiến khoảnh khắc bắt đầu hành trình mới.
+      </p>
+
+      <div class="div-floral"><div class="div-floral-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><g transform="translate(9,9)"><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(0)"/><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(72)"/><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(144)"/><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(216)"/><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(288)"/><circle r="2" fill="rgba(148,112,181,.82)"/></g></svg></div></div>
+
+      <!-- Venue -->
+      <span class="venue-tag sr">lễ cưới sẽ được tổ chức tại</span>
+      <span class="venue-name sr sr-d1">Lam Mạc Retreat</span>
+      <a href="https://maps.app.goo.gl/nmT183md2VSAgHxq5" target="_blank" class="map-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Xem bản đồ
+      </a>
+
+      <div class="div-floral"><div class="div-floral-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><g transform="translate(9,9)"><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(0)"/><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(72)"/><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(144)"/><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(216)"/><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(288)"/><circle r="2" fill="rgba(148,112,181,.82)"/></g></svg></div></div>
+
+      <!-- Timeline -->
+      <span class="sec-title sr">Chương trình</span>
+      <span class="sec-sub sr sr-d1">Our Wedding Day · 28.03.2026</span>
+
+      <div class="tl"><div class="tl-track">
+        <div class="tl-step">
+          <span class="tl-time">14:00</span><div class="tl-dot"></div>
+          <div class="tl-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 20 L4 9 Q4 4 11 4 Q18 4 18 9 L18 20" stroke="currentColor" stroke-width="1.2" fill="none"/><path d="M1 20 L21 20" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="13.5" cy="13" r="1.2" fill="currentColor" opacity=".6"/></svg></div>
+          <span class="tl-label">Đón tiếp<br>khách mời</span>
+        </div>
+        <div class="tl-step">
+          <span class="tl-time">15:00</span><div class="tl-dot"></div>
+          <div class="tl-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="8" cy="12" r="5" stroke="currentColor" stroke-width="1.2" fill="none"/><circle cx="14" cy="12" r="5" stroke="currentColor" stroke-width="1.2" fill="none"/><path d="M11 5 L13 7.5 L11 10 L9 7.5 Z" stroke="currentColor" stroke-width=".9" fill="none"/></svg></div>
+          <span class="tl-label">Lễ<br>thành hôn</span>
+        </div>
+        <div class="tl-step">
+          <span class="tl-time">16:30</span><div class="tl-dot"></div>
+          <div class="tl-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="7" width="18" height="13" rx="2.5" stroke="currentColor" stroke-width="1.2" fill="none"/><circle cx="11" cy="13.5" r="4" stroke="currentColor" stroke-width="1.2" fill="none"/><path d="M7 7 L8.5 4 L13.5 4 L15 7" stroke="currentColor" stroke-width="1"/><circle cx="16" cy="10" r="1.2" fill="currentColor" opacity=".5"/></svg></div>
+          <span class="tl-label">Chụp ảnh<br>kỷ niệm</span>
+        </div>
+        <div class="tl-step">
+          <span class="tl-time">17:30</span><div class="tl-dot"></div>
+          <div class="tl-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 14 Q3 8 11 8 Q19 8 19 14 Z" stroke="currentColor" stroke-width="1.2" fill="none"/><path d="M1 14 L21 14" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M11 8 L11 5" stroke="currentColor" stroke-width="1" stroke-linecap="round"/><circle cx="11" cy="4.5" r="1.5" stroke="currentColor" stroke-width="1" fill="none"/></svg></div>
+          <span class="tl-label">Tiệc tối<br>& nâng ly</span>
+        </div>
+        <div class="tl-step">
+          <span class="tl-time">19:30</span><div class="tl-dot"></div>
+          <div class="tl-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M8 16 L8 7 L18 5 L18 14" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6.5" cy="16.5" r="2.5" stroke="currentColor" stroke-width="1.2" fill="none"/><circle cx="16.5" cy="14.5" r="2.5" stroke="currentColor" stroke-width="1.2" fill="none"/></svg></div>
+          <span class="tl-label">Âm nhạc<br>& chia vui</span>
+        </div>
+      </div></div>
+
+      <div class="div-floral"><div class="div-floral-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><g transform="translate(9,9)"><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(0)"/><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(72)"/><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(144)"/><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(216)"/><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(288)"/><circle r="2" fill="rgba(148,112,181,.82)"/></g></svg></div></div>
+
+      <!-- Attire -->
+      <!-- Info block: Trang phục · Nhắc nhở · Chi tiết -->
+      <div class="info-block sr">
+
+        <p class="info-label">Trang phục · Bán dạ hội <span style="opacity:.55;font-size:.9em;">· không mặc trắng</span></p>
+        <div class="palette-row" style="margin:8px 0 0;">
+          <div class="swatch" style="background:#2E2040;"></div>
+          <div class="swatch" style="background:#7B5EA7;"></div>
+          <div class="swatch" style="background:#9470B5;"></div>
+          <div class="swatch" style="background:#C3A8D8;"></div>
+          <div class="swatch" style="background:#DDD0EF;"></div>
+          <div class="swatch" style="background:#F2EAD3;"></div>
+          <div class="swatch" style="background:#FAF7FD;"></div>
+        </div>
+
+        <div class="info-divider"></div>
+
+        <p class="info-label">Nhắc nhở</p>
+        <div class="mini-rem">
+          <div class="mini-rem-item">
+            <svg width="22" height="22" viewBox="0 0 36 36" fill="none"><circle cx="10" cy="24" r="7" stroke="#9470B5" stroke-width="1.4" fill="none"/><circle cx="26" cy="24" r="7" stroke="#9470B5" stroke-width="1.4" fill="none"/><path d="M10 24 L18 12 L26 24" stroke="#9470B5" stroke-width="1.2" fill="none"/><path d="M18 12 L22 8M20 8 L24 8" stroke="#9470B5" stroke-width="1.2" stroke-linecap="round"/><circle cx="19" cy="7" r="2.5" stroke="#9470B5" stroke-width="1" fill="none"/></svg>
+            <span>Đến đúng giờ</span>
+          </div>
+          <div class="mini-rem-item">
+            <svg width="22" height="22" viewBox="0 0 36 36" fill="none"><circle cx="11" cy="8" r="5" stroke="#9470B5" stroke-width="1.3" fill="none"/><path d="M5 32 Q5 18 11 16 Q17 18 17 32" stroke="#9470B5" stroke-width="1.3" fill="none"/><circle cx="25" cy="8" r="5" stroke="#9470B5" stroke-width="1.3" fill="none"/><path d="M19 32 Q19 18 25 16 Q31 18 31 32" stroke="#9470B5" stroke-width="1.3" fill="none"/><path d="M17 26 L19 26" stroke="#9470B5" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span>Ở lại đến cuối</span>
+          </div>
+          <div class="mini-rem-item">
+            <svg width="22" height="22" viewBox="0 0 36 36" fill="none"><path d="M13 28 L13 18 L8 8 L18 8 Z M23 28 L23 18 L18 8 L28 8 Z" stroke="#9470B5" stroke-width="1.3" fill="none"/><path d="M10 28 L16 28 M20 28 L26 28" stroke="#9470B5" stroke-width="1.3" stroke-linecap="round"/><path d="M18 6 L18 3 M15 5 L13 3 M21 5 L23 3" stroke="#C3A8D8" stroke-width="1" stroke-linecap="round"/></svg>
+            <span>Vui vẻ tận hưởng</span>
+          </div>
+        </div>
+
+        <div class="info-divider"></div>
+
+        <p class="info-label">Chi tiết trong ngày</p>
+        <div class="mini-det">
+          <div class="mini-det-item">
+            <svg width="20" height="20" viewBox="0 0 34 34" fill="none"><circle cx="12" cy="18" r="8" stroke="currentColor" stroke-width="1.3" fill="none"/><circle cx="22" cy="18" r="8" stroke="currentColor" stroke-width="1.3" fill="none"/></svg>
+            <span>Lễ cưới</span>
+          </div>
+          <div class="mini-det-item">
+            <svg width="20" height="20" viewBox="0 0 34 34" fill="none"><rect x="4" y="9" width="26" height="20" rx="2.5" stroke="currentColor" stroke-width="1.3"/><circle cx="17" cy="19" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M11 9 L13 5 L21 5 L23 9" stroke="currentColor" stroke-width="1.1"/></svg>
+            <span>Ảnh cưới</span>
+          </div>
+          <div class="mini-det-item">
+            <svg width="20" height="20" viewBox="0 0 34 34" fill="none"><path d="M3 20 Q3 11 17 11 Q31 11 31 20 Z" stroke="currentColor" stroke-width="1.3" fill="none"/><path d="M1 20 L33 20" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M17 11 L17 7" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><circle cx="17" cy="6" r="1.8" stroke="currentColor" stroke-width="1" fill="none"/></svg>
+            <span>Tiệc tối</span>
+          </div>
+          <div class="mini-det-item">
+            <svg width="20" height="20" viewBox="0 0 34 34" fill="none"><path d="M11 30 L11 19 L6 8 L16 8 Z" stroke="currentColor" stroke-width="1.3" fill="none"/><path d="M8 30 L14 30" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M22 30 L22 19 L17 8 L27 8 Z" stroke="currentColor" stroke-width="1.3" fill="none"/><path d="M19 30 L25 30" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            <span>Nâng ly</span>
+          </div>
+          <div class="mini-det-item">
+            <svg width="20" height="20" viewBox="0 0 34 34" fill="none"><path d="M8 16 L8 7 L18 5 L18 14" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6.5" cy="16.5" r="2.8" stroke="currentColor" stroke-width="1.3" fill="none"/><circle cx="16.5" cy="14.5" r="2.8" stroke="currentColor" stroke-width="1.3" fill="none"/></svg>
+            <span>Âm nhạc</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="div-floral"><div class="div-floral-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><g transform="translate(9,9)"><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(0)"/><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(72)"/><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(144)"/><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(216)"/><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(288)"/><circle r="2" fill="rgba(148,112,181,.82)"/></g></svg></div></div>
+
+      <!-- RSVP -->
+      <span class="sec-title sr">Hồi âm</span>
+      <span class="sec-sub">Vui lòng xác nhận trước 01.03.2026</span>
+      <!-- <p class="hw-body" style="font-size:.9rem;margin-bottom:20px;">Sự hiện diện của bạn<br>là món quà <em>trân quý</em> nhất với chúng tôi</p> -->
+
+      <form class="rsvp-form sr sr-d2" onsubmit="handleRsvp(event)">
+        <div class="fg"><label>Họ và tên</label><input type="text" placeholder="Tên của bạn..." required></div>
+        <div class="fg"><label>Số điện thoại</label><input type="tel" placeholder="Số điện thoại của bạn..." inputmode="numeric"></div>
+        <div class="fg"><label>Số lượng khách</label><input type="number" min="1" max="10" value="1"></div>
+        <div class="fg"><label>Xác nhận tham dự</label>
+          <select id="attending"><option value="yes">Vui lòng tham dự ✓</option><option value="no">Tiếc rằng không thể đến</option></select>
+        </div>
+        <div class="fg"><label>Ngủ lại qua đêm tại Retreat?</label>
+          <select id="overnight"><option value="no">Không, cảm ơn</option><option value="yes">Có, tôi muốn ngủ lại</option></select>
+        </div>
+        <button type="submit" class="rsvp-btn">✦ Gửi hồi âm ✦</button>
+      </form>
+      <p id="rsvp-msg"></p>
+
+      <div class="div-floral" style="margin-top:30px;"><div class="div-floral-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><g transform="translate(9,9)"><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(0)"/><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(72)"/><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(144)"/><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(216)"/><ellipse cx="0" cy="-4.5" rx="1.8" ry="3.2" fill="rgba(195,168,216,.7)" transform="rotate(288)"/><circle r="2" fill="rgba(148,112,181,.82)"/></g></svg></div></div>
+
+      <!-- Footer -->
+      <p class="footer-quote sr">"A simple day, a lifelong promise"</p>
+      <span class="footer-verse">Our Beginning 4:11</span>
+      <p style="font-family:'Playwrite VN',cursive;font-size:.68rem;font-weight:300;color:var(--text-lt);margin-top:20px;letter-spacing:.06em;position:relative;z-index:3;">Quỳnh Hương &amp; Nguyên Thái · 28.03.2026</p>
+      <p style="font-family:'Ms Madi',cursive;font-size:1.5rem;color:var(--purple-lt);margin-top:10px;letter-spacing:8px;position:relative;z-index:3;">♡ · ♡ · ♡</p>
+
+    </div><!-- /inv-scroll -->
+  </div><!-- /card-inner -->
+</div><!-- /inv-card -->
+</div><!-- /card-wrap -->
+
+</div><!-- /env-wrap -->
+</div><!-- /scene -->
+
+<script>
+let opened = false;
+
+/* ── PETALS ── */
+const SHAPES = [
+  (c,o) => `<svg width="14" height="18" viewBox="0 0 14 18"><ellipse cx="7" cy="9" rx="5" ry="8" fill="${c}" opacity="${o}"/></svg>`,
+  (c,o) => `<svg width="12" height="16" viewBox="0 0 12 16"><path d="M6 1 C10 4 12 9 6 15 C0 9 2 4 6 1Z" fill="${c}" opacity="${o}"/></svg>`,
+  (c,o) => `<svg width="18" height="12" viewBox="0 0 18 12"><ellipse cx="9" cy="6" rx="8" ry="5" fill="${c}" opacity="${o}"/></svg>`,
+  (c,o) => `<svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3.5" fill="${c}" opacity="${o}"/></svg>`,
+];
+const COLORS = ['#E8D0F5','#D5B8EC','#C9A8E0','#EDD6F8','#F0E0FA','#CDB5E8','#B89DD5','#E2C5F0'];
+
+function mkPetal() {
+  const w = document.getElementById('petalsWrap'); if (!w) return;
+  const p = document.createElement('div'); p.className = 'petal';
+  const c = COLORS[Math.floor(Math.random()*COLORS.length)];
+  const o = (0.4 + Math.random()*.45).toFixed(2);
+  const sc = (0.6 + Math.random()*.9).toFixed(2);
+  const dur = (6 + Math.random()*10).toFixed(1);
+  const del = (Math.random()*4).toFixed(1);
+  p.innerHTML = SHAPES[Math.floor(Math.random()*SHAPES.length)](c,o);
+  p.style.cssText = `left:${(Math.random()*100).toFixed(1)}%;--ps:${sc};--pr:${(180+Math.random()*360).toFixed(0)}deg;--pd:${((Math.random()-.5)*120).toFixed(0)}px;--po:${o};animation-duration:${dur}s;animation-delay:${del}s;`;
+  w.appendChild(p);
+  setTimeout(() => p.remove(), (parseFloat(dur)+parseFloat(del)+1)*1000);
+}
+
+function startPetals(burst) {
+  if (burst) for (let i=0;i<24;i++) setTimeout(mkPetal, i*75);
+  const iv = setInterval(()=>{ if(Math.random()>.35) mkPetal(); },900);
+  setTimeout(()=>clearInterval(iv),30000);
+  setTimeout(()=>setInterval(()=>{ if(Math.random()>.6) mkPetal(); },2500),30000);
+}
+window.addEventListener('load', ()=>setTimeout(()=>startPetals(false),1400));
+
+/* ── OPEN ENVELOPE ── */
+function openEnvelope() {
+  if (opened) return; opened = true;
+  const env = document.getElementById('envelope');
+  env.classList.add('opened'); env.onclick = null;
+  setTimeout(()=>startPetals(true), 300);
+  setTimeout(()=>env.classList.add('fading'), 700);
+  setTimeout(()=>{
+    env.style.display='none';
+    const cw = document.getElementById('cardWrap');
+    cw.classList.add('visible');
+    setTimeout(()=>{ cw.scrollIntoView({behavior:'smooth',block:'start'}); initSR(); setTimeout(initSR,600); setTimeout(initSR,1400); },100);
+  },1300);
+}
+
+/* ── SCROLL REVEAL ── */
+function initSR() {
+  const els = document.querySelectorAll('.sr,.sr-scale,.tl-step');
+  if (!els.length) return;
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); obs.unobserve(e.target); }});
+  },{ threshold:.14, rootMargin:'0px 0px -35px 0px' });
+  els.forEach(el=>obs.observe(el));
+}
+
+/* ── RSVP ── */
+function handleRsvp(e) {
+  e.preventDefault();
+  const m = document.getElementById('rsvp-msg');
+  const att = document.getElementById('attending').value;
+  const overnight = document.getElementById('overnight').value;
+  m.style.display='block';
+  if (att === 'yes') {
+    const stayMsg = overnight === 'yes' ? ' Chúng tôi sẽ sắp xếp chỗ nghỉ cho bạn nhé! 🌙' : '';
+    m.textContent = '🌸 Cảm ơn bạn rất nhiều! Chúng tôi rất vui khi được đón bạn!' + stayMsg;
+  } else {
+    m.textContent = '💜 Chúng tôi sẽ nhớ bạn — cảm ơn đã hồi âm nhé!';
+  }
+  e.target.style.opacity='.35'; e.target.style.pointerEvents='none';
+}
+</script>
+</body>
+</html>
