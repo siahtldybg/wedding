@@ -67,6 +67,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       min-height: 100vh;
       padding: 48px 16px 80px;
     }
@@ -83,6 +84,72 @@
       transition: transform 0.3s ease, opacity 0.6s ease;
       user-select: none;
       position: relative;
+    }
+
+    /* ── Envelope built from images (phongbi_1/2) ── */
+    .envelope.envelope-img {
+      perspective: 1200px;
+      transform-style: preserve-3d;
+    }
+
+    .envelope.envelope-img .env-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      user-select: none;
+      -webkit-user-drag: none;
+      pointer-events: none;
+    }
+
+    .envelope.envelope-img .env-img-body {
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 24px 70px rgba(90, 50, 140, 0.22)) drop-shadow(0 8px 24px rgba(90, 50, 140, 0.12));
+    }
+
+    .envelope.envelope-img .env-img-flap {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      transform-origin: 50% 16%;
+      transform: rotateX(0deg) translateZ(1px);
+      transition: transform 0.95s cubic-bezier(0.22, 1, 0.36, 1), filter 0.95s ease;
+      filter: drop-shadow(0 10px 22px rgba(60, 20, 110, 0.18));
+      backface-visibility: hidden;
+    }
+
+    .envelope.envelope-img .env-click-hint {
+      position: absolute;
+      left: 50%;
+      bottom: 10%;
+      transform: translateX(-50%);
+      z-index: 3;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(247, 242, 251, 0.65);
+      border: 1px solid rgba(195, 168, 216, 0.45);
+      box-shadow: 0 10px 24px rgba(90, 50, 140, 0.12);
+      color: var(--text-md);
+      font-family: 'Dancing Script', cursive;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      backdrop-filter: blur(6px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      pointer-events: none;
+    }
+
+    .envelope:not(.opened):hover .env-click-hint {
+      transform: translateX(-50%) translateY(-3px);
+    }
+
+    .envelope.opened.envelope-img .env-img-flap {
+      transform: rotateX(-165deg) translateY(-8px) translateZ(1px);
+      filter: drop-shadow(0 24px 30px rgba(60, 20, 110, 0.08));
+    }
+
+    .envelope.opened.envelope-img .env-click-hint {
+      opacity: 0;
+      transform: translateX(-50%) translateY(6px);
     }
 
     .envelope:not(.opened):hover {
@@ -347,17 +414,20 @@
       text-align: center;
       overflow: hidden;
       /* Paper: crisp rectangle, slight warm off-white */
-      background: var(--paper);
+      background-color: var(--paper);
       border-radius: 0;
 
-      /* Cotton laid paper texture */
+      /* Photographic embossed paper textures */
       background-image:
-        repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(150, 120, 190, .018) 3px, rgba(150, 120, 190, .018) 4px),
-        repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(150, 120, 190, .013) 3px, rgba(150, 120, 190, .013) 4px),
-        repeating-linear-gradient(-28deg, transparent, transparent 20px, rgba(170, 140, 210, .014) 20px, rgba(170, 140, 210, .014) 21px),
+        url("images/bg-0.jpg"),
+        url("images/bg-6.jpg"),
+        url("images/bg-5.jpg"),
         radial-gradient(ellipse at 35% 10%, rgba(255, 255, 255, .65) 0%, transparent 55%),
         radial-gradient(ellipse at 72% 88%, rgba(215, 195, 238, .15) 0%, transparent 45%),
         var(--paper);
+      background-size: cover;
+      background-position: center;
+      background-blend-mode: multiply, overlay, soft-light, normal, normal, normal;
 
       /* Thick card shadow — stacked paper edges */
       box-shadow:
@@ -1240,6 +1310,7 @@
       outline: none;
       transition: border-color .3s;
       -webkit-appearance: none;
+      appearance: none;
       border-radius: 0;
     }
 
@@ -1457,6 +1528,8 @@
       border-bottom: 3px solid #2e1a4a;
       z-index: 3;
       margin-bottom: 30px;
+      display: flex;
+      align-items: center;
     }
 
     /* Film perforations top & bottom */
@@ -1472,6 +1545,7 @@
           rgba(255, 255, 255, 0.18) 6px, rgba(255, 255, 255, 0.18) 18px,
           transparent 18px, transparent 24px);
       z-index: 2;
+      pointer-events: none;
     }
 
     #intimate-film-frame::before {
@@ -1480,10 +1554,6 @@
 
     #intimate-film-frame::after {
       bottom: 0;
-    }
-
-    /* Fade-out edges */
-    #intimate-film-frame::after {
       background-image:
         linear-gradient(to right, #1a0a2e 0%, transparent 12%, transparent 88%, #1a0a2e 100%),
         repeating-linear-gradient(to right,
@@ -1518,7 +1588,11 @@
       gap: 6px;
       padding: 12px 0;
       will-change: transform;
-      animation: intimateFilmScroll 18s linear infinite;
+      animation: intimateFilmScroll 25s linear infinite;
+    }
+
+    #intimate-filmTrack:hover {
+      animation-play-state: paused;
     }
 
     @keyframes intimateFilmScroll {
@@ -1527,8 +1601,74 @@
       }
 
       100% {
-        transform: translateX(-500%);
+        transform: translateX(calc(-100% / 2));
       }
+    }
+
+    /* Modal Styles */
+    #photo-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 5, 20, 0.95);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      backdrop-filter: blur(8px);
+    }
+
+    #photo-modal.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-content-wrap {
+      position: relative;
+      max-width: 90%;
+      max-height: 85%;
+      transform: scale(0.9);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    #photo-modal.active .modal-content-wrap {
+      transform: scale(1);
+    }
+
+    #modal-img {
+      max-width: 100%;
+      max-height: 85vh;
+      border-radius: 4px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      object-fit: contain;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: -45px;
+      right: 0;
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      color: white;
+      font-size: 1.4rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .close-modal:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
     }
 
     #intimate-filmTrack img {
@@ -1594,67 +1734,16 @@
   <div class="scene">
     <div class="env-wrap">
 
-      <!-- ════════ ENVELOPE ════════ -->
-      <div class="envelope" id="envelope" onclick="openEnvelope()">
-
-        <!-- Botanicals on envelope -->
-        <svg class="env-bot" style="top:2%;left:2%;width:88px;" viewBox="0 0 90 130" fill="none">
-          <path d="M10 120 C18 80 35 45 60 12" stroke="#9470B5" stroke-width=".9" fill="none" />
-          <path d="M60 12 C45 30 35 60 42 100" stroke="#9470B5" stroke-width=".6" fill="none" />
-          <ellipse cx="40" cy="65" rx="7" ry="3.2" fill="none" stroke="#9470B5" stroke-width=".6"
-            transform="rotate(-30 40 65)" />
-          <ellipse cx="55" cy="38" rx="6" ry="3" fill="none" stroke="#9470B5" stroke-width=".6"
-            transform="rotate(-18 55 38)" />
-          <g transform="translate(25,95)">
-            <circle cx="0" cy="-5" r="3" fill="none" stroke="#9470B5" stroke-width=".6" />
-            <circle cx="4.7" cy="-1.5" r="3" fill="none" stroke="#9470B5" stroke-width=".6" />
-            <circle cx="2.9" cy="4" r="3" fill="none" stroke="#9470B5" stroke-width=".6" />
-            <circle cx="-2.9" cy="4" r="3" fill="none" stroke="#9470B5" stroke-width=".6" />
-            <circle cx="-4.7" cy="-1.5" r="3" fill="none" stroke="#9470B5" stroke-width=".6" />
-            <circle r="2" fill="#9470B5" opacity=".3" />
-          </g>
-        </svg>
-        <svg class="env-bot" style="top:2%;right:2%;width:78px;transform:scaleX(-1);" viewBox="0 0 80 100" fill="none">
-          <path d="M8 90 C15 60 30 30 55 8" stroke="#9470B5" stroke-width=".8" fill="none" />
-          <path d="M55 8 C40 25 32 55 38 88" stroke="#9470B5" stroke-width=".55" fill="none" />
-          <ellipse cx="36" cy="55" rx="6" ry="3" fill="none" stroke="#9470B5" stroke-width=".55"
-            transform="rotate(-28 36 55)" />
-          <path d="M55 8 C68 4 72 14 65 20 C55 18 52 12 55 8Z" fill="none" stroke="#9470B5" stroke-width=".7" />
-        </svg>
-
-        <div class="env-body">
-          <div class="env-side-l"></div>
-          <div class="env-side-r"></div>
-          <div class="env-address">
-            <!-- <span class="env-to">Trân trọng kính mời</span>
-      <span class="env-rcpt">Quý khách</span> -->
-          </div>
-        </div>
-        <div class="env-flap"></div>
-
-        <div class="wax-seal" id="waxSeal">
-          <div class="wax-circle"><span class="wax-mono">H&T</span></div>
-          <span class="wax-hint">✦ Click to open ✦</span>
-        </div>
+      <!-- ════════ ENVELOPE (IMAGES) ════════ -->
+      <div class="envelope envelope-img" id="envelope" onclick="openEnvelope()" role="button" aria-label="Mở phong bì">
+        <img class="env-img env-img-body" src="images/phongbi2.png" alt="Phong bì" loading="eager">
+        <img class="env-img env-img-flap" src="images/phongbi1.png" alt="Nắp phong bì và sáp nến" loading="eager">
+        <div class="env-click-hint">✦ Click to open ✦</div>
       </div><!-- /envelope -->
 
       <!-- ════════ CARD ════════ -->
       <div class="card-wrap" id="cardWrap">
         <div class="inv-card" id="invCard">
-
-          <!-- Paper noise SVG overlay -->
-          <svg class="paper-noise" preserveAspectRatio="xMidYMid slice">
-            <filter id="pn">
-              <feTurbulence type="fractalNoise" baseFrequency=".72 .6" numOctaves="4" seed="12" />
-              <feColorMatrix type="saturate" values="0" />
-              <feBlend in="SourceGraphic" mode="multiply" />
-              <feComponentTransfer>
-                <feFuncA type="linear" slope=".06" />
-              </feComponentTransfer>
-            </filter>
-            <rect width="100%" height="100%" filter="url(#pn)" fill="rgba(148,112,181,1)" />
-          </svg>
-
           <!-- Structural borders -->
           <div class="card-border-outer"></div>
           <div class="card-border-inner"></div>
@@ -1797,7 +1886,7 @@
           </svg>
 
           <!-- ════ CARD INNER CONTENT ════ -->
-          <div class="card-inner">
+          <div class="card-innerd">
 
             <span class="hw-label" style="margin-bottom:8px;">✦ Save the Date ✦</span>
 
@@ -2116,7 +2205,6 @@
                   </svg></div>
               </div>
 
-              <!-- ════ FILM STRIP SLIDESHOW ════ -->
               <div id="intimate-film-frame" class="sr">
                 <div id="intimate-filmTrack"></div>
               </div>
@@ -2302,27 +2390,61 @@
       ];
       const track = document.getElementById('intimate-filmTrack');
       if (!track) return;
-      // Duplicate for seamless infinite scroll
+
+      // Populate photos (twice for seamless scroll)
       [...photos, ...photos].forEach(function (name) {
         var img = document.createElement('img');
         img.src = 'images/' + name + '.jpg';
-        img.alt = '';
+        img.alt = 'Wedding Photo';
         img.loading = 'lazy';
+        img.onclick = function () { openModal(this.src); };
         track.appendChild(img);
       });
-      // Add side vignette overlays
+
+      // Side vignettes
       var frame = document.getElementById('intimate-film-frame');
-      if (frame) {
+      if (frame && !frame.querySelector('.film-vignette-l')) {
         var vl = document.createElement('div'); vl.className = 'film-vignette-l';
         var vr = document.createElement('div'); vr.className = 'film-vignette-r';
         frame.appendChild(vl);
         frame.appendChild(vr);
       }
-      // Pause animation on hover
-      track.addEventListener('mouseenter', function () { track.style.animationPlayState = 'paused'; });
-      track.addEventListener('mouseleave', function () { track.style.animationPlayState = 'running'; });
     })();
+
+    /* ── PHOTO MODAL LOGIC ── */
+    function openModal(src) {
+      const modal = document.getElementById('photo-modal');
+      const modalImg = document.getElementById('modal-img');
+      if (!modal || !modalImg) return;
+      modalImg.src = src;
+      modal.style.display = 'flex';
+      setTimeout(() => modal.classList.add('active'), 10);
+      document.body.style.overflow = 'hidden'; // Prevent scroll
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('photo-modal');
+      if (!modal) return;
+      modal.classList.remove('active');
+      setTimeout(() => {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+      }, 400);
+    }
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
   </script>
+
+  <!-- Photo Modal (Moved to Body for fixed positioning stability) -->
+  <div id="photo-modal" onclick="closeModal()">
+    <div class="modal-content-wrap" onclick="event.stopPropagation()">
+      <button class="close-modal" onclick="closeModal()" aria-label="Close modal">×</button>
+      <img id="modal-img" src="" alt="Full View">
+    </div>
+  </div>
 </body>
 
 </html>
