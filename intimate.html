@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Playwrite+VN:wght@100;200;300;400&family=Dancing+Script:wght@400;500;600;700&family=Ms+Madi&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playwrite+VN:wght@100;200;300;400&family=Dancing+Script:wght@400;500;600;700&family=Ms+Madi&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Luxurious+Script&display=swap"
     rel="stylesheet">
 
   <style>
@@ -41,6 +41,7 @@
       min-height: 100%;
       background: var(--bg);
       overflow-x: hidden;
+      font-size: 120%;
     }
 
     /* ── Grain overlay ── */
@@ -74,24 +75,23 @@
 
     /* ════ ENVELOPE ════ */
     .env-wrap {
-      width: min(500px, 94vw);
+      width: min(975px, 94vw);
       position: relative;
     }
 
     .envelope {
       width: 100%;
       cursor: pointer;
-      transition: transform 0.3s ease, opacity 0.6s ease;
       user-select: none;
       position: relative;
+      /* cần perspective ở đây để phần tử con dùng 3D transform */
+      perspective: 1000px;
+      perspective-origin: 50% 30%;
+      /* transition riêng cho fading */
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     /* ── Envelope built from images (phongbi_1/2) ── */
-    .envelope.envelope-img {
-      perspective: 1200px;
-      transform-style: preserve-3d;
-    }
-
     .envelope.envelope-img .env-img {
       display: block;
       width: 100%;
@@ -101,68 +101,164 @@
       pointer-events: none;
     }
 
+    /*
+     * phongbi2 (mở) — trong luồng, xác định chiều cao container.
+     * Ẩn bằng opacity:0 ban đầu. Fade vào khi phongbi1 đang flip.
+     */
     .envelope.envelope-img .env-img-body {
       position: relative;
+      display: block;
+      width: 100%;
+      height: auto;
       z-index: 1;
-      filter: drop-shadow(0 24px 70px rgba(90, 50, 140, 0.22)) drop-shadow(0 8px 24px rgba(90, 50, 140, 0.12));
+      opacity: 0;
+      filter: drop-shadow(0 24px 70px rgba(90, 50, 140, .22)) drop-shadow(0 8px 24px rgba(90, 50, 140, .12));
+      transition: opacity 0.6s ease 0.2s;
     }
 
+    /*
+     * phongbi1 (đóng) — absolute, bottom:0, flip 3D từ cạnh trên.
+     * transform-origin: 50% 0% = cạnh trên làm trục xoay.
+     * rotateX(-180deg) = ảnh lật ngược ra sau (như mở nắp phong bì).
+     * backface-visibility: hidden = ẩn mắt sau khi xoay qua 90°.
+     */
     .envelope.envelope-img .env-img-flap {
       position: absolute;
-      inset: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
       z-index: 2;
-      transform-origin: 50% 16%;
-      transform: rotateX(0deg) translateZ(1px);
-      transition: transform 0.95s cubic-bezier(0.22, 1, 0.36, 1), filter 0.95s ease;
-      filter: drop-shadow(0 10px 22px rgba(60, 20, 110, 0.18));
+      transform-origin: 50% 100%;
       backface-visibility: hidden;
+      filter: drop-shadow(0 24px 70px rgba(90, 50, 140, .22)) drop-shadow(0 8px 24px rgba(90, 50, 140, .12));
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.8s ease,
+        filter 0.4s ease;
     }
 
+    /* Click hint */
     .envelope.envelope-img .env-click-hint {
       position: absolute;
       left: 50%;
-      bottom: 10%;
+      bottom: 15%;
       transform: translateX(-50%);
       z-index: 3;
       padding: 10px 18px;
       border-radius: 999px;
-      background: rgba(247, 242, 251, 0.65);
-      border: 1px solid rgba(195, 168, 216, 0.45);
-      box-shadow: 0 10px 24px rgba(90, 50, 140, 0.12);
+      background: rgba(247, 242, 251, .68);
+      border: 1px solid rgba(195, 168, 216, .45);
+      box-shadow: 0 10px 24px rgba(90, 50, 140, .12);
       color: var(--text-md);
       font-family: 'Dancing Script', cursive;
       font-size: 1rem;
       letter-spacing: 0.05em;
       backdrop-filter: blur(6px);
-      transition: opacity 0.35s ease, transform 0.35s ease;
+      transition: opacity 0.4s ease, transform 0.4s ease;
       pointer-events: none;
     }
 
-    .envelope:not(.opened):hover .env-click-hint {
-      transform: translateX(-50%) translateY(-3px);
-    }
-
-    .envelope.opened.envelope-img .env-img-flap {
-      transform: rotateX(-165deg) translateY(-8px) translateZ(1px);
-      filter: drop-shadow(0 24px 30px rgba(60, 20, 110, 0.08));
-    }
-
-    .envelope.opened.envelope-img .env-click-hint {
+    .envelope .env-greeting {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.2rem;
+      color: var(--text-md);
       opacity: 0;
-      transform: translateX(-50%) translateY(6px);
+      transition: opacity 0.6s ease 0.3s;
+      pointer-events: none;
+      white-space: nowrap;
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
     }
 
-    .envelope:not(.opened):hover {
+    /* Hover khi chưa mở */
+    .envelope:not(.opened):not(.opening):hover {
       transform: scale(1.015) translateY(-6px);
+    }
+
+    .envelope:not(.opened):not(.opening):hover .env-click-hint {
+      transform: translateX(-50%) translateY(-4px);
+    }
+
+    /* ───────────────────────────────────────
+     * PHASE 1 – SHAKE: giả lập phá sáp niêm
+     * Được kích hoạt bởi class .opening
+     * ─────────────────────────────────────── */
+    @keyframes sealBreak {
+      0% {
+        transform: rotate(0deg) scale(1);
+      }
+
+      15% {
+        transform: rotate(-2.5deg) scale(1.02);
+      }
+
+      32% {
+        transform: rotate(2.5deg) scale(1.02);
+      }
+
+      48% {
+        transform: rotate(-1.5deg) scale(1.01);
+      }
+
+      64% {
+        transform: rotate(1.5deg) scale(1.01);
+      }
+
+      80% {
+        transform: rotate(-0.6deg) scale(1);
+      }
+
+      100% {
+        transform: rotate(0deg) scale(1);
+      }
+    }
+
+    .envelope.opening {
+      animation: sealBreak 0.34s ease-in-out forwards;
+      cursor: default;
+    }
+
+    /* ───────────────────────────────────────
+     * PHASE 2 – CROSS-FADE: phongbi1 mờ đi,
+     *           phongbi2 hiện rõ dần
+     * Được kích hoạt bởi class .opened
+     * ─────────────────────────────────────── */
+    /* PHASE 2 – phongbi1 FLIP ngược lên, phongbi2 fade vào */
+    .envelope.opened.envelope-img .env-img-flap {
+      /* sliding up + fade out */
+      transform: translateY(-120px) rotateX(-15deg) scale(1.05);
+      opacity: 0;
+      filter: drop-shadow(0 4px 12px rgba(90, 50, 140, .06));
+    }
+
+    .envelope.opened.envelope-img .env-img-body {
+      opacity: 1;
+    }
+
+    .envelope.opened .env-click-hint {
+      opacity: 0;
+      transform: translateX(-50%) translateY(8px);
+    }
+
+    .envelope.opened .env-greeting {
+      opacity: 1;
     }
 
     .envelope.opened {
       cursor: default;
     }
 
+    /* ───────────────────────────────────────
+     * PHASE 3 – FADE OUT: toàn bộ envelope
+     *           trượt lên và biến mất
+     * ─────────────────────────────────────── */
     .envelope.fading {
       opacity: 0;
-      transform: translateY(-18px) scale(0.97);
+      transform: translateY(-22px) scale(0.96);
       pointer-events: none;
     }
 
@@ -379,6 +475,7 @@
       overflow: hidden;
       opacity: 0;
       pointer-events: none;
+      margin: 0 auto;
       transition: max-height .01s, opacity .7s ease, margin-top .5s ease;
     }
 
@@ -605,11 +702,11 @@
     }
 
     .mono-logo {
-      max-width: 40%;
-      height: auto;
+      max-width: 200%;
+      height: 160%;
       object-fit: contain;
       /* Đổi phần đen của logo sang tím pastel nhạt để đồng bộ tông thiệp */
-      filter: brightness(0) saturate(100%) invert(63%) sepia(23%) saturate(420%) hue-rotate(227deg) brightness(108%) contrast(96%);
+      /* filter: brightness(0) saturate(100%) invert(63%) sepia(23%) saturate(420%) hue-rotate(227deg) brightness(108%) contrast(96%); */
     }
 
     .mono-h {
@@ -1374,7 +1471,7 @@
       z-index: 3;
     }
 
-    /* ═══ APPLY FOOTER SCRIPT FONT TO WHOLE CARD ═══ */
+    /* ═══ APPLY GLOBAL FONT (DANCING SCRIPT) ═══ */
     body,
     .scene,
     .inv-card,
@@ -1400,6 +1497,18 @@
     .rsvp-form button,
     .footer-verse {
       font-family: 'Dancing Script', cursive !important;
+    }
+
+    /* ═══ APPLY HEADING FONT (LUXURIOUS SCRIPT) ═══ */
+    .hw-label,
+    .sec-title,
+    .venue-name,
+    .hw-names,
+    .footer-quote,
+    .wax-mono,
+    .wax-hint,
+    .hw-body em {
+      font-family: 'Luxurious Script', cursive !important;
     }
 
     /* ─ PETALS ─ */
@@ -1736,9 +1845,12 @@
 
       <!-- ════════ ENVELOPE (IMAGES) ════════ -->
       <div class="envelope envelope-img" id="envelope" onclick="openEnvelope()" role="button" aria-label="Mở phong bì">
-        <img class="env-img env-img-body" src="images/phongbi2.png" alt="Phong bì" loading="eager">
-        <img class="env-img env-img-flap" src="images/phongbi1.png" alt="Nắp phong bì và sáp nến" loading="eager">
-        <div class="env-click-hint">✦ Click to open ✦</div>
+        <!-- phongbi1 (đóng): position:relative → xác định chiều cao container -->
+        <img class="env-img env-img-flap" src="images/phongbi1.png" alt="Phong bì đóng" loading="eager">
+        <!-- phongbi2 (mở): position:absolute → không ảnh hưởng layout, ẩn ban đầu -->
+        <img class="env-img env-img-body" src="images/phongbi2.png" alt="Phong bì mở" loading="eager">
+        <div class="env-greeting">Bạn thân mến</div>
+        <!-- <div class="env-click-hint">✦ Click to open ✦</div> -->
       </div><!-- /envelope -->
 
       <!-- ════════ CARD ════════ -->
@@ -1886,13 +1998,16 @@
           </svg>
 
           <!-- ════ CARD INNER CONTENT ════ -->
-          <div class="card-innerd">
+          <div class="card-inner">
 
             <span class="hw-label" style="margin-bottom:8px;">✦ Save the Date ✦</span>
 
             <div class="mono-block mono-logo-block">
-              <img loading="lazy" src="images/HT_logo.png" alt="H &amp; T" class="mono-logo">
+              <!-- <img loading="lazy" src="images/HT_logo.png" alt="H &amp; T" class="mono-logo"> -->
+              <img loading="lazy" src="images/HT_logo2.png" alt="H &amp; T" class="mono-logo">
+
             </div>
+
 
             <div class="date-block">
               <div class="db-side l">Thứ Bảy<br>14:00</div>
@@ -1900,7 +2015,7 @@
               <div class="db-side r">Tháng 3<br>2026</div>
             </div>
 
-            <span class="venue-small">Lam Mạc Retreat</span>
+            <span class="venue-small">Intimate Wedding</span>
 
             <!-- ════ SCROLLABLE CONTENT ════ -->
             <div class="inv-scroll" id="invScroll">
@@ -1973,15 +2088,24 @@
               <div class="tl">
                 <div class="tl-track">
                   <div class="tl-step">
-                    <span class="tl-time">14:00</span>
+                    <span class="tl-time">12:00</span>
                     <div class="tl-dot"></div>
                     <div class="tl-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none">
                         <path d="M4 20 L4 9 Q4 4 11 4 Q18 4 18 9 L18 20" stroke="currentColor" stroke-width="1.2"
                           fill="none" />
                         <path d="M1 20 L21 20" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
-                        <circle cx="13.5" cy="13" r="1.2" fill="currentColor" opacity=".6" />
+                        <circle cx="11" cy="11" r="2" fill="currentColor" opacity=".6" />
                       </svg></div>
-                    <span class="tl-label">Đón tiếp<br>khách mời</span>
+                    <span class="tl-label">Đón khách HN<br>(theo đoàn)</span>
+                  </div>
+                  <div class="tl-step">
+                    <span class="tl-time">14:00</span>
+                    <div class="tl-dot"></div>
+                    <div class="tl-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.2" fill="none" />
+                        <path d="M11 6 L11 11 L14 13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+                      </svg></div>
+                    <span class="tl-label">Check-in<br>& Chuẩn bị</span>
                   </div>
                   <div class="tl-step">
                     <span class="tl-time">15:00</span>
@@ -2065,31 +2189,23 @@
                 <div class="mini-rem">
                   <div class="mini-rem-item">
                     <svg width="22" height="22" viewBox="0 0 36 36" fill="none">
-                      <circle cx="10" cy="24" r="7" stroke="#9470B5" stroke-width="1.4" fill="none" />
-                      <circle cx="26" cy="24" r="7" stroke="#9470B5" stroke-width="1.4" fill="none" />
-                      <path d="M10 24 L18 12 L26 24" stroke="#9470B5" stroke-width="1.2" fill="none" />
-                      <path d="M18 12 L22 8M20 8 L24 8" stroke="#9470B5" stroke-width="1.2" stroke-linecap="round" />
-                      <circle cx="19" cy="7" r="2.5" stroke="#9470B5" stroke-width="1" fill="none" />
+                      <path d="M18 6 L18 30 M10 12 L26 12" stroke="#9470B5" stroke-width="1.4" />
+                      <circle cx="18" cy="18" r="12" stroke="#9470B5" stroke-width="1.4" fill="none" />
                     </svg>
-                    <span>Đến đúng giờ</span>
+                    <span>Đã uống rượu bia,<br>không lái xe</span>
                   </div>
                   <div class="mini-rem-item">
                     <svg width="22" height="22" viewBox="0 0 36 36" fill="none">
-                      <circle cx="11" cy="8" r="5" stroke="#9470B5" stroke-width="1.3" fill="none" />
-                      <path d="M5 32 Q5 18 11 16 Q17 18 17 32" stroke="#9470B5" stroke-width="1.3" fill="none" />
-                      <circle cx="25" cy="8" r="5" stroke="#9470B5" stroke-width="1.3" fill="none" />
-                      <path d="M19 32 Q19 18 25 16 Q31 18 31 32" stroke="#9470B5" stroke-width="1.3" fill="none" />
-                      <path d="M17 26 L19 26" stroke="#9470B5" stroke-width="1.5" stroke-linecap="round" />
+                      <path d="M6 24 Q12 18 18 24 Q24 30 30 24" stroke="#9470B5" stroke-width="1.4" fill="none" />
+                      <path d="M6 18 Q12 12 18 18 Q24 24 30 18" stroke="#9470B5" stroke-width="1.4" fill="none" />
                     </svg>
-                    <span>Ở lại đến cuối</span>
+                    <span>Có hồ bơi, vui lòng<br>chuẩn bị thêm đồ</span>
                   </div>
                   <div class="mini-rem-item">
                     <svg width="22" height="22" viewBox="0 0 36 36" fill="none">
                       <path d="M13 28 L13 18 L8 8 L18 8 Z M23 28 L23 18 L18 8 L28 8 Z" stroke="#9470B5"
                         stroke-width="1.3" fill="none" />
                       <path d="M10 28 L16 28 M20 28 L26 28" stroke="#9470B5" stroke-width="1.3"
-                        stroke-linecap="round" />
-                      <path d="M18 6 L18 3 M15 5 L13 3 M21 5 L23 3" stroke="#C3A8D8" stroke-width="1"
                         stroke-linecap="round" />
                     </svg>
                     <span>Vui vẻ tận hưởng</span>
@@ -2113,7 +2229,7 @@
                       <circle cx="17" cy="19" r="6" stroke="currentColor" stroke-width="1.3" />
                       <path d="M11 9 L13 5 L21 5 L23 9" stroke="currentColor" stroke-width="1.1" />
                     </svg>
-                    <span>Ảnh cưới</span>
+                    <span>Photobooth</span>
                   </div>
                   <div class="mini-det-item">
                     <svg width="20" height="20" viewBox="0 0 34 34" fill="none">
@@ -2264,16 +2380,53 @@
     /* ── OPEN ENVELOPE ── */
     function openEnvelope() {
       if (opened) return; opened = true;
+
       const env = document.getElementById('envelope');
-      env.classList.add('opened'); env.onclick = null;
-      setTimeout(() => startPetals(true), 300);
-      setTimeout(() => env.classList.add('fading'), 700);
+      env.onclick = null;
+
+      /*
+       * PHASE 1 – Shake (0 → 340ms)
+       *   Class .opening kích hoạt keyframe sealBreak 0.34s.
+       */
+      env.classList.add('opening');
+
+      /*
+       * PHASE 2 – Cross-fade (340ms → ~1000ms)
+       *   Gỡ .opening, thêm .opened:
+       *     · phongbi1 (flap): opacity 0 + slide lên nhẹ  (delay 0.15s, dur 0.55s)
+       *     · phongbi2 (body): opacity 1 + slide từ dưới   (delay 0.10s, dur 0.65s)
+       *   → phongbi2 hoàn toàn hiện lúc ~340+100+650 = ~1090ms
+       */
+      setTimeout(() => {
+        env.classList.remove('opening');
+        env.classList.add('opened');
+        startPetals(true);
+      }, 340);
+
+      /*
+       * PHASE 3 – Nhìn ngắm phongbi2 (~1090ms → 1900ms ≈ 810ms)
+       *   Không làm gì, để người dùng thấy phong bì mở.
+       *
+       * PHASE 4 – Fade out (1900ms → 2600ms)
+       *   Class .fading: envelope trượt lên và mờ dần (transition 0.7s).
+       */
+      setTimeout(() => env.classList.add('fading'), 1900);
+
+      /*
+       * PHASE 5 – Hiện card (2650ms)
+       *   Chờ fade xong (700ms) rồi ẩn envelope, reveal card.
+       */
       setTimeout(() => {
         env.style.display = 'none';
         const cw = document.getElementById('cardWrap');
         cw.classList.add('visible');
-        setTimeout(() => { cw.scrollIntoView({ behavior: 'smooth', block: 'start' }); initSR(); setTimeout(initSR, 600); setTimeout(initSR, 1400); }, 100);
-      }, 1300);
+        setTimeout(() => {
+          cw.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          initSR();
+          setTimeout(initSR, 600);
+          setTimeout(initSR, 1400);
+        }, 100);
+      }, 2650);
     }
 
     /* ── SCROLL REVEAL ── */
