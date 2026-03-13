@@ -158,12 +158,12 @@ function qs(s) { return document.querySelector(s); }
   var frame = qs('#card-gallery-film-frame');
   if (!track || !frame) return;
   var PHOTOS = [
-    'images/image6.jpg', 'images/intimate3.jpg', 'images/image7.jpg',
-    'images/intimate5.jpg', 'images/image8.jpg', 'images/intimate9.jpg',
-    'images/image9.jpg', 'images/intimate12.jpg', 'images/image10.jpg',
-    'images/intimate17.jpg'
+    'images/image8.jpg', 'images/image9.jpg',
+    'images/intimate12.jpg', 'images/intimate13.jpg',
+    'images/intimate6.jpg', 'images/intimate5.jpg', 'images/intimate20.jpg',
+    'images/intimate21.jpg', 'images/intimate30.jpg', 'images/intimate31.jpg', 'images/image25.jpg'
   ];
-  var FRAME_LABELS = ['01A', '02A', '03A', '04A', '05A', '06A', '07A', '08A', '09A', '10A'];
+  var FRAME_LABELS = ['01A', '02A', '03A', '04A', '05A', '06A', '07A', '08A', '09A', '10A', '11A', '12A', '13A'];
   var SPEED = 0.82;
   var offset = 0;
   var paused = false;

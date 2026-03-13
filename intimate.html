@@ -1697,7 +1697,7 @@
       gap: 6px;
       padding: 12px 0;
       will-change: transform;
-      animation: intimateFilmScroll 25s linear infinite;
+      animation: intimateFilmScroll 120s linear infinite;
     }
 
     #intimate-filmTrack:hover {
@@ -1778,6 +1778,62 @@
     .close-modal:hover {
       background: rgba(255, 255, 255, 0.2);
       transform: rotate(90deg);
+    }
+
+    /* Modal Navigation Buttons */
+    .modal-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 1.8rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      z-index: 10001;
+      border-radius: 50%;
+      user-select: none;
+    }
+
+    .modal-nav:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .modal-nav.prev {
+      left: -70px;
+    }
+
+    .modal-nav.next {
+      right: -70px;
+    }
+
+    @media (max-width: 768px) {
+      .modal-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1.4rem;
+        background: rgba(0, 0, 0, 0.3);
+      }
+
+      .modal-nav.prev {
+        left: 10px;
+      }
+
+      .modal-nav.next {
+        right: 10px;
+      }
+
+      .close-modal {
+        top: 10px;
+        right: 10px;
+      }
     }
 
     #intimate-filmTrack img {
@@ -2277,7 +2333,7 @@
 
               <!-- RSVP -->
               <span class="sec-title sr">Hồi âm</span>
-              <span class="sec-sub">Vui lòng xác nhận trước 01.03.2026</span>
+              <span class="sec-sub">Vui lòng xác nhận trước 20.03.2026</span>
               <!-- <p class="hw-body" style="font-size:.9rem;margin-bottom:20px;">Sự hiện diện của bạn<br>là món quà <em>trân quý</em> nhất với chúng tôi</p> -->
 
               <form class="rsvp-form sr sr-d2" onsubmit="handleRsvp(event)">
@@ -2298,11 +2354,23 @@
                     <option value="no">Tự di chuyển</option>
                   </select>
                 </div>
+                <div class="fg" id="fg-pickup" style="display:none;"><label>Điểm đón (theo đoàn)</label>
+                  <select id="pickup">
+                    <option value="pearl">Mỹ Đình Pearl (đối diện Bộ Ngoại giao)</option>
+                    <option value="fpt">FPT Tower (Phạm Văn Bạch)</option>
+                    <option value="lotte">Lotte (Khâm Thiên)</option>
+                  </select>
+                </div>
                 <div class="fg" id="fg-overnight"><label>Ngủ lại qua đêm tại Retreat?</label>
                   <select id="overnight">
                     <option value="yes">Có, tôi muốn ngủ lại</option>
                     <option value="no">Không, cảm ơn</option>
                   </select>
+                </div>
+                <div class="fg" id="fg-note"><label>Ghi chú</label>
+                  <textarea id="note"
+                    placeholder="Nếu bạn bị dị ứng món ăn/đồ uống nào hoặc có điều gì muốn nhắn gửi cô dâu chú rể thì note giúp tụi mình nhé 💜"
+                    style="background:transparent;border:1.5px solid rgba(180,140,220,.2);padding:8px;font-family:inherit;font-size:.85rem;color:var(--ink);outline:none;border-radius:0;min-height:80px;resize:vertical;"></textarea>
                 </div>
                 <button type="submit" class="rsvp-btn">✦ Gửi hồi âm ✦</button>
               </form>
@@ -2464,13 +2532,25 @@
 
       // Payload gửi lên
       var isAttending = att === 'yes';
+      var movingVal = '';
+      if (isAttending) {
+        if (movingEl && movingEl.value === 'yes') {
+          var pickupEl = document.getElementById('pickup');
+          var pickupText = pickupEl ? pickupEl.options[pickupEl.selectedIndex].text : '';
+          movingVal = 'Đi cùng đoàn - ' + pickupText;
+        } else {
+          movingVal = 'Tự di chuyển';
+        }
+      }
+
       var payload = {
         name: nameVal,
         attending: isAttending ? 'Tham dự' : 'Vắng mặt',
         phone: isAttending ? (phoneEl ? phoneEl.value.trim() : '') : '',
         guestNum: isAttending ? (guestsEl ? guestsEl.value : '1') : '',
-        moving: isAttending ? (movingEl ? (movingEl.value === 'yes' ? 'Đi cùng đoàn' : 'Tự di chuyển') : '') : '',
-        overnight: isAttending ? (overnightEl ? (overnightEl.value === 'yes' ? 'Ngủ lại' : 'Không ngủ lại') : '') : ''
+        moving: movingVal,
+        overnight: isAttending ? (overnightEl ? (overnightEl.value === 'yes' ? 'Ngủ lại' : 'Không ngủ lại') : '') : '',
+        note: document.getElementById('note').value.trim()
       };
 
       // Trạng thái "đang gửi"
@@ -2491,10 +2571,10 @@
           msg.style.color = '';
           if (att === 'yes') {
             var stayMsg = (overnightEl && overnightEl.value === 'yes')
-              ? ' Chúng tôi sẽ sắp xếp chỗ nghỉ cho bạn nhé! 🌙' : '';
-            msg.textContent = '🌸 Cảm ơn bạn rất nhiều! Chúng tôi rất vui khi được đón bạn!' + stayMsg;
+              ? ' Tụi mình sẽ chuẩn bị chỗ nghỉ cho bạn nhé! 🌙' : '';
+            msg.textContent = '🌸 Cảm ơn bạn rất nhiều! Tụi mình rất vui vì có sự tham dự của bạn!' + stayMsg;
           } else {
-            msg.textContent = '💜 Chúng tôi sẽ nhớ bạn — cảm ơn đã hồi âm nhé!';
+            msg.textContent = 'Tụi mình sẽ nhớ bạn đó. Cảm ơn bạn đã hồi âm nha! 💜';
           }
           // Disable form sau khi gửi thành công
           form.style.opacity = '.4';
@@ -2516,7 +2596,10 @@
       const fgPhone = document.getElementById('fg-phone');
       const fgGuests = document.getElementById('fg-guests');
       const fgMoving = document.getElementById('fg-moving');
+      const fgPickup = document.getElementById('fg-pickup');
       const fgOvernight = document.getElementById('fg-overnight');
+      const movingSelect = document.getElementById('moving');
+
       if (!attending || !fgPhone || !fgGuests || !fgMoving || !fgOvernight) return;
 
       const update = () => {
@@ -2525,32 +2608,46 @@
         fgGuests.style.display = show ? '' : 'none';
         fgMoving.style.display = show ? '' : 'none';
         fgOvernight.style.display = show ? '' : 'none';
+
+        // Pickup visibility depends on attending AND moving choice
+        if (show && movingSelect && movingSelect.value === 'yes') {
+          fgPickup.style.display = '';
+        } else {
+          fgPickup.style.display = 'none';
+        }
       };
 
       attending.addEventListener('change', update);
+      if (movingSelect) movingSelect.addEventListener('change', update);
       update();
     }
 
     window.addEventListener('load', initTravelVisibility);
 
     /* ══ INTIMATE FILM STRIP ══ */
+    const intimatePhotos = [
+      "TH-120", "TH-122", "TH-124", "TH-130", "TH-135", "TH-137", "TH-143", "TH-144", "TH-160", "TH-161",
+      "TH-164", "TH-165", "TH-17", "TH-172", "TH-178", "TH-182", "TH-186", "TH-190", "TH-197", "TH-201",
+      "TH-205", "TH-215", "TH-219", "TH-222", "TH-224", "TH-227", "TH-229", "TH-233", "TH-236", "TH-240",
+      "TH-241", "TH-247", "TH-258", "TH-259", "TH-262", "TH-263", "TH-264", "TH-270", "TH-271", "TH-273",
+      "TH-276", "TH-278", "TH-283", "TH-29", "TH-290", "TH-291", "TH-300", "TH-301", "TH-303", "TH-305",
+      "TH-308", "TH-70", "TH-73", "TH-82", "TH-88"
+    ];
+    let currentPhotoIndex = 0;
+
     (function () {
-      const photos = [
-        'intimate1', 'intimate2', 'intimate3', 'intimate4', 'intimate5',
-        'intimate6', 'intimate7', 'intimate8', 'intimate9', 'intimate10',
-        'intimate11', 'intimate12', 'intimate13', 'intimate14', 'intimate15',
-        'intimate16', 'intimate17'
-      ];
       const track = document.getElementById('intimate-filmTrack');
       if (!track) return;
 
       // Populate photos (twice for seamless scroll)
-      [...photos, ...photos].forEach(function (name) {
+      [...intimatePhotos, ...intimatePhotos].forEach(function (name, index) {
         var img = document.createElement('img');
-        img.src = 'images/' + name + '.jpg';
+        img.src = 'intimate/' + name + '.jpg';
         img.alt = 'Wedding Photo';
         img.loading = 'lazy';
-        img.onclick = function () { openModal(this.src); };
+        // Use mod to get index within original array
+        const originalIndex = index % intimatePhotos.length;
+        img.onclick = function () { openModal(originalIndex); };
         track.appendChild(img);
       });
 
@@ -2565,14 +2662,36 @@
     })();
 
     /* ── PHOTO MODAL LOGIC ── */
-    function openModal(src) {
+    function openModal(index) {
+      currentPhotoIndex = index;
       const modal = document.getElementById('photo-modal');
       const modalImg = document.getElementById('modal-img');
       if (!modal || !modalImg) return;
-      modalImg.src = src;
+      modalImg.src = 'intimate/' + intimatePhotos[currentPhotoIndex] + '.jpg';
       modal.style.display = 'flex';
       setTimeout(() => modal.classList.add('active'), 10);
       document.body.style.overflow = 'hidden'; // Prevent scroll
+    }
+
+    function nextPhoto() {
+      currentPhotoIndex = (currentPhotoIndex + 1) % intimatePhotos.length;
+      updateModalImage();
+    }
+
+    function prevPhoto() {
+      currentPhotoIndex = (currentPhotoIndex - 1 + intimatePhotos.length) % intimatePhotos.length;
+      updateModalImage();
+    }
+
+    function updateModalImage() {
+      const modalImg = document.getElementById('modal-img');
+      if (modalImg) {
+        modalImg.style.opacity = '0';
+        setTimeout(() => {
+          modalImg.src = 'intimate/' + intimatePhotos[currentPhotoIndex] + '.jpg';
+          modalImg.onload = () => { modalImg.style.opacity = '1'; };
+        }, 200);
+      }
     }
 
     function closeModal() {
@@ -2585,9 +2704,11 @@
       }, 400);
     }
 
-    // Close on Escape key
+    // Close on Escape key and Arrows
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeModal();
+      if (e.key === 'ArrowRight') nextPhoto();
+      if (e.key === 'ArrowLeft') prevPhoto();
     });
   </script>
 
@@ -2595,7 +2716,9 @@
   <div id="photo-modal" onclick="closeModal()">
     <div class="modal-content-wrap" onclick="event.stopPropagation()">
       <button class="close-modal" onclick="closeModal()" aria-label="Close modal">×</button>
-      <img id="modal-img" src="" alt="Full View">
+      <button class="modal-nav prev" onclick="prevPhoto()" aria-label="Previous photo">‹</button>
+      <img id="modal-img" src="" alt="Full View" style="transition: opacity 0.3s ease;">
+      <button class="modal-nav next" onclick="nextPhoto()" aria-label="Next photo">›</button>
     </div>
   </div>
 </body>
