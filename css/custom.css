@@ -1,4 +1,4 @@
-    :root {
+﻿    :root {
       --c-gold: #C9A96E;
       --c-gold-lt: #E8D5B0;
       --c-rose: #B07070;
@@ -655,7 +655,7 @@
       height: 100%;
       object-fit: cover;
       filter: brightness(0.68)contrast(1.1)saturate(0.8);
-      animation: kenBurns 8s ease-in-out forwards;
+      animation: kenBurns 5s ease-in-out forwards;
     }
 
     @keyframes kenBurns {

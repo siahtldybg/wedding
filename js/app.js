@@ -132,7 +132,7 @@ function qs(s) { return document.querySelector(s); }
   var cur = 0, timer = null;
   slides.forEach(function (_, i) {
     var d = document.createElement('button'); d.className = 'sdot' + (i === 0 ? ' active' : '');
-    d.addEventListener('click', function () { goTo(i); });
+    d.addEventListener('click', function () { stopAuto(); goTo(i); startAuto(); });
     dotsWrap.appendChild(d);
   });
   function getDots() { return document.querySelectorAll('.sdot'); }
@@ -142,7 +142,7 @@ function qs(s) { return document.querySelector(s); }
     slides[cur].classList.add('active'); getDots()[cur].classList.add('active');
     var img = slides[cur].querySelector('img'); img.style.animation = 'none'; void img.offsetWidth; img.style.animation = '';
   }
-  function startAuto() { timer = setInterval(function () { goTo(cur + 1); }, 5000); }
+  function startAuto() { clearInterval(timer); timer = setInterval(function () { goTo(cur + 1); }, 5000); }
   function stopAuto() { clearInterval(timer); }
   startAuto();
   prevBtn.addEventListener('click', function () { stopAuto(); goTo(cur - 1); startAuto(); });
@@ -161,9 +161,9 @@ function qs(s) { return document.querySelector(s); }
     'images/image8.jpg', 'images/image9.jpg',
     'images/intimate12.jpg', 'images/intimate13.jpg',
     'images/intimate6.jpg', 'images/intimate5.jpg', 'images/intimate20.jpg',
-    'images/intimate21.jpg', 'images/intimate30.jpg', 'images/intimate31.jpg', 'images/image25.jpg'
+    'images/intimate21.jpg', 'images/intimate30.jpg', 'images/intimate31.jpg', 'images/image25.jpg', 'images/image26.jpg'
   ];
-  var FRAME_LABELS = ['01A', '02A', '03A', '04A', '05A', '06A', '07A', '08A', '09A', '10A', '11A', '12A', '13A'];
+  var FRAME_LABELS = ['01A', '02A', '03A', '04A', '05A', '06A', '07A', '08A', '09A', '10A', '11A', '12A', '13A', '14A'];
   var SPEED = 0.82;
   var offset = 0;
   var paused = false;
@@ -429,6 +429,10 @@ function qs(s) { return document.querySelector(s); }
       var guests = qs('#wf-guests').value.trim() || '0';
       var rsvpRadio = document.querySelector('input[name="wf-rsvp"]:checked');
       var rsvpVal = rsvpRadio ? rsvpRadio.value : 'Chắc chắn rồi!';
+      
+      if (rsvpNo && rsvpNo.checked) {
+        guests = '0';
+      }
 
       // 'rel' now only represents RSVP status
       var rel = rsvpVal;
