@@ -57,15 +57,23 @@
       justify-content: center;
       padding: 0;
     }
+
     #audioToggleBtn.playing {
       animation: spin 5s linear infinite;
       opacity: 1;
       background-color: #ff4767;
     }
+
     @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
     }
+
     #audioToggleBtn:hover {
       opacity: 1;
     }
@@ -202,7 +210,7 @@
       transform: translate(-50%, -50%);
       z-index: 1;
       font-family: 'Dancing Script', cursive;
-      font-size: 1.5rem;
+      font-size: 1.1rem;
       color: var(--text-md);
       opacity: 0;
       transition: opacity 0.6s ease 0.3s;
@@ -2385,7 +2393,8 @@
                   </select>
                 </div>
                 <div class="fg" id="fg-phone"><label>Số điện thoại</label><input type="tel"
-                    placeholder="Số điện thoại của bạn..." inputmode="numeric" pattern="[0-9]+" title="Vui lòng chỉ nhập số" required></div>
+                    placeholder="Số điện thoại của bạn..." inputmode="numeric" pattern="[0-9]+"
+                    title="Vui lòng chỉ nhập số" required></div>
                 <div class="fg" id="fg-guests"><label>Số lượng khách</label><input type="number" min="1" max="10"
                     value="1"></div>
                 <div class="fg" id="fg-moving"><label>Di chuyển</label>
@@ -2794,10 +2803,12 @@
 
   <audio id="bgAudio" src="media/music.mp3" loop hidden></audio>
   <button id="audioToggleBtn" title="Bật/tắt nhạc" aria-label="Toggle music">
-    <svg class="icon-play" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+    <svg class="icon-play" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+      fill="currentColor">
       <path d="M8 5v14l11-7z" />
     </svg>
-    <svg class="icon-pause" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+    <svg class="icon-pause" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+      fill="currentColor" style="display: none;">
       <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
     </svg>
   </button>
