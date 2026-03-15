@@ -117,6 +117,9 @@
       width: 100%;
       cursor: pointer;
       user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
       position: relative;
       /* cần perspective ở đây để phần tử con dùng 3D transform */
       perspective: 1000px;
@@ -418,6 +421,9 @@
       flex-direction: column;
       align-items: center;
       transition: transform .4s cubic-bezier(.34, 1.56, .64, 1), opacity .6s ease;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-user-select: none;
+      user-select: none;
     }
 
     .wax-seal:hover .wax-circle {
