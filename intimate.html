@@ -2669,6 +2669,11 @@
         fgMoving.style.display = show ? '' : 'none';
         fgOvernight.style.display = show ? '' : 'none';
 
+        const phoneInput = fgPhone.querySelector('input');
+        if (phoneInput) {
+          phoneInput.required = show;
+        }
+
         // Pickup visibility depends on attending AND moving choice
         if (show && movingSelect && movingSelect.value === 'yes') {
           fgPickup.style.display = '';
